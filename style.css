@@ -281,158 +281,128 @@ body::before {
 .reveal.in-view .cert-card:nth-child(6)  { transition-delay:.28s; }
 
 /* ── ABOUT ── */
-.about-layout {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 4rem;
-  align-items: center;
-  margin-top: 2.5rem;
-}
-
-/* Photo side */
-.about-photo-wrap {
+.about-section {
   position: relative;
-  width: 340px;
-  height: 380px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  overflow: visible;
 }
 
-.photo-frame {
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  z-index: 3;
-  animation: photoFloat 6s ease-in-out infinite;
-  border: 2px solid rgba(56,189,248,0.3);
-  box-shadow:
-    0 0 0 6px rgba(56,189,248,0.06),
-    0 0 40px rgba(56,189,248,0.15),
-    0 20px 60px rgba(0,0,0,0.5);
+/* Floating Astronaut in the Background */
+.about-astronaut-bg {
+  position: absolute;
+  top: 48%;
+  right: -2%;
+  transform: translateY(-50%);
+  width: 580px;
+  max-width: 55vw;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
 }
 
-.photo-img {
+.about-astronaut-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
   display: block;
+  mix-blend-mode: screen; /* Deep black blends 100% into space background */
+  animation: astronautFloat 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 35px rgba(56,189,248,0.28));
+  user-select: none;
 }
 
-@keyframes photoFloat {
-  0%,100% { transform: translateY(0px) rotate(-1deg); }
-  33%      { transform: translateY(-14px) rotate(1.5deg); }
-  66%      { transform: translateY(-8px) rotate(-0.5deg); }
-}
-
-/* Glow ring behind photo */
-.photo-glow-ring {
+.about-astronaut-glow {
   position: absolute;
-  width: 260px; height: 260px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 360px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(56,189,248,0.2) 0%, transparent 70%);
-  filter: blur(20px);
+  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(129,140,248,0.06) 45%, transparent 70%);
+  filter: blur(45px);
+  pointer-events: none;
+  animation: astronautFloat 8s ease-in-out infinite;
+}
+
+@keyframes astronautFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  35% {
+    transform: translateY(-24px) rotate(-3deg);
+  }
+  70% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+/* About Card (Front) */
+.about-card {
+  position: relative;
   z-index: 2;
-  animation: photoFloat 6s ease-in-out infinite;
+  max-width: 720px;
+  padding: 2.8rem 3.2rem;
+  margin-top: 2rem;
 }
 
-/* Orbit rings */
-.photo-orbit {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(56,189,248,0.12);
-  animation: orbitSpin linear infinite;
-  z-index: 1;
-}
-.orbit-a {
-  width: 300px; height: 300px;
-  animation-duration: 16s;
-}
-.orbit-b {
-  width: 380px; height: 380px;
-  animation-duration: 26s;
-  animation-direction: reverse;
-  border-color: rgba(129,140,248,0.08);
-}
-.orbit-a::before {
-  content: '';
-  position: absolute; top: 50%; left: -4px; transform: translateY(-50%);
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan);
-}
-.orbit-b::before {
-  content: '';
-  position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--violet);
-  box-shadow: 0 0 6px var(--violet);
-}
-
-/* Floating particles */
-.photo-particle {
-  position: absolute;
-  border-radius: 50%;
-  z-index: 2;
-}
-.p1 {
-  width: 5px; height: 5px;
-  background: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan);
-  top: 18%; right: 8%;
-  animation: particleDrift 4s ease-in-out infinite;
-}
-.p2 {
-  width: 4px; height: 4px;
-  background: var(--violet);
-  box-shadow: 0 0 6px var(--violet);
-  bottom: 22%; left: 10%;
-  animation: particleDrift 5.5s ease-in-out infinite reverse;
-}
-.p3 {
-  width: 3px; height: 3px;
-  background: var(--green);
-  box-shadow: 0 0 5px var(--green);
-  top: 65%; right: 14%;
-  animation: particleDrift 3.8s ease-in-out infinite 1s;
-}
-@keyframes particleDrift {
-  0%,100% { transform: translate(0, 0); opacity: 0.8; }
-  50%      { transform: translate(-6px, -10px); opacity: 1; }
-}
-
-/* Text side */
-.about-text {
-  padding: 2.5rem 2.8rem;
-}
 .about-lead {
-  font-family: var(--fh); font-size: 1.18rem; font-weight: 500;
-  color: var(--t1); margin-bottom: 1.1rem; line-height: 1.55;
+  font-family: var(--fh);
+  font-size: 1.18rem;
+  font-weight: 500;
+  color: var(--t1);
+  margin-bottom: 1.1rem;
+  line-height: 1.55;
 }
-.about-body { font-size: .98rem; color: var(--t2); margin-bottom: .9rem; line-height: 1.78; }
 
-.role-chips { display:flex; gap:.65rem; flex-wrap:wrap; margin-top:1.6rem; margin-bottom:1.6rem; }
+.about-body {
+  font-size: .98rem;
+  color: var(--t2);
+  margin-bottom: .9rem;
+  line-height: 1.78;
+}
+
+.role-chips {
+  display: flex;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
 .chip {
-  padding:.38rem .95rem; border-radius:50px;
-  font-size:.78rem; font-weight:600; letter-spacing:.04em;
+  padding: .38rem .95rem;
+  border-radius: 50px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
 }
-.chip-dev { background:var(--cyan-d);   border:1px solid rgba(56,189,248,0.28);  color:var(--cyan); }
-.chip-ana { background:var(--violet-d); border:1px solid rgba(129,140,248,0.28); color:var(--violet); }
-.chip-eng { background:var(--green-d);  border:1px solid rgba(52,211,153,0.28);  color:var(--green); }
+.chip-dev { background: var(--cyan-d);   border: 1px solid rgba(56,189,248,0.28);  color: var(--cyan); }
+.chip-ana { background: var(--violet-d); border: 1px solid rgba(129,140,248,0.28); color: var(--violet); }
+.chip-eng { background: var(--green-d);  border: 1px solid rgba(52,211,153,0.28);  color: var(--green); }
 
-.about-socials { display:flex; gap:.65rem; flex-wrap:wrap; }
-.soc-btn {
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.45rem 1rem; border-radius:50px;
-  font-size:.8rem; font-weight:500; color:var(--t2);
-  background:rgba(255,255,255,0.04); border:1px solid var(--border);
-  transition:all .25s ease;
+.about-socials {
+  display: flex;
+  gap: .65rem;
+  flex-wrap: wrap;
 }
-.soc-btn:hover { color:var(--cyan); border-color:var(--border-h); background:var(--cyan-d); }
+
+.soc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem 1rem;
+  border-radius: 50px;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--t2);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  transition: all .25s ease;
+}
+.soc-btn:hover {
+  color: var(--cyan);
+  border-color: var(--border-h);
+  background: var(--cyan-d);
+}
 
 /* ── SKILLS ── */
 .skills-grid {
@@ -652,18 +622,12 @@ body::before {
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .about-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    justify-items: center;
-  }
-  .about-photo-wrap {
-    width: 300px;
-    height: 320px;
-  }
-  .about-text {
-    width: 100%;
+@media (max-width: 1024px) {
+  .about-astronaut-bg {
+    width: 460px;
+    max-width: 50vw;
+    right: -5%;
+    opacity: 0.8;
   }
 }
 
@@ -678,34 +642,15 @@ body::before {
   .hero-btns { flex-direction: column; width: 100%; max-width: 320px; }
   .btn-primary, .btn-ghost { justify-content: center; width: 100%; }
   
-  .about-layout {
-    grid-template-columns: 1fr;
-    gap: 2.2rem;
-    justify-items: center;
+  .about-astronaut-bg {
+    width: 320px;
+    max-width: 75vw;
+    right: -10%;
+    top: 55%;
+    opacity: 0.4;
   }
-  .about-photo-wrap {
-    width: 270px;
-    height: 290px;
-  }
-  .photo-frame {
-    width: 190px;
-    height: 190px;
-  }
-  .photo-glow-ring {
-    width: 210px;
-    height: 210px;
-  }
-  .orbit-a {
-    width: 240px;
-    height: 240px;
-  }
-  .orbit-b {
-    width: 290px;
-    height: 290px;
-  }
-  .about-text {
-    padding: 1.8rem;
-    width: 100%;
+  .about-card {
+    padding: 2rem 1.8rem;
   }
 
   .skills-grid { grid-template-columns:1fr 1fr; }
@@ -725,7 +670,7 @@ body::before {
   .skills-grid { grid-template-columns:1fr; }
   .contact-grid { grid-template-columns:1fr; }
   .hero-name { font-size:2.4rem; }
-  .about-text { padding: 1.5rem; }
+  .about-card { padding: 1.6rem 1.4rem; }
 }
 
 

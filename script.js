@@ -83,27 +83,6 @@
       });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Interactive 3D space float on About photo
-    const photoWrap = document.querySelector('.about-photo-wrap');
-    if (photoWrap) {
-      const frame = photoWrap.querySelector('.photo-frame');
-      photoWrap.addEventListener('mousemove', e => {
-        const rect = photoWrap.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        if (frame) {
-          frame.style.transform = `perspective(600px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg) translateZ(12px)`;
-          frame.style.transition = 'transform 0.1s ease-out';
-        }
-      });
-      photoWrap.addEventListener('mouseleave', () => {
-        if (frame) {
-          frame.style.transform = '';
-          frame.style.transition = 'transform 0.6s ease';
-        }
-      });
-    }
   }
 
   /* ── 4. TYPEWRITER ── */
