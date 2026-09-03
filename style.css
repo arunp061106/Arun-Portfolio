@@ -448,11 +448,11 @@ body::before {
 
 .experience-moon {
   position: absolute;
-  top: 20%;
-  right: clamp(-200px, -10vw, -80px);
-  width: clamp(340px, 32vw, 540px);
+  top: 16%;
+  right: clamp(-180px, -8vw, -60px);
+  width: clamp(360px, 34vw, 560px);
   height: auto;
-  opacity: 0.40;
+  opacity: 0.45;
   pointer-events: none;
   z-index: 0;
   transition: opacity 0.3s ease;
@@ -463,15 +463,15 @@ body::before {
   height: auto;
   display: block;
   user-select: none;
-  filter: drop-shadow(-6px 0 18px rgba(226, 232, 240, 0.1));
+  filter: drop-shadow(-6px 0 20px rgba(226, 232, 240, 0.08));
 }
 
 @media (max-width: 992px) {
   .experience-moon {
-    width: clamp(260px, 28vw, 380px);
-    right: -140px;
-    top: 22%;
-    opacity: 0.30;
+    width: clamp(280px, 30vw, 420px);
+    right: -130px;
+    top: 20%;
+    opacity: 0.32;
   }
 }
 
