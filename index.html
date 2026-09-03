@@ -12,6 +12,10 @@
 </head>
 <body>
 
+  <!-- Custom cursor -->
+  <div id="cursor-dot"  aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <!-- NAV -->
@@ -44,7 +48,7 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
-    <div class="hero-content anim-fadein">
+    <div class="hero-content anim-fadein" data-parallax="0.04">
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name">Arun Karthick <span class="accent">P</span></h1>
       <div class="hero-role-line">
@@ -56,7 +60,7 @@
         interactive dashboards and ML-powered applications. B.Tech CSE at SRM Trichy.
       </p>
       <div class="hero-btns">
-        <a href="#projects"      class="btn-primary">View Projects</a>
+        <a href="#projects"          class="btn-primary">View Projects</a>
         <a href="assets/resume.html" target="_blank" class="btn-ghost">View Résumé</a>
       </div>
       <div class="hero-stats">
@@ -67,6 +71,15 @@
         <div class="stat"><span class="stat-n">8.5</span><span class="stat-l">CGPA</span></div>
       </div>
     </div>
+
+    <!-- Floating Astronaut -->
+    <div class="hero-astronaut anim-fadein-delay" data-parallax="0.07" aria-hidden="true">
+      <div class="astronaut-glow"></div>
+      <img src="assets/astronaut.jpg" alt="" class="astronaut-img" draggable="false">
+      <div class="astronaut-orbit orbit-1"></div>
+      <div class="astronaut-orbit orbit-2"></div>
+    </div>
+
     <div class="scroll-hint" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="4" x2="12" y2="20"/><polyline points="18 14 12 20 6 14"/></svg>
     </div>

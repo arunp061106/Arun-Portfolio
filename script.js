@@ -1,24 +1,46 @@
 (function () {
   'use strict';
-
   const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── 1. STARFIELD ── */
+  /* ── 1. CUSTOM CURSOR ── */
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (dot && ring && !noMotion) {
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+    document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
+
+    document.querySelectorAll('a,button,[tabindex],.star-node,.cert-card,.contact-card,.glass,.btn-primary,.btn-ghost,.soc-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    let rafCursor;
+    function moveCursor() {
+      // dot follows exactly
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+      // ring lerps behind
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      rafCursor = requestAnimationFrame(moveCursor);
+    }
+    moveCursor();
+  }
+
+  /* ── 2. STARFIELD ── */
   const canvas = document.getElementById('starfield');
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let W, H, stars = [], raf;
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
     function makeStars() {
       const n = Math.min(Math.floor(W * H / 8500), 240);
       stars = Array.from({ length: n }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
+        x: Math.random() * W, y: Math.random() * H,
         r: Math.random() * 1.35 + 0.25,
         a: Math.random() * 0.55 + 0.12,
         sp: Math.random() * 0.014 + 0.004,
@@ -26,15 +48,12 @@
         dr: (Math.random() - 0.5) * 0.04
       }));
     }
-
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
       stars.forEach(s => {
         const a = noMotion ? s.a : s.a * (0.7 + 0.3 * Math.sin(t * s.sp + s.ph));
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(195,215,255,${a})`;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(195,215,255,${a})`; ctx.fill();
         if (!noMotion) {
           s.x += s.dr * 0.04;
           if (s.x < -2) s.x = W + 2;
@@ -43,39 +62,45 @@
       });
       raf = requestAnimationFrame(draw);
     }
-
     function init() {
-      resize(); makeStars();
-      cancelAnimationFrame(raf);
+      resize(); makeStars(); cancelAnimationFrame(raf);
       if (noMotion) { draw(0); cancelAnimationFrame(raf); }
       else raf = requestAnimationFrame(draw);
     }
-
-    let resizeTimer;
-    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(init, 250); });
+    let rTimer;
+    window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer = setTimeout(init, 250); });
     init();
   }
 
-  /* ── 2. TYPEWRITER ── */
+  /* ── 3. PARALLAX ON SCROLL (hero content + astronaut) ── */
+  if (!noMotion) {
+    const parallaxEls = document.querySelectorAll('[data-parallax]');
+    function onScroll() {
+      const sy = window.scrollY;
+      parallaxEls.forEach(el => {
+        const factor = parseFloat(el.dataset.parallax) || 0.05;
+        el.style.transform = `translateY(${sy * factor}px)`;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ── 4. TYPEWRITER ── */
   const roleEl = document.getElementById('typed-role');
   if (roleEl) {
     const roles = ['Developer', 'Data Analyst', 'Data Engineer'];
     let ri = 0, ci = 0, del = false, paused = false;
-
-    if (noMotion) {
-      roleEl.textContent = roles[0];
-    } else {
+    if (noMotion) { roleEl.textContent = roles[0]; }
+    else {
       function tick() {
         if (paused) return;
         const role = roles[ri];
         if (!del) {
-          roleEl.textContent = role.slice(0, ci + 1);
-          ci++;
+          roleEl.textContent = role.slice(0, ci + 1); ci++;
           if (ci === role.length) { paused = true; setTimeout(() => { paused = false; del = true; tick(); }, 2200); return; }
           setTimeout(tick, 85);
         } else {
-          roleEl.textContent = role.slice(0, ci - 1);
-          ci--;
+          roleEl.textContent = role.slice(0, ci - 1); ci--;
           if (ci === 0) {
             del = false; ri = (ri + 1) % roles.length;
             paused = true; setTimeout(() => { paused = false; tick(); }, 320); return;
@@ -87,12 +112,11 @@
     }
   }
 
-  /* ── 3. SCROLL REVEAL ── */
+  /* ── 5. SCROLL REVEAL ── */
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length) {
-    if (noMotion) {
-      reveals.forEach(el => el.classList.add('in-view'));
-    } else {
+    if (noMotion) { reveals.forEach(el => el.classList.add('in-view')); }
+    else {
       const obs = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); } });
       }, { threshold: 0.1, rootMargin: '0px 0px -55px 0px' });
@@ -100,14 +124,13 @@
     }
   }
 
-  /* ── 4. NAVBAR ── */
-  const navbar    = document.getElementById('navbar');
+  /* ── 6. NAVBAR ── */
+  const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobile-nav');
 
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
-    // Active nav link
     let cur = '';
     document.querySelectorAll('section[id]').forEach(s => {
       if (window.scrollY >= s.offsetTop - 130) cur = s.id;
@@ -127,8 +150,7 @@
     });
     document.querySelectorAll('.mob-link').forEach(l => {
       l.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open'); mobileNav.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
         mobileNav.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
@@ -136,7 +158,7 @@
     });
   }
 
-  /* ── 5. STAR MAP ── */
+  /* ── 7. STAR MAP ── */
   const PROJECTS = {
     synapse: {
       title: 'SYNAPSE — Synthetic Data Intelligence Platform',
@@ -148,7 +170,7 @@
     behavioural: {
       title: 'Behavioural Analytics Web Application',
       roles: ['analyst', 'developer'],
-      desc:  'Analysed 5,000+ simulated user interaction records to evaluate digital consumption patterns and anomalous usage signals. Built an interactive Streamlit app for EDA and behavioural risk scoring.',
+      desc:  'Analysed 5,000+ simulated user interaction records to evaluate digital consumption patterns and anomalous usage signals. Interactive Streamlit app for EDA and behavioural risk scoring.',
       tech:  ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Streamlit'],
       links: [{ l: 'Live Demo', u: 'https://digital-wellbeing-ai-dashboard.streamlit.app/', t: 'p' }, { l: 'GitHub', u: '#', t: 's' }]
     },
@@ -183,31 +205,29 @@
   };
 
   const ROLE_INFO = {
-    developer: { label: 'Developer',    cls: 'chip chip-dev' },
-    analyst:   { label: 'Data Analyst', cls: 'chip chip-ana' },
-    engineer:  { label: 'Data Engineer',cls: 'chip chip-eng' }
+    developer: { label: 'Developer',     cls: 'chip chip-dev' },
+    analyst:   { label: 'Data Analyst',  cls: 'chip chip-ana' },
+    engineer:  { label: 'Data Engineer', cls: 'chip chip-eng' }
   };
 
-  const panel    = document.getElementById('proj-panel');
-  const panelX   = document.getElementById('panel-x');
-  const pRoles   = document.getElementById('p-roles');
-  const pTitle   = document.getElementById('p-title');
-  const pDesc    = document.getElementById('p-desc');
-  const pTech    = document.getElementById('p-tech');
-  const pLinks   = document.getElementById('p-links');
-  const starmap  = document.getElementById('starmap');
-  const nodes    = document.querySelectorAll('.star-node');
-  const rfBtns   = document.querySelectorAll('.rf-btn');
+  const panel   = document.getElementById('proj-panel');
+  const panelX  = document.getElementById('panel-x');
+  const pRoles  = document.getElementById('p-roles');
+  const pTitle  = document.getElementById('p-title');
+  const pDesc   = document.getElementById('p-desc');
+  const pTech   = document.getElementById('p-tech');
+  const pLinks  = document.getElementById('p-links');
+  const starmap = document.getElementById('starmap');
+  const nodes   = document.querySelectorAll('.star-node');
+  const rfBtns  = document.querySelectorAll('.rf-btn');
 
   if (!panel) return;
-
   let activeNode = null;
 
   function openPanel(key, node) {
     const d = PROJECTS[key]; if (!d) return;
     if (activeNode) activeNode.classList.remove('sel');
     activeNode = node; node.classList.add('sel');
-
     pRoles.innerHTML = d.roles.map(r => `<span class="${ROLE_INFO[r].cls}">${ROLE_INFO[r].label}</span>`).join('');
     pTitle.textContent = d.title;
     pDesc.textContent  = d.desc;
@@ -216,36 +236,26 @@
       if (lk.t === 'd' || !lk.u) return `<span class="pl-d">${lk.l}</span>`;
       return `<a href="${lk.u}" target="_blank" rel="noopener" class="pl-${lk.t}">${lk.l}</a>`;
     }).join('');
-
-    panel.classList.add('open');
-    panel.setAttribute('aria-hidden', 'false');
+    panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false');
     panelX.focus();
   }
 
   function closePanel() {
-    panel.classList.remove('open');
-    panel.setAttribute('aria-hidden', 'true');
+    panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true');
     if (activeNode) { activeNode.classList.remove('sel'); activeNode.focus(); activeNode = null; }
   }
 
   nodes.forEach(n => {
     n.addEventListener('click', () => openPanel(n.dataset.project, n));
-    n.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(n.dataset.project, n); }
-    });
+    n.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(n.dataset.project, n); } });
   });
-
   panelX.addEventListener('click', closePanel);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-  if (starmap) {
-    starmap.addEventListener('click', e => { if (!e.target.closest('.star-node')) closePanel(); });
-  }
+  if (starmap) starmap.addEventListener('click', e => { if (!e.target.closest('.star-node')) closePanel(); });
 
-  /* Role filter */
   rfBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      rfBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      rfBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active');
       const role = btn.dataset.role;
       nodes.forEach(n => {
         n.removeAttribute('data-hl');
