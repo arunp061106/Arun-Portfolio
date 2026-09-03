@@ -443,9 +443,11 @@ body::before {
 
 .experience-moon-bg {
   position: absolute;
-  top: clamp(140px, 18vw, 210px);
-  right: clamp(-250px, -11vw, -130px);
-  width: clamp(420px, 32vw, 560px);
+  top: 42%;
+  right: -100px;
+  transform: translateY(-50%);
+  width: clamp(480px, 36vw, 660px);
+  max-width: 48vw;
   pointer-events: none;
   z-index: 0;
   opacity: 0.55;
@@ -457,6 +459,7 @@ body::before {
   display: block;
   user-select: none;
   pointer-events: none;
+  filter: drop-shadow(0 0 25px rgba(195, 215, 255, 0.05));
 }
 
 .experience-section .experience-content,
@@ -471,14 +474,14 @@ body::before {
 
 @media (max-width: 992px) {
   .experience-moon-bg {
-    width: 360px;
-    right: -160px;
-    top: 220px;
+    width: clamp(340px, 32vw, 460px);
+    right: -120px;
+    top: 45%;
     opacity: 0.40;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .experience-moon-bg {
     display: none;
   }
