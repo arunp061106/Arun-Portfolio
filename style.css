@@ -408,37 +408,52 @@ body::before {
 .experience-section {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
-.experience-moon {
+.experience-section::after {
+  content: "";
   position: absolute;
-  width: clamp(420px, 30vw, 600px);
+  width: clamp(440px, 32vw, 620px);
+  height: clamp(440px, 32vw, 620px);
   right: clamp(-300px, -12vw, -150px);
-  top: 24%;
-  opacity: 0.38;
+  top: 120px;
+
+  background-image: url("assets/moon_supplied.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  /* Black pixels must blend into the navy starfield instead of forming a box */
   mix-blend-mode: screen;
+  opacity: 0.52;
+
   pointer-events: none;
   z-index: 0;
-  display: block;
 }
 
 .experience-section .experience-content,
-.experience-section .section-content {
+.experience-section .section-content,
+.experience-section .exp-card,
+.experience-section .exp-grid,
+.experience-section h2,
+.experience-section p {
   position: relative;
   z-index: 1;
 }
 
 @media (max-width: 992px) {
-  .experience-moon {
-    width: clamp(300px, 28vw, 440px);
-    right: -180px;
-    top: 28%;
-    opacity: 0.30;
+  .experience-section::after {
+    width: clamp(320px, 30vw, 460px);
+    height: clamp(320px, 30vw, 460px);
+    right: -200px;
+    top: 180px;
+    opacity: 0.38;
   }
 }
 
 @media (max-width: 680px) {
-  .experience-moon {
+  .experience-section::after {
     display: none;
   }
 }
