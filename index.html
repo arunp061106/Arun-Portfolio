@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3.5">
+  <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 <body>
 
@@ -50,15 +50,6 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
-    <!-- Distant Half-Lit Moon -->
-    <div class="distant-moon" aria-hidden="true" data-parallax="0.02">
-      <picture>
-        <source srcset="assets/distant_moon.webp" type="image/webp">
-        <img src="assets/distant_moon.png" alt="" class="moon-img" draggable="false" loading="eager">
-      </picture>
-      <div class="moon-glow"></div>
-    </div>
-
     <div class="hero-content anim-fadein" data-parallax="0.04">
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name">Arun Karthick <span class="accent">P</span></h1>
@@ -177,63 +168,74 @@
   </section>
 
   <!-- EXPERIENCE -->
-  <section id="experience" class="section reveal">
-    <div class="sec-label">03 · Experience</div>
-    <h2 class="sec-title">Work &amp; Leadership</h2>
-    <p class="sec-sub">Hands-on industry internship and university technical leadership.</p>
+  <section id="experience" class="section experience-section reveal">
+    <!-- Atmospheric Experience Moon entering from right edge -->
+    <div class="experience-moon" aria-hidden="true" data-parallax="0.03">
+      <picture>
+        <source srcset="assets/distant_moon.webp" type="image/webp">
+        <img src="assets/distant_moon.png" alt="" class="moon-img" draggable="false" loading="lazy">
+      </picture>
+      <div class="moon-glow"></div>
+    </div>
 
-    <div class="exp-grid">
-      <!-- Right Angle Solutions -->
-      <div class="exp-card glass">
-        <div class="exp-header">
-          <div class="exp-meta">
-            <span class="exp-tag tag-intern">Internship</span>
-            <span class="exp-date">Jun 2026 – Jul 2026</span>
-          </div>
-          <h3 class="exp-role">Data &amp; Analytics Intern</h3>
-          <h4 class="exp-company">Right Angle Solutions <span class="exp-loc">· Remote / Hybrid</span></h4>
-        </div>
-        <p class="exp-overview">
-          Managed financial and operational business datasets for the Finance &amp; Accounts division, conducting data validation and structured analysis to support reliable reporting and executive decision-making.
-        </p>
-        <ul class="exp-bullets">
-          <li>Managed spreadsheet-based financial and operational records for the Finance &amp; Accounts team, validating data integrity across enterprise accounts.</li>
-          <li>Prepared structured executive reports and consolidated multi-source operational metrics to improve clarity for leadership decision-making.</li>
-          <li>Performed rigorous data validation and exploratory checks on financial datasets to identify discrepancies and maintain high reporting accuracy.</li>
-        </ul>
-        <div class="exp-skills">
-          <span>Advanced Excel</span>
-          <span>Financial Data Validation</span>
-          <span>Business Reporting</span>
-          <span>Operational Analytics</span>
-          <span>Data Quality Assurance</span>
-        </div>
-      </div>
+    <div class="section-content">
+      <div class="sec-label">03 · Experience</div>
+      <h2 class="sec-title">Work &amp; Leadership</h2>
+      <p class="sec-sub">Hands-on industry internship and university technical leadership.</p>
 
-      <!-- Data Forge -->
-      <div class="exp-card glass">
-        <div class="exp-header">
-          <div class="exp-meta">
-            <span class="exp-tag tag-lead">Leadership</span>
-            <span class="exp-date">2024 – Present</span>
+      <div class="exp-grid">
+        <!-- Right Angle Solutions -->
+        <div class="exp-card glass">
+          <div class="exp-header">
+            <div class="exp-meta">
+              <span class="exp-tag tag-intern">Internship</span>
+              <span class="exp-date">Jun 2026 – Jul 2026</span>
+            </div>
+            <h3 class="exp-role">Data &amp; Analytics Intern</h3>
+            <h4 class="exp-company">Right Angle Solutions <span class="exp-loc">· Remote / Hybrid</span></h4>
           </div>
-          <h3 class="exp-role">Technical Manager</h3>
-          <h4 class="exp-company">Data Forge — Data Science Club <span class="exp-loc">· SRMIST Trichy</span></h4>
+          <p class="exp-overview">
+            Managed financial and operational business datasets for the Finance &amp; Accounts division, conducting data validation and structured analysis to support reliable reporting and executive decision-making.
+          </p>
+          <ul class="exp-bullets">
+            <li>Managed spreadsheet-based financial and operational records for the Finance &amp; Accounts team, validating data integrity across enterprise accounts.</li>
+            <li>Prepared structured executive reports and consolidated multi-source operational metrics to improve clarity for leadership decision-making.</li>
+            <li>Performed rigorous data validation and exploratory checks on financial datasets to identify discrepancies and maintain high reporting accuracy.</li>
+          </ul>
+          <div class="exp-skills">
+            <span>Advanced Excel</span>
+            <span>Financial Data Validation</span>
+            <span>Business Reporting</span>
+            <span>Operational Analytics</span>
+            <span>Data Quality Assurance</span>
+          </div>
         </div>
-        <p class="exp-overview">
-          Direct technical programs, developer workshops, and project incubation for the premier data science and analytics student organization at SRM Institute of Science &amp; Technology.
-        </p>
-        <ul class="exp-bullets">
-          <li>Spearhead technical curriculum, hands-on workshops, and developer mentoring in Python, SQL, and data analytics pipelines for club members.</li>
-          <li>Lead end-to-end event management for data science competitions, hackathons, and competitive analytics challenges across the university.</li>
-          <li>Architected and deployed the club's official web portal (DataforgewebV1), standardizing member onboarding and event showcases.</li>
-        </ul>
-        <div class="exp-skills">
-          <span>Technical Leadership</span>
-          <span>Data Science Mentoring</span>
-          <span>Workshop Facilitation</span>
-          <span>Web Architecture</span>
-          <span>Event Management</span>
+
+        <!-- Data Forge -->
+        <div class="exp-card glass">
+          <div class="exp-header">
+            <div class="exp-meta">
+              <span class="exp-tag tag-lead">Leadership</span>
+              <span class="exp-date">2024 – Present</span>
+            </div>
+            <h3 class="exp-role">Technical Manager</h3>
+            <h4 class="exp-company">Data Forge — Data Science Club <span class="exp-loc">· SRMIST Trichy</span></h4>
+          </div>
+          <p class="exp-overview">
+            Direct technical programs, developer workshops, and project incubation for the premier data science and analytics student organization at SRM Institute of Science &amp; Technology.
+          </p>
+          <ul class="exp-bullets">
+            <li>Spearhead technical curriculum, hands-on workshops, and developer mentoring in Python, SQL, and data analytics pipelines for club members.</li>
+            <li>Lead end-to-end event management for data science competitions, hackathons, and competitive analytics challenges across the university.</li>
+            <li>Architected and deployed the club's official web portal (DataforgewebV1), standardizing member onboarding and event showcases.</li>
+          </ul>
+          <div class="exp-skills">
+            <span>Technical Leadership</span>
+            <span>Data Science Mentoring</span>
+            <span>Workshop Facilitation</span>
+            <span>Web Architecture</span>
+            <span>Event Management</span>
+          </div>
         </div>
       </div>
     </div>
@@ -545,6 +547,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=3.5"></script>
+  <script src="script.js?v=4.0"></script>
 </body>
 </html>

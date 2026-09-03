@@ -246,39 +246,6 @@ body::before {
 }
 @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0); opacity:.4} 50%{transform:translateX(-50%) translateY(6px); opacity:.9} }
 
-/* ── Distant Moon ── */
-.distant-moon {
-  position: absolute;
-  top: 5%;
-  right: -55px;
-  width: 250px;
-  height: 250px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.38;
-}
-
-.moon-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  user-select: none;
-  filter: drop-shadow(0 0 35px rgba(226, 232, 240, 0.12));
-}
-
-.moon-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(226, 232, 240, 0.08) 0%, transparent 65%);
-  filter: blur(40px);
-  pointer-events: none;
-}
-
 /* Fade-in hero */
 .anim-fadein       { animation:fadein .9s var(--ease) .15s both; }
 .anim-fadein-delay { animation:fadein .9s var(--ease) .45s both; }
@@ -469,6 +436,65 @@ body::before {
 }
 
 /* ── EXPERIENCE ── */
+.experience-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-section > .section-content {
+  position: relative;
+  z-index: 1;
+}
+
+.experience-moon {
+  position: absolute;
+  width: clamp(360px, 32vw, 620px);
+  height: clamp(360px, 32vw, 620px);
+  right: clamp(-360px, -16vw, -150px);
+  top: 18%;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+.experience-moon .moon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  filter: drop-shadow(0 0 50px rgba(226, 232, 240, 0.15));
+}
+
+.experience-moon .moon-glow {
+  position: absolute;
+  top: 50%;
+  left: 32%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 95%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(226, 232, 240, 0.04) 45%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+@media (max-width: 992px) {
+  .experience-moon {
+    width: clamp(280px, 30vw, 420px);
+    height: clamp(280px, 30vw, 420px);
+    right: -200px;
+    top: 22%;
+    opacity: 0.12;
+  }
+}
+
+@media (max-width: 680px) {
+  .experience-moon {
+    display: none;
+  }
+}
+
 .exp-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
