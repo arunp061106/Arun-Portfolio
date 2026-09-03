@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=21.0">
+  <link rel="stylesheet" href="style.css?v=22.0">
 </head>
 <body>
 
@@ -50,6 +50,14 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
+    <!-- Floating Tech Astronaut in Hero -->
+    <div class="hero-astronaut-bg" aria-hidden="true">
+      <picture>
+        <source srcset="assets/hero_astronaut.webp?v=22.0" type="image/webp">
+        <img src="assets/hero_astronaut.png?v=22.0" alt="" class="hero-astronaut-img" draggable="false" loading="eager">
+      </picture>
+    </div>
+
     <div class="hero-content anim-fadein" data-parallax="0.04">
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name">Arun Karthick <span class="accent">P</span></h1>
@@ -520,7 +528,15 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="section reveal">
+  <section id="contact" class="section reveal contact-section">
+    <!-- Floating Satellite Telemetry Probe in Background -->
+    <div class="contact-satellite-bg" aria-hidden="true">
+      <picture>
+        <source srcset="assets/contact_satellite.webp?v=22.0" type="image/webp">
+        <img src="assets/contact_satellite.png?v=22.0" alt="" class="contact-satellite-img" draggable="false" loading="lazy">
+      </picture>
+    </div>
+
     <div class="sec-label">07 · Contact</div>
     <h2 class="sec-title">Let's Connect</h2>
     <p class="sec-sub">Open to internships, freelance work, and collaborations.</p>
@@ -573,6 +589,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=21.0"></script>
+  <script src="script.js?v=22.0"></script>
 </body>
 </html>

@@ -176,6 +176,53 @@ body::before {
 .hero-content {
   max-width: 740px;
   width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Floating Tech Astronaut in Hero */
+.hero-astronaut-bg {
+  position: absolute;
+  top: 48%;
+  right: -5%;
+  transform: translateY(-50%);
+  width: clamp(380px, 36vw, 540px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.88;
+}
+
+.hero-astronaut-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: heroFloat 12s ease-in-out infinite;
+  filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.25));
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) rotate(-1.5deg);
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-astronaut-bg {
+    width: clamp(280px, 32vw, 400px);
+    right: -30px;
+    opacity: 0.50;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-astronaut-bg {
+    display: none;
+  }
 }
 
 /* Parallax elements */
@@ -913,6 +960,63 @@ body::before {
 .cc-text { display:flex; flex-direction:column; gap:.2rem; }
 .cc-text strong { font-size:.97rem; font-weight:600; color:var(--t1); }
 .cc-text span   { font-size:.78rem; color:var(--t3); word-break:break-all; }
+
+/* ── CONTACT SECTION & TELEMETRY SATELLITE PROBE ── */
+.contact-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-satellite-bg {
+  position: absolute;
+  top: 15px;
+  right: -25px;
+  width: clamp(260px, 25vw, 380px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.48;
+}
+
+.contact-satellite-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  animation: satelliteDrift 16s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.22));
+}
+
+@keyframes satelliteDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-10px, -14px, 0) rotate(2deg);
+  }
+}
+
+.contact-section .sec-label,
+.contact-section .sec-title,
+.contact-section .sec-sub,
+.contact-section .contact-grid {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 992px) {
+  .contact-satellite-bg {
+    width: clamp(180px, 20vw, 260px);
+    right: -15px;
+    opacity: 0.32;
+  }
+}
+
+@media (max-width: 680px) {
+  .contact-satellite-bg {
+    display: none;
+  }
+}
 
 /* â”€â”€ FOOTER â”€â”€ */
 .footer {
