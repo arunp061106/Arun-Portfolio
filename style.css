@@ -439,6 +439,18 @@ body::before {
 .experience-section {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.experience-section .section-content {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 6%;
+  position: relative;
+  z-index: 2;
 }
 
 .experience-moon-bg {
@@ -446,10 +458,10 @@ body::before {
   top: 48%;
   right: 0;
   transform: translate(50%, -50%);
-  width: clamp(520px, 40vw, 760px);
+  width: clamp(700px, 54vw, 980px);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.58;
+  opacity: 0.60;
 }
 
 .experience-moon-img {
@@ -458,11 +470,10 @@ body::before {
   display: block;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 0 45px rgba(226, 232, 240, 0.16));
+  filter: drop-shadow(0 0 50px rgba(226, 232, 240, 0.18));
 }
 
 .experience-section .experience-content,
-.experience-section .section-content,
 .experience-section .exp-card,
 .experience-section .exp-grid,
 .experience-section h2,
@@ -473,10 +484,10 @@ body::before {
 
 @media (max-width: 992px) {
   .experience-moon-bg {
-    width: clamp(380px, 36vw, 520px);
+    width: clamp(480px, 46vw, 680px);
     right: 0;
     top: 50%;
-    opacity: 0.42;
+    opacity: 0.45;
   }
 }
 
