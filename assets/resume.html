@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arun Karthick P — Résumé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── ATS-Friendly Resume — Clean & Printable ── */
+    :root {
+      --primary: #1e3a5f;
+      --accent:  #2563eb;
+      --text:    #111827;
+      --muted:   #4b5563;
+      --border:  #d1d5db;
+      --bg:      #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 10.5pt;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.8rem 3rem;
+    }
+
+    /* Header */
+    .resume-header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .name {
+      font-size: 22pt;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .tagline {
+      font-size: 10pt;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+
+    .contact-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.4rem;
+      font-size: 9.5pt;
+      color: var(--muted);
+    }
+
+    .contact-line a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 1.4rem;
+    }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.9rem;
+    }
+
+    /* Summary */
+    .summary p {
+      font-size: 10pt;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Education */
+    .edu-entry {
+      margin-bottom: 0.9rem;
+    }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 10.5pt;
+    }
+
+    .edu-year {
+      font-size: 9.5pt;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .edu-institution {
+      font-size: 10pt;
+      color: var(--muted);
+    }
+
+    .edu-score {
+      font-size: 9.5pt;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Skills */
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .skills-table tr td {
+      padding: 0.25rem 0;
+      font-size: 10pt;
+      vertical-align: top;
+    }
+
+    .skills-table .sk-cat {
+      font-weight: 600;
+      color: var(--primary);
+      width: 160px;
+      padding-right: 1rem;
+    }
+
+    .skills-table .sk-items {
+      color: var(--muted);
+    }
+
+    /* Projects */
+    .project-entry {
+      margin-bottom: 1.1rem;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-name {
+      font-weight: 600;
+      font-size: 10.5pt;
+    }
+
+    .project-tags {
+      font-size: 8.5pt;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .project-link {
+      font-size: 9pt;
+      color: var(--accent);
+    }
+
+    .project-tech {
+      font-size: 9pt;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-entry ul {
+      padding-left: 1.1rem;
+    }
+
+    .project-entry ul li {
+      font-size: 9.8pt;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+      line-height: 1.5;
+    }
+
+    /* Certifications */
+    .cert-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 2rem;
+    }
+
+    .cert-item {
+      font-size: 9.8pt;
+      color: var(--muted);
+    }
+
+    .cert-item::before {
+      content: '▸ ';
+      color: var(--accent);
+    }
+
+    /* Achievements */
+    .achieve-list {
+      padding-left: 1.1rem;
+    }
+
+    .achieve-list li {
+      font-size: 9.8pt;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    /* Print */
+    @media print {
+      body { font-size: 10pt; }
+      .page { padding: 1.8rem 2.2rem; max-width: 100%; }
+      a { color: var(--accent); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="resume-header">
+    <div class="name">Arun Karthick P</div>
+    <div class="tagline">Developer · Data Analyst · Data Engineer</div>
+    <div class="contact-line">
+      <span>+91 78069 18951</span>
+      <a href="mailto:arunp061106@gmail.com">arunp061106@gmail.com</a>
+      <a href="https://linkedin.com/in/arun-karthick-p-824491314" target="_blank">linkedin.com/in/arun-karthick-p</a>
+      <a href="https://github.com/arunp061106" target="_blank">github.com/arunp061106</a>
+      <a href="https://hackerrank.com/profile/arunp061106" target="_blank">hackerrank.com/arunp061106</a>
+    </div>
+  </header>
+
+  <!-- Summary -->
+  <section class="section summary">
+    <div class="section-title">Professional Summary</div>
+    <p>
+      Detail-oriented Computer Science undergraduate (B.Tech CSE, SRM Trichy, 2024–2028, CGPA 8.5) with hands-on experience in data analytics, machine learning, and full-stack data pipelines. Proficient in SQL, Python, Power BI, and Streamlit. Proven ability to collect, clean, and analyse large structured datasets, build interactive dashboards, and translate trends into actionable business insights. Open to internships, freelance data projects, and collaborative engineering roles.
+    </p>
+  </section>
+
+  <!-- Education -->
+  <section class="section">
+    <div class="section-title">Education</div>
+
+    <div class="edu-entry">
+      <div class="edu-row">
+        <span class="edu-degree">B.Tech — Computer Science &amp; Engineering</span>
+        <span class="edu-year">2024 – 2028</span>
+      </div>
+      <div class="edu-institution">SRM Institute of Science and Technology, Tiruchirapalli</div>
+      <div class="edu-score">CGPA: 8.5 / 10</div>
+    </div>
+
+    <div class="edu-entry">
+      <div class="edu-row">
+        <span class="edu-degree">Higher Secondary Certificate (HSC)</span>
+        <span class="edu-year">Completed 2024</span>
+      </div>
+      <div class="edu-institution">Veveham Matric Higher Secondary School, Dharapuram</div>
+      <div class="edu-score">Percentage: 89%</div>
+    </div>
+  </section>
+
+  <!-- Technical Skills -->
+  <section class="section">
+    <div class="section-title">Technical Skills</div>
+    <table class="skills-table">
+      <tr>
+        <td class="sk-cat">Core Data</td>
+        <td class="sk-items">SQL · PostgreSQL · Excel · Google Sheets · EDA · Data Modeling</td>
+      </tr>
+      <tr>
+        <td class="sk-cat">Visualization</td>
+        <td class="sk-items">Power BI · Plotly · Matplotlib · Seaborn · Streamlit</td>
+      </tr>
+      <tr>
+        <td class="sk-cat">Languages & Libraries</td>
+        <td class="sk-items">Python · Pandas · NumPy · Scikit-learn · Java · C++</td>
+      </tr>
+      <tr>
+        <td class="sk-cat">ML & Engineering</td>
+        <td class="sk-items">Machine Learning · Synthetic Data (CTGAN) · ETL Pipelines · DuckDB · Data Pipeline Design</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Projects -->
+  <section class="section">
+    <div class="section-title">Projects</div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">SYNAPSE — Synthetic Data Intelligence Platform</span>
+        <span class="project-tags">Developer · Data Engineer</span>
+      </div>
+      <div class="project-tech">Python · Pandas · NumPy · DuckDB · Scikit-learn · Plotly · Streamlit · CTGAN</div>
+      <div class="project-link"><a href="https://synapse-ai-data-platform.streamlit.app/" target="_blank">Live Demo ↗</a></div>
+      <ul>
+        <li>Designed end-to-end synthetic data pipeline generating 50,000+ records across e-commerce, IoT, and fintech domains using a layered medallion architecture (event → silver → gold).</li>
+        <li>Built a hybrid CTGAN + statistical fallback engine for robust data generation in constrained cloud environments.</li>
+        <li>Developed a validation framework evaluating distribution similarity, correlation fidelity, and ML utility, improving model generalisation from ~0.5 to ~0.7.</li>
+        <li>Engineered interactive analytics dashboard for real-time insights, trust scoring, and dataset export.</li>
+      </ul>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">Behavioural Analytics Web Application</span>
+        <span class="project-tags">Data Analyst · Developer</span>
+      </div>
+      <div class="project-tech">Python · Pandas · NumPy · Matplotlib · Seaborn · Streamlit</div>
+      <div class="project-link"><a href="https://digital-wellbeing-ai-dashboard.streamlit.app/" target="_blank">Live Demo ↗</a></div>
+      <ul>
+        <li>Analysed 5,000+ simulated user interaction records to evaluate digital consumption patterns and attention dynamics.</li>
+        <li>Developed behavioural risk indicators to identify excessive engagement and anomalous usage signals.</li>
+        <li>Built interactive Streamlit application for exploratory visualisation and structured performance metric interpretation.</li>
+      </ul>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">Freelancer Platform Funnel Analysis</span>
+        <span class="project-tags">Data Analyst · Data Engineer</span>
+      </div>
+      <div class="project-tech">SQL · PostgreSQL · Funnel Analytics · Relational Data Analysis</div>
+      <ul>
+        <li>Conducted lifecycle-based conversion analysis on 35,000+ simulated platform interaction events.</li>
+        <li>Identified critical retention bottlenecks and conversion drop-off trends using structured SQL querying.</li>
+        <li>Established scalable analytical workflows for cohort-driven performance assessment.</li>
+      </ul>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">Online Retail Power BI Dashboard</span>
+        <span class="project-tags">Data Analyst</span>
+      </div>
+      <div class="project-tech">Power BI · Data Modeling · Business Intelligence · DAX</div>
+      <div class="project-link"><a href="https://github.com/arunp061106/Online-Retail-PowerBI-dashboard" target="_blank">GitHub ↗</a></div>
+      <ul>
+        <li>Built interactive dashboard analysing retail sales performance, customer trends, and regional distribution.</li>
+        <li>Visualised KPIs (revenue, order volume) and designed optimised data models for efficient insight generation.</li>
+      </ul>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-header">
+        <span class="project-name">Flight Delay Analysis</span>
+        <span class="project-tags">Data Analyst · Developer</span>
+      </div>
+      <div class="project-tech">Python · Pandas · EDA · Matplotlib · Seaborn</div>
+      <div class="project-link"><a href="https://github.com/arunp061106/flight-delay-analysis" target="_blank">GitHub ↗</a></div>
+      <ul>
+        <li>Analysed airline delay patterns to identify operational and seasonal trends via comprehensive EDA.</li>
+        <li>Presented visual insights highlighting scheduling improvement opportunities.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section">
+    <div class="section-title">Certifications</div>
+    <div class="cert-list">
+      <span class="cert-item">Deloitte Data Analytics (Deloitte)</span>
+      <span class="cert-item">GenAI Data Analytics (Tata Group)</span>
+      <span class="cert-item">Microsoft ETL / Power BI (Microsoft)</span>
+      <span class="cert-item">Google Data Analytics (Google · Coursera)</span>
+      <span class="cert-item">HackerRank SQL Advanced (HackerRank)</span>
+      <span class="cert-item">AICTE AIML Virtual Internship (AICTE)</span>
+      <span class="cert-item">Java Programming</span>
+      <span class="cert-item">C++ Programming</span>
+      <span class="cert-item">Avionics &amp; Aircraft Systems</span>
+    </div>
+  </section>
+
+  <!-- Achievements & Profiles -->
+  <section class="section">
+    <div class="section-title">Achievements &amp; Profiles</div>
+    <ul class="achieve-list">
+      <li>CGPA 8.5 / 10 in B.Tech CSE — SRM Institute of Science and Technology, Tiruchirapalli (2024–2028)</li>
+      <li>89% in HSC — Veveham Matric Higher Secondary School, Dharapuram (2024)</li>
+      <li>Active competitive coding profile on HackerRank: <a href="https://hackerrank.com/profile/arunp061106">hackerrank.com/arunp061106</a></li>
+      <li>AICTE AIML Virtual Internship — completed certification in AI &amp; Machine Learning fundamentals</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>
