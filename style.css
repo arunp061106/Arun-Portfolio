@@ -448,14 +448,14 @@ body::before {
 
 .experience-moon {
   position: absolute;
-  width: clamp(360px, 32vw, 620px);
-  height: clamp(360px, 32vw, 620px);
-  right: clamp(-360px, -16vw, -150px);
-  top: 18%;
-  opacity: 0.16;
+  width: clamp(380px, 34vw, 620px);
+  height: clamp(380px, 34vw, 620px);
+  right: clamp(-320px, -15vw, -130px);
+  top: 14%;
+  opacity: 0.38;
   pointer-events: none;
   z-index: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
 .experience-moon .moon-img {
@@ -463,29 +463,16 @@ body::before {
   height: 100%;
   object-fit: contain;
   user-select: none;
-  filter: drop-shadow(0 0 50px rgba(226, 232, 240, 0.15));
-}
-
-.experience-moon .moon-glow {
-  position: absolute;
-  top: 50%;
-  left: 32%;
-  transform: translate(-50%, -50%);
-  width: 95%;
-  height: 95%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(226, 232, 240, 0.04) 45%, transparent 70%);
-  filter: blur(50px);
-  pointer-events: none;
+  filter: drop-shadow(-8px 0 24px rgba(226, 232, 240, 0.12));
 }
 
 @media (max-width: 992px) {
   .experience-moon {
-    width: clamp(280px, 30vw, 420px);
-    height: clamp(280px, 30vw, 420px);
-    right: -200px;
-    top: 22%;
-    opacity: 0.12;
+    width: clamp(290px, 32vw, 440px);
+    height: clamp(290px, 32vw, 440px);
+    right: -180px;
+    top: 18%;
+    opacity: 0.28;
   }
 }
 
