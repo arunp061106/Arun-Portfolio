@@ -1,583 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Arun Karthick P — Developer, Data Analyst & Data Engineer. B.Tech CSE student at SRM Trichy. Explore projects, skills, and certifications.">
-  <meta property="og:title" content="Arun Karthick P | Developer · Data Analyst · Data Engineer">
-  <meta property="og:description" content="Premium portfolio of Arun Karthick P — Developer, Data Analyst, and Data Engineer.">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Arun Karthick P — Developer, Data Analyst & Data Engineer. B.Tech CSE at SRM Trichy. Projects, skills, certifications.">
   <title>Arun Karthick P | Developer · Data Analyst · Data Engineer</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- Starfield Canvas -->
   <canvas id="starfield" aria-hidden="true"></canvas>
 
-  <!-- Navigation -->
-  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#education" class="nav-link">Education</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#about"          class="nav-link">About</a></li>
+        <li><a href="#skills"         class="nav-link">Skills</a></li>
+        <li><a href="#education"      class="nav-link">Education</a></li>
+        <li><a href="#projects"       class="nav-link">Projects</a></li>
         <li><a href="#certifications" class="nav-link">Certifications</a></li>
-        <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="#contact"        class="nav-link nav-cta">Contact</a></li>
       </ul>
-
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- Mobile Nav Overlay -->
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <ul>
-      <li><a href="#about" class="mobile-link">About</a></li>
-      <li><a href="#skills" class="mobile-link">Skills</a></li>
-      <li><a href="#education" class="mobile-link">Education</a></li>
-      <li><a href="#projects" class="mobile-link">Projects</a></li>
-      <li><a href="#certifications" class="mobile-link">Certifications</a></li>
-      <li><a href="#contact" class="mobile-link">Contact</a></li>
+      <li><a href="#about"          class="mob-link">About</a></li>
+      <li><a href="#skills"         class="mob-link">Skills</a></li>
+      <li><a href="#education"      class="mob-link">Education</a></li>
+      <li><a href="#projects"       class="mob-link">Projects</a></li>
+      <li><a href="#certifications" class="mob-link">Certifications</a></li>
+      <li><a href="#contact"        class="mob-link">Contact</a></li>
     </ul>
   </div>
 
-  <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
-  <section id="hero" class="hero" aria-label="Introduction">
-    <div class="hero-content reveal-hero">
-
-      <div class="hero-greeting">
-        <span class="greeting-line"></span>
-        <span class="greeting-text">Hello, I'm</span>
-        <span class="greeting-line"></span>
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-content anim-fadein">
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name">Arun Karthick <span class="accent">P</span></h1>
+      <div class="hero-role-line">
+        <span class="role-prefix">I work as a&nbsp;</span>
+        <span id="typed-role" class="typed-text"></span><span class="blink-cursor">|</span>
       </div>
-
-      <h1 class="hero-name">Arun Karthick<span class="name-dot"> P</span></h1>
-
-      <div class="hero-role-wrap" aria-live="polite" aria-atomic="true">
-        <span class="hero-role-prefix">I build as a&nbsp;</span>
-        <span class="hero-role" id="hero-role"></span><span class="cursor" aria-hidden="true">|</span>
-      </div>
-
       <p class="hero-desc">
-        Transforming raw data into strategic decisions — from pipeline design to visual storytelling.
-        Currently pursuing B.Tech CSE at SRM Trichy.
+        Transforming raw data into strategic decisions — from pipeline design to
+        interactive dashboards and ML-powered applications. B.Tech CSE at SRM Trichy.
       </p>
-
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          Explore Projects
-        </a>
-        <a href="assets/resume.html" target="_blank" rel="noopener" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          View Résumé
-        </a>
+      <div class="hero-btns">
+        <a href="#projects"      class="btn-primary">View Projects</a>
+        <a href="assets/resume.html" target="_blank" class="btn-ghost">View Résumé</a>
       </div>
-
-      <div class="hero-stats" aria-label="Quick stats">
-        <div class="stat">
-          <span class="stat-num">6+</span>
-          <span class="stat-label">Projects</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat">
-          <span class="stat-num">8+</span>
-          <span class="stat-label">Certifications</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat">
-          <span class="stat-num">8.5</span>
-          <span class="stat-label">CGPA</span>
-        </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-n">6+</span><span class="stat-l">Projects</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-n">9</span><span class="stat-l">Certifications</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-n">8.5</span><span class="stat-l">CGPA</span></div>
       </div>
-
     </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="4" x2="12" y2="20"/><polyline points="18 14 12 20 6 14"/></svg>
+    </div>
+  </section>
 
-    <div class="hero-scroll" aria-hidden="true">
-      <div class="scroll-indicator">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <div class="sec-label">01 · About</div>
+    <h2 class="sec-title">Who I Am</h2>
+    <div class="about-card glass">
+      <p class="about-lead">Detail-oriented Computer Science student with hands-on experience across the full data lifecycle — from raw ingestion to polished dashboards and ML pipelines.</p>
+      <p class="about-body">I specialize in SQL, Python, Power BI, and Streamlit. Comfortable with large structured datasets, relational databases, and interactive visualization tools. Currently in my first year of B.Tech CSE at SRM Institute of Science and Technology, Tiruchirapalli (CGPA 8.5).</p>
+      <p class="about-body">Open to internships, freelance data projects, and collaborative engineering roles.</p>
+      <div class="role-chips">
+        <span class="chip chip-dev">Developer</span>
+        <span class="chip chip-ana">Data Analyst</span>
+        <span class="chip chip-eng">Data Engineer</span>
+      </div>
+      <div class="about-socials">
+        <a href="https://github.com/arunp061106" target="_blank" class="soc-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank" class="soc-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.hackerrank.com/profile/arunp061106" target="_blank" class="soc-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 10.885 0 12-.645 1.115-9.107 6-10.392 6-1.284 0-9.75-4.885-10.39-6C.96 16.884.96 7.116 1.61 6 2.253 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V6.799c0-.141-.115-.258-.258-.258h-2.29c-.141 0-.258.116-.258.258v10.203c0 .141.115.258.258.258h2.29c.141 0 .258-.115.258-.258V13.65h4.074v3.352c0 .141.115.258.258.258h2.296c.141 0 .257-.115.257-.258V6.799c0-.141-.114-.258-.257-.258z"/></svg>
+          HackerRank
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ ABOUT ═══════════════════════════════════════ -->
-  <section id="about" class="section reveal" aria-labelledby="about-heading">
-    <div class="section-header">
-      <span class="section-label">01 · About</span>
-      <h2 class="section-title" id="about-heading">Who I Am</h2>
-    </div>
-
-    <div class="about-layout">
-      <div class="about-photo-wrap">
-        <div class="about-photo-frame">
-          <img src="assets/arun professional photo.png" alt="Arun Karthick P — professional photo" class="about-photo">
-          <div class="photo-glow" aria-hidden="true"></div>
-        </div>
-        <div class="about-social-links">
-          <a href="https://github.com/arunp061106" target="_blank" rel="noopener" class="social-chip" aria-label="GitHub">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank" rel="noopener" class="social-chip" aria-label="LinkedIn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
-          </a>
-        </div>
-      </div>
-
-      <div class="about-text-wrap">
-        <p class="about-lead">
-          Detail-oriented Computer Science student with a strong foundation in data analytics, machine learning, and software development.
-        </p>
-        <p class="about-body">
-          I specialize in the complete data lifecycle — from collecting and cleaning raw datasets to building dashboards, pipelines, and ML-powered applications that drive real decisions. Comfortable with large structured datasets, relational databases, and interactive visualization tools.
-        </p>
-        <p class="about-body">
-          Currently in my second year of B.Tech CSE at SRM Institute of Science and Technology, Tiruchirapalli. I bring a collaborative, remote-friendly work ethic and a deep curiosity for translating complexity into clarity.
-        </p>
-        <div class="about-tags">
-          <span class="role-tag role-developer">Developer</span>
-          <span class="role-tag role-analyst">Data Analyst</span>
-          <span class="role-tag role-engineer">Data Engineer</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════ SKILLS ═══════════════════════════════════════ -->
-  <section id="skills" class="section reveal" aria-labelledby="skills-heading">
-    <div class="section-header">
-      <span class="section-label">02 · Skills</span>
-      <h2 class="section-title" id="skills-heading">Technical Stack</h2>
-    </div>
-
+  <!-- SKILLS -->
+  <section id="skills" class="section reveal">
+    <div class="sec-label">02 · Skills</div>
+    <h2 class="sec-title">Technical Stack</h2>
     <div class="skills-grid">
-      <div class="skill-group">
-        <h3 class="skill-group-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      <div class="skill-group glass">
+        <div class="sg-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           Core Data
-        </h3>
-        <div class="skill-pills">
-          <span class="skill-pill">SQL</span>
-          <span class="skill-pill">PostgreSQL</span>
-          <span class="skill-pill">Excel</span>
-          <span class="skill-pill">Google Sheets</span>
-          <span class="skill-pill">EDA</span>
-          <span class="skill-pill">Data Modeling</span>
+        </div>
+        <div class="pills">
+          <span>SQL</span><span>PostgreSQL</span><span>Excel</span>
+          <span>Google Sheets</span><span>EDA</span><span>Data Modeling</span>
         </div>
       </div>
-
-      <div class="skill-group">
-        <h3 class="skill-group-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="skill-group glass">
+        <div class="sg-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           Visualization
-        </h3>
-        <div class="skill-pills">
-          <span class="skill-pill">Power BI</span>
-          <span class="skill-pill">Plotly</span>
-          <span class="skill-pill">Matplotlib</span>
-          <span class="skill-pill">Seaborn</span>
-          <span class="skill-pill">Streamlit</span>
+        </div>
+        <div class="pills">
+          <span>Power BI</span><span>Plotly</span><span>Matplotlib</span>
+          <span>Seaborn</span><span>Streamlit</span>
         </div>
       </div>
-
-      <div class="skill-group">
-        <h3 class="skill-group-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="skill-group glass">
+        <div class="sg-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           Languages & Libraries
-        </h3>
-        <div class="skill-pills">
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">Pandas</span>
-          <span class="skill-pill">NumPy</span>
-          <span class="skill-pill">Scikit-learn</span>
-          <span class="skill-pill">Java</span>
-          <span class="skill-pill">C++</span>
+        </div>
+        <div class="pills">
+          <span>Python</span><span>Pandas</span><span>NumPy</span>
+          <span>Scikit-learn</span><span>Java</span><span>C++</span>
         </div>
       </div>
-
-      <div class="skill-group">
-        <h3 class="skill-group-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      <div class="skill-group glass">
+        <div class="sg-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
           ML & Engineering
-        </h3>
-        <div class="skill-pills">
-          <span class="skill-pill">Machine Learning</span>
-          <span class="skill-pill">Synthetic Data</span>
-          <span class="skill-pill">DuckDB</span>
-          <span class="skill-pill">ETL Pipelines</span>
-          <span class="skill-pill">Data Pipeline Design</span>
+        </div>
+        <div class="pills">
+          <span>Machine Learning</span><span>Synthetic Data</span>
+          <span>DuckDB</span><span>ETL Pipelines</span><span>CTGAN</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ EDUCATION ═══════════════════════════════════════ -->
-  <section id="education" class="section reveal" aria-labelledby="education-heading">
-    <div class="section-header">
-      <span class="section-label">03 · Education</span>
-      <h2 class="section-title" id="education-heading">Academic Background</h2>
-    </div>
-
+  <!-- EDUCATION -->
+  <section id="education" class="section reveal">
+    <div class="sec-label">03 · Education</div>
+    <h2 class="sec-title">Academic Background</h2>
     <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker" aria-hidden="true">
-          <div class="marker-dot"></div>
-          <div class="marker-line"></div>
-        </div>
-        <div class="timeline-card glass-card">
-          <div class="timeline-year">2024 – 2028</div>
-          <h3 class="timeline-degree">B.Tech Computer Science & Engineering</h3>
-          <p class="timeline-institution">SRM Institute of Science and Technology, Tiruchirapalli</p>
-          <div class="timeline-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            CGPA: 8.5 / 10
-          </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card glass">
+          <div class="tl-year">2024 – 2028</div>
+          <h3 class="tl-deg">B.Tech — Computer Science & Engineering</h3>
+          <p class="tl-inst">SRM Institute of Science and Technology, Tiruchirapalli</p>
+          <span class="tl-badge">CGPA: 8.5 / 10</span>
         </div>
       </div>
-
-      <div class="timeline-item">
-        <div class="timeline-marker" aria-hidden="true">
-          <div class="marker-dot"></div>
-        </div>
-        <div class="timeline-card glass-card">
-          <div class="timeline-year">Completed 2024</div>
-          <h3 class="timeline-degree">Higher Secondary Certificate (HSC)</h3>
-          <p class="timeline-institution">Veveham Matric Higher Secondary School, Dharapuram</p>
-          <div class="timeline-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            Percentage: 89%
-          </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card glass">
+          <div class="tl-year">Completed 2024</div>
+          <h3 class="tl-deg">Higher Secondary Certificate (HSC)</h3>
+          <p class="tl-inst">Veveham Matric Higher Secondary School, Dharapuram</p>
+          <span class="tl-badge">Percentage: 89%</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ PROJECTS ═══════════════════════════════════════ -->
-  <section id="projects" class="section reveal" aria-labelledby="projects-heading">
-    <div class="section-header">
-      <span class="section-label">04 · Projects</span>
-      <h2 class="section-title" id="projects-heading">Star Map</h2>
-      <p class="section-subtitle">Each star is a project. Hover or click to explore.</p>
+  <!-- PROJECTS -->
+  <section id="projects" class="section reveal">
+    <div class="sec-label">04 · Projects</div>
+    <h2 class="sec-title">Star Map</h2>
+    <p class="sec-sub">Each star is a project. Click to explore.</p>
+
+    <div class="role-filter">
+      <button class="rf-btn active" data-role="all">All</button>
+      <button class="rf-btn" data-role="developer"><span class="fd fd-dev"></span>Developer</button>
+      <button class="rf-btn" data-role="analyst"><span class="fd fd-ana"></span>Data Analyst</button>
+      <button class="rf-btn" data-role="engineer"><span class="fd fd-eng"></span>Data Engineer</button>
     </div>
 
-    <!-- Role Filter -->
-    <div class="role-filter" role="group" aria-label="Filter projects by role">
-      <button class="filter-btn active" data-role="all">All</button>
-      <button class="filter-btn" data-role="developer">
-        <span class="filter-dot dot-developer" aria-hidden="true"></span>Developer
-      </button>
-      <button class="filter-btn" data-role="analyst">
-        <span class="filter-dot dot-analyst" aria-hidden="true"></span>Data Analyst
-      </button>
-      <button class="filter-btn" data-role="engineer">
-        <span class="filter-dot dot-engineer" aria-hidden="true"></span>Data Engineer
-      </button>
-    </div>
-
-    <!-- Star Map Canvas -->
-    <div class="starmap-container" aria-label="Interactive project star map">
-      <svg class="starmap-svg" id="starmap" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Project constellation map">
-        <!-- Constellation lines (decorative) -->
-        <g class="constellation-lines" aria-hidden="true">
-          <line class="c-line" x1="200" y1="140" x2="420" y2="200"/>
-          <line class="c-line" x1="420" y1="200" x2="680" y2="130"/>
-          <line class="c-line" x1="420" y1="200" x2="380" y2="360"/>
-          <line class="c-line" x1="380" y1="360" x2="150" y2="380"/>
-          <line class="c-line" x1="380" y1="360" x2="620" y2="400"/>
+    <div class="starmap-wrap">
+      <svg id="starmap" class="starmap-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
+        <!-- constellation lines -->
+        <g class="clines" aria-hidden="true">
+          <line x1="185" y1="130" x2="420" y2="195"/>
+          <line x1="420" y1="195" x2="680" y2="120"/>
+          <line x1="420" y1="195" x2="370" y2="360"/>
+          <line x1="370" y1="360" x2="145" y2="375"/>
+          <line x1="370" y1="360" x2="625" y2="395"/>
         </g>
-
-        <!-- Stars / Project Nodes -->
-        <!-- SYNAPSE -->
-        <g class="star-node" data-project="synapse" tabindex="0" role="button"
-           aria-label="SYNAPSE project — click to view details"
-           data-roles="developer,engineer">
-          <circle class="star-glow" cx="200" cy="140" r="28" opacity="0"/>
-          <circle class="star-body" cx="200" cy="140" r="9"/>
-          <circle class="star-core" cx="200" cy="140" r="4"/>
-          <text class="star-label" x="200" y="122">SYNAPSE</text>
-          <text class="star-sublabel" x="200" y="110">α Cygni</text>
+        <!-- ambient stars -->
+        <g aria-hidden="true">
+          <circle cx="60"  cy="50"  r="1.2" fill="rgba(255,255,255,0.25)"/>
+          <circle cx="300" cy="70"  r="0.9" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="530" cy="40"  r="1.5" fill="rgba(255,255,255,0.22)"/>
+          <circle cx="800" cy="80"  r="1"   fill="rgba(255,255,255,0.2)"/>
+          <circle cx="860" cy="220" r="0.8" fill="rgba(255,255,255,0.25)"/>
+          <circle cx="40"  cy="270" r="1"   fill="rgba(255,255,255,0.18)"/>
+          <circle cx="770" cy="310" r="1.5" fill="rgba(255,255,255,0.15)"/>
+          <circle cx="90"  cy="460" r="0.8" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="500" cy="475" r="1.2" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="845" cy="445" r="0.9" fill="rgba(255,255,255,0.22)"/>
+          <circle cx="255" cy="290" r="0.9" fill="rgba(255,255,255,0.15)"/>
+          <circle cx="555" cy="255" r="0.9" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="715" cy="475" r="1.2" fill="rgba(255,255,255,0.15)"/>
+          <circle cx="175" cy="220" r="0.8" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="640" cy="55"  r="1"   fill="rgba(255,255,255,0.2)"/>
         </g>
-
-        <!-- Behavioural Analytics -->
-        <g class="star-node" data-project="behavioural" tabindex="0" role="button"
-           aria-label="Behavioural Analytics project — click to view details"
-           data-roles="analyst,developer">
-          <circle class="star-glow" cx="420" cy="200" r="28" opacity="0"/>
-          <circle class="star-body" cx="420" cy="200" r="11"/>
-          <circle class="star-core" cx="420" cy="200" r="5"/>
-          <text class="star-label" x="420" y="181">ORION</text>
-          <text class="star-sublabel" x="420" y="169">β Orionis</text>
+        <!-- project stars -->
+        <g class="star-node" tabindex="0" role="button" data-project="synapse"     data-roles="developer,engineer" aria-label="SYNAPSE project">
+          <circle class="s-glow" cx="185" cy="130" r="26"/>
+          <circle class="s-body" cx="185" cy="130" r="9"/>
+          <circle class="s-core" cx="185" cy="130" r="4"/>
+          <text class="s-name" x="185" y="113">SYNAPSE</text>
+          <text class="s-sub"  x="185" y="102">α Cygni</text>
         </g>
-
-        <!-- Freelancer Funnel -->
-        <g class="star-node" data-project="freelancer" tabindex="0" role="button"
-           aria-label="Freelancer Platform Funnel project — click to view details"
-           data-roles="analyst,engineer">
-          <circle class="star-glow" cx="680" cy="130" r="28" opacity="0"/>
-          <circle class="star-body" cx="680" cy="130" r="8"/>
-          <circle class="star-core" cx="680" cy="130" r="3.5"/>
-          <text class="star-label" x="680" y="112">VEGA</text>
-          <text class="star-sublabel" x="680" y="100">α Lyrae</text>
+        <g class="star-node" tabindex="0" role="button" data-project="behavioural" data-roles="analyst,developer"  aria-label="Behavioural Analytics project">
+          <circle class="s-glow" cx="420" cy="195" r="26"/>
+          <circle class="s-body" cx="420" cy="195" r="11"/>
+          <circle class="s-core" cx="420" cy="195" r="5"/>
+          <text class="s-name" x="420" y="176">ORION</text>
+          <text class="s-sub"  x="420" y="165">β Orionis</text>
         </g>
-
-        <!-- Power BI Dashboard -->
-        <g class="star-node" data-project="powerbi" tabindex="0" role="button"
-           aria-label="Online Retail Power BI Dashboard project — click to view details"
-           data-roles="analyst">
-          <circle class="star-glow" cx="150" cy="380" r="28" opacity="0"/>
-          <circle class="star-body" cx="150" cy="380" r="8"/>
-          <circle class="star-core" cx="150" cy="380" r="3.5"/>
-          <text class="star-label" x="150" y="362">ALTAIR</text>
-          <text class="star-sublabel" x="150" y="350">α Aquilae</text>
+        <g class="star-node" tabindex="0" role="button" data-project="freelancer"  data-roles="analyst,engineer"   aria-label="Freelancer Funnel project">
+          <circle class="s-glow" cx="680" cy="120" r="26"/>
+          <circle class="s-body" cx="680" cy="120" r="8"/>
+          <circle class="s-core" cx="680" cy="120" r="3.5"/>
+          <text class="s-name" x="680" y="103">VEGA</text>
+          <text class="s-sub"  x="680" y="92">α Lyrae</text>
         </g>
-
-        <!-- Flight Delay -->
-        <g class="star-node" data-project="flight" tabindex="0" role="button"
-           aria-label="Flight Delay Analysis project — click to view details"
-           data-roles="analyst,developer">
-          <circle class="star-glow" cx="380" cy="360" r="28" opacity="0"/>
-          <circle class="star-body" cx="380" cy="360" r="9"/>
-          <circle class="star-core" cx="380" cy="360" r="4"/>
-          <text class="star-label" x="380" y="342">SIRIUS</text>
-          <text class="star-sublabel" x="380" y="330">α Canis</text>
+        <g class="star-node" tabindex="0" role="button" data-project="powerbi"     data-roles="analyst"            aria-label="Power BI Dashboard project">
+          <circle class="s-glow" cx="145" cy="375" r="26"/>
+          <circle class="s-body" cx="145" cy="375" r="8"/>
+          <circle class="s-core" cx="145" cy="375" r="3.5"/>
+          <text class="s-name" x="145" y="358">ALTAIR</text>
+          <text class="s-sub"  x="145" y="347">α Aquilae</text>
         </g>
-
-        <!-- Smart Internship -->
-        <g class="star-node" data-project="internship" tabindex="0" role="button"
-           aria-label="Smart Internship Analyzer project — click to view details"
-           data-roles="developer,analyst">
-          <circle class="star-glow" cx="620" cy="400" r="28" opacity="0"/>
-          <circle class="star-body" cx="620" cy="400" r="7.5"/>
-          <circle class="star-core" cx="620" cy="400" r="3"/>
-          <text class="star-label" x="620" y="382">PROXIMA</text>
-          <text class="star-sublabel" x="620" y="370">α Centauri</text>
+        <g class="star-node" tabindex="0" role="button" data-project="flight"      data-roles="analyst,developer"  aria-label="Flight Delay Analysis project">
+          <circle class="s-glow" cx="370" cy="360" r="26"/>
+          <circle class="s-body" cx="370" cy="360" r="9"/>
+          <circle class="s-core" cx="370" cy="360" r="4"/>
+          <text class="s-name" x="370" y="343">SIRIUS</text>
+          <text class="s-sub"  x="370" y="332">α Canis</text>
         </g>
-
-        <!-- Ambient background stars (decorative) -->
-        <g aria-hidden="true" class="ambient-stars">
-          <circle cx="80" cy="60" r="1.5" fill="rgba(255,255,255,0.3)"/>
-          <circle cx="340" cy="80" r="1" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="520" cy="50" r="2" fill="rgba(255,255,255,0.25)"/>
-          <circle cx="790" cy="90" r="1.5" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="850" cy="200" r="1" fill="rgba(255,255,255,0.3)"/>
-          <circle cx="50" cy="250" r="1" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="760" cy="300" r="2" fill="rgba(255,255,255,0.15)"/>
-          <circle cx="100" cy="470" r="1" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="500" cy="480" r="1.5" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="850" cy="450" r="1" fill="rgba(255,255,255,0.25)"/>
-          <circle cx="270" cy="280" r="1" fill="rgba(255,255,255,0.15)"/>
-          <circle cx="560" cy="260" r="1" fill="rgba(255,255,255,0.2)"/>
-          <circle cx="710" cy="480" r="1.5" fill="rgba(255,255,255,0.15)"/>
+        <g class="star-node" tabindex="0" role="button" data-project="internship"  data-roles="developer,analyst"  aria-label="Smart Internship Analyzer project">
+          <circle class="s-glow" cx="625" cy="395" r="26"/>
+          <circle class="s-body" cx="625" cy="395" r="7.5"/>
+          <circle class="s-core" cx="625" cy="395" r="3"/>
+          <text class="s-name" x="625" y="378">PROXIMA</text>
+          <text class="s-sub"  x="625" y="367">α Centauri</text>
         </g>
       </svg>
 
-      <!-- Project Info Panel -->
-      <div class="project-panel glass-card" id="project-panel" role="dialog" aria-modal="false" aria-label="Project details" aria-hidden="true">
-        <button class="panel-close" id="panel-close" aria-label="Close project panel">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <!-- panel -->
+      <div class="proj-panel glass" id="proj-panel" aria-hidden="true">
+        <button class="panel-x" id="panel-x" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-
-        <div class="panel-content">
-          <div class="panel-roles" id="panel-roles"></div>
-          <h3 class="panel-title" id="panel-title"></h3>
-          <p class="panel-desc" id="panel-desc"></p>
-          <div class="panel-tech" id="panel-tech"></div>
-          <div class="panel-links" id="panel-links"></div>
-        </div>
+        <div id="p-roles"></div>
+        <h3 id="p-title"></h3>
+        <p  id="p-desc"></p>
+        <div id="p-tech"></div>
+        <div id="p-links"></div>
       </div>
     </div>
-
-    <!-- Hint -->
-    <p class="starmap-hint" aria-hidden="true">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      Click any star to view project details · Use Tab + Enter for keyboard navigation
-    </p>
+    <p class="map-hint" aria-hidden="true">↑ Click any star · Tab + Enter for keyboard navigation</p>
   </section>
 
-  <!-- ═══════════════════════════════════════ CERTIFICATIONS ═══════════════════════════════════════ -->
-  <section id="certifications" class="section reveal" aria-labelledby="cert-heading">
-    <div class="section-header">
-      <span class="section-label">05 · Certifications</span>
-      <h2 class="section-title" id="cert-heading">Credentials</h2>
-    </div>
-
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section reveal">
+    <div class="sec-label">05 · Certifications</div>
+    <h2 class="sec-title">Credentials</h2>
     <div class="cert-grid">
 
-      <a href="assets/arun certificates/arun deloitte data analyst certificate.pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">Deloitte Data Analytics</h4>
-          <span class="cert-issuer">Deloitte</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/arun deloitte data analyst certificate.pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+        <div class="cert-info"><strong>Deloitte Data Analytics</strong><span>Deloitte</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/arun tata gen ai data analytics certificate.pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">GenAI Data Analytics</h4>
-          <span class="cert-issuer">Tata Group</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/arun tata gen ai data analytics certificate.pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="cert-info"><strong>GenAI Data Analytics</strong><span>Tata Group</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/ARUN ETL CERTIFICATE.pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">Microsoft ETL (Power BI)</h4>
-          <span class="cert-issuer">Microsoft</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/ARUN ETL CERTIFICATE.pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg></div>
+        <div class="cert-info"><strong>Microsoft ETL (Power BI)</strong><span>Microsoft</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/Arun avionics certificate .pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 21 4c-2 0-4 1-4 1L13 8.2 4.8 6.4 3 8l6.5 5L8 18l-1 1h3l2-2 3.5 2.5z"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">Avionics & Aircraft Systems</h4>
-          <span class="cert-issuer">Aviation Institute</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/Arun Google Data Analytics .pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="cert-info"><strong>Google Data Analytics</strong><span>Google · Coursera</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/Arun java certificate .pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">Java Programming</h4>
-          <span class="cert-issuer">Programming Course</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/sql_advanced certificate (1).pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <div class="cert-info"><strong>HackerRank Advanced SQL</strong><span>HackerRank</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/ARUN C++ certificate .pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">C++ Programming</h4>
-          <span class="cert-issuer">Programming Course</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/Arun AIML internship .PDF" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+        <div class="cert-info"><strong>AICTE AIML Internship</strong><span>AICTE</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/Arun Google Data Analytics .pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">Google Data Analytics</h4>
-          <span class="cert-issuer">Google · Coursera</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/Arun java certificate .pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="cert-info"><strong>Java Programming</strong><span>Programming Course</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/sql_advanced certificate (1).pdf" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">HackerRank Advanced SQL</h4>
-          <span class="cert-issuer">HackerRank</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/ARUN C++ certificate .pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="cert-info"><strong>C++ Programming</strong><span>Programming Course</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
-      <a href="assets/arun certificates/Arun AIML internship .PDF" target="_blank" rel="noopener" class="cert-card glass-card">
-        <div class="cert-icon-wrap">
-          <svg class="cert-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-        </div>
-        <div class="cert-info">
-          <h4 class="cert-name">AICTE AIML Virtual Internship</h4>
-          <span class="cert-issuer">AICTE</span>
-        </div>
-        <span class="cert-view">View →</span>
+      <a href="assets/arun certificates/Arun avionics certificate .pdf" target="_blank" class="cert-card glass">
+        <div class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 21 4c-2 0-4 1-4 1L13 8.2 4.8 6.4 3 8l6.5 5L8 18l-1 1h3l2-2 3.5 2.5z"/></svg></div>
+        <div class="cert-info"><strong>Avionics & Aircraft Systems</strong><span>Aviation Institute</span></div>
+        <span class="cert-arrow">→</span>
       </a>
 
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ CONTACT ═══════════════════════════════════════ -->
-  <section id="contact" class="section reveal" aria-labelledby="contact-heading">
-    <div class="section-header">
-      <span class="section-label">06 · Contact</span>
-      <h2 class="section-title" id="contact-heading">Let's Connect</h2>
-      <p class="section-subtitle">Open to internships, freelance work, and collaborations.</p>
-    </div>
-
+  <!-- CONTACT -->
+  <section id="contact" class="section reveal">
+    <div class="sec-label">06 · Contact</div>
+    <h2 class="sec-title">Let's Connect</h2>
+    <p class="sec-sub">Open to internships, freelance work, and collaborations.</p>
     <div class="contact-grid">
-      <a href="mailto:arunp061106@gmail.com" class="contact-card glass-card" aria-label="Send email">
-        <div class="contact-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+
+      <a href="mailto:arunp061106@gmail.com" class="contact-card glass">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h3 class="contact-type">Email</h3>
-        <p class="contact-value">arunp061106@gmail.com</p>
+        <div class="cc-text"><strong>Email</strong><span>arunp061106@gmail.com</span></div>
       </a>
 
-      <a href="tel:+917806918951" class="contact-card glass-card" aria-label="Call phone number">
-        <div class="contact-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.3a16 16 0 0 0 6 6l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>
+      <a href="tel:+917806918951" class="contact-card glass">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.3a16 16 0 0 0 6 6l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>
         </div>
-        <h3 class="contact-type">Phone</h3>
-        <p class="contact-value">+91 78069 18951</p>
+        <div class="cc-text"><strong>Phone</strong><span>+91 78069 18951</span></div>
       </a>
 
-      <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank" rel="noopener" class="contact-card glass-card" aria-label="LinkedIn profile">
-        <div class="contact-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank" class="contact-card glass">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </div>
-        <h3 class="contact-type">LinkedIn</h3>
-        <p class="contact-value">arun-karthick-p</p>
+        <div class="cc-text"><strong>LinkedIn</strong><span>arun-karthick-p</span></div>
       </a>
 
-      <a href="https://github.com/arunp061106" target="_blank" rel="noopener" class="contact-card glass-card" aria-label="GitHub profile">
-        <div class="contact-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      <a href="https://github.com/arunp061106" target="_blank" class="contact-card glass">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
         </div>
-        <h3 class="contact-type">GitHub</h3>
-        <p class="contact-value">arunp061106</p>
+        <div class="cc-text"><strong>GitHub</strong><span>arunp061106</span></div>
       </a>
 
-      <a href="https://www.hackerrank.com/profile/arunp061106" target="_blank" rel="noopener" class="contact-card glass-card" aria-label="HackerRank profile">
-        <div class="contact-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 10.885 0 12-.645 1.115-9.107 6-10.392 6-1.284 0-9.75-4.885-10.39-6C.96 16.884.96 7.116 1.61 6 2.253 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V6.799c0-.141-.115-.258-.258-.258h-2.29c-.141 0-.258.116-.258.258v10.203c0 .141.115.258.258.258h2.29c.141 0 .258-.115.258-.258V13.65h4.074v3.352c0 .141.115.258.258.258h2.296c.141 0 .257-.115.257-.258V6.799c0-.141-.114-.258-.257-.258z"/></svg>
+      <a href="https://www.hackerrank.com/profile/arunp061106" target="_blank" class="contact-card glass">
+        <div class="cc-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 10.885 0 12-.645 1.115-9.107 6-10.392 6-1.284 0-9.75-4.885-10.39-6C.96 16.884.96 7.116 1.61 6 2.253 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V6.799c0-.141-.115-.258-.258-.258h-2.29c-.141 0-.258.116-.258.258v10.203c0 .141.115.258.258.258h2.29c.141 0 .258-.115.258-.258V13.65h4.074v3.352c0 .141.115.258.258.258h2.296c.141 0 .257-.115.257-.258V6.799c0-.141-.114-.258-.257-.258z"/></svg>
         </div>
-        <h3 class="contact-type">HackerRank</h3>
-        <p class="contact-value">arunp061106</p>
+        <div class="cc-text"><strong>HackerRank</strong><span>arunp061106</span></div>
       </a>
+
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <p class="footer-copy">© 2026 Arun Karthick P · Built with precision &amp; purpose</p>
-      <div class="footer-links">
-        <a href="https://github.com/arunp061106" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-        <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-        <a href="mailto:arunp061106@gmail.com" aria-label="Email">Email</a>
-      </div>
+    <p>© 2026 Arun Karthick P · Built with precision &amp; purpose</p>
+    <div class="footer-links">
+      <a href="https://github.com/arunp061106" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/arun-karthick-p-824491314" target="_blank">LinkedIn</a>
+      <a href="mailto:arunp061106@gmail.com">Email</a>
     </div>
   </footer>
 
