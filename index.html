@@ -8,13 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8.0">
+  <link rel="stylesheet" href="style.css?v=9.0">
 </head>
 <body>
-
-  <!-- Custom cursor -->
-  <div id="cursor-dot"  aria-hidden="true"></div>
-  <div id="cursor-ring" aria-hidden="true"></div>
 
   <canvas id="starfield" aria-hidden="true"></canvas>
 
@@ -169,15 +165,12 @@
 
   <!-- EXPERIENCE -->
   <section id="experience" class="section experience-section reveal">
-    <!-- Atmospheric Realistic Moon emerging from right edge -->
-    <div class="experience-moon" aria-hidden="true" data-parallax="0.03">
-      <picture>
-        <source srcset="assets/experience_moon.webp?v=8.0" type="image/webp">
-        <img src="assets/experience_moon.png?v=8.0" alt="" class="moon-img" draggable="false" loading="lazy">
-      </picture>
-    </div>
+    <picture>
+      <source srcset="assets/moon_supplied.webp?v=9.0" type="image/webp">
+      <img src="assets/moon_supplied.jpg?v=9.0" alt="" class="experience-moon" aria-hidden="true" draggable="false" loading="lazy">
+    </picture>
 
-    <div class="section-content">
+    <div class="section-content experience-content">
       <div class="sec-label">03 · Experience</div>
       <h2 class="sec-title">Work &amp; Leadership</h2>
       <p class="sec-sub">Hands-on industry internship and university technical leadership.</p>
@@ -546,6 +539,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=8.0"></script>
+  <script src="script.js?v=9.0"></script>
 </body>
 </html>
