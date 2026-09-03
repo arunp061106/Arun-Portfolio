@@ -80,8 +80,11 @@
   <!-- ABOUT -->
   <section id="about" class="section reveal about-section">
     <!-- Floating Astronaut in Background -->
-    <div class="about-astronaut-bg" aria-hidden="true" data-parallax="0.08">
-      <img src="assets/astronaut.png" alt="" class="about-astronaut-img" draggable="false">
+    <div class="about-astronaut-bg" aria-hidden="true" data-parallax="0.04">
+      <picture>
+        <source srcset="assets/astronaut_floating.webp" type="image/webp">
+        <img src="assets/astronaut_floating.png" alt="" class="about-astronaut-img" draggable="false" loading="lazy">
+      </picture>
       <div class="about-astronaut-glow"></div>
     </div>
 

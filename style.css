@@ -286,27 +286,27 @@ body::before {
   overflow: visible;
 }
 
-/* Floating Astronaut in the Background */
+/* Floating Astronaut — Atmospheric Background Element */
 .about-astronaut-bg {
   position: absolute;
-  top: 48%;
-  right: -2%;
+  top: 50%;
+  right: -3%;
   transform: translateY(-50%);
-  width: 580px;
-  max-width: 55vw;
+  width: 520px;
+  max-width: 48vw;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.9;
+  opacity: 0.88;
 }
 
 .about-astronaut-img {
   width: 100%;
   height: auto;
   display: block;
-  mix-blend-mode: screen; /* Deep black blends 100% into space background */
-  animation: astronautFloat 8s ease-in-out infinite;
-  filter: drop-shadow(0 0 35px rgba(56,189,248,0.28));
+  animation: spaceFloat 14s ease-in-out infinite;
+  filter: drop-shadow(0 0 22px rgba(56,189,248,0.18));
   user-select: none;
+  pointer-events: none;
 }
 
 .about-astronaut-glow {
@@ -314,32 +314,30 @@ body::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 360px;
-  height: 360px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, rgba(129,140,248,0.06) 45%, transparent 70%);
-  filter: blur(45px);
+  background: radial-gradient(circle, rgba(56,189,248,0.09) 0%, transparent 65%);
+  filter: blur(50px);
   pointer-events: none;
-  animation: astronautFloat 8s ease-in-out infinite;
+  z-index: -1;
+  animation: spaceFloat 14s ease-in-out infinite;
 }
 
-@keyframes astronautFloat {
+@keyframes spaceFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
-  35% {
-    transform: translateY(-24px) rotate(-3deg);
-  }
-  70% {
-    transform: translateY(-12px) rotate(2deg);
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(-1.5deg);
   }
 }
 
-/* About Card (Front) */
+/* About Card (Front Layer) */
 .about-card {
   position: relative;
   z-index: 2;
-  max-width: 720px;
+  max-width: 700px;
   padding: 2.8rem 3.2rem;
   margin-top: 2rem;
 }
@@ -671,6 +669,7 @@ body::before {
   .contact-grid { grid-template-columns:1fr; }
   .hero-name { font-size:2.4rem; }
   .about-card { padding: 1.6rem 1.4rem; }
+  .about-astronaut-bg { display: none; }
 }
 
 
