@@ -443,14 +443,12 @@ body::before {
 
 .experience-moon-bg {
   position: absolute;
-  top: 50%;
-  right: -5%;
-  transform: translateY(-50%);
-  width: 520px;
-  max-width: 46vw;
+  top: clamp(140px, 18vw, 210px);
+  right: clamp(-250px, -11vw, -130px);
+  width: clamp(420px, 32vw, 560px);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.65;
+  opacity: 0.55;
 }
 
 .experience-moon-img {
@@ -473,9 +471,10 @@ body::before {
 
 @media (max-width: 992px) {
   .experience-moon-bg {
-    width: 380px;
-    right: -100px;
-    opacity: 0.45;
+    width: 360px;
+    right: -160px;
+    top: 220px;
+    opacity: 0.40;
   }
 }
 
