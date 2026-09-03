@@ -555,6 +555,11 @@ body::before {
   color: #C084FC;
   border: 1px solid rgba(192, 132, 252, 0.25);
 }
+.tag-volunteer {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+}
 
 .exp-date {
   font-family: var(--fm);
