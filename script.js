@@ -201,6 +201,27 @@
       desc:  'Resume analysis system that evaluates compatibility between résumés and job descriptions using structured keyword comparison. Generates skill gap reports and résumé alignment scores.',
       tech:  ['Python', 'Text Processing', 'NLP', 'Data Analysis'],
       links: [{ l: 'Academic Project', u: null, t: 'd' }]
+    },
+    dataforge: {
+      title: 'DataForge — Official Technical Club Web Platform',
+      roles: ['developer'],
+      desc:  'Official web application engineered for DataForge, the student technical club at SRM Institute of Science and Technology. Built with responsive layout architecture, event showcases, member onboarding flows, and club resource portals.',
+      tech:  ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI', 'Web Architecture'],
+      links: [{ l: 'View on GitHub', u: 'https://github.com/arunp061106/DataforgewebV1', t: 'p' }]
+    },
+    ngo: {
+      title: 'NGO Work Tracker & Reminder System',
+      roles: ['developer'],
+      desc:  'Modern dual-architecture management platform tailored for NGO field operations. Features daily work logging, IndexedDB offline evidence storage, automated reminder pipelines, attendance stopwatch, interactive analytics charts, and an AI-powered accomplishment summary generator.',
+      tech:  ['React', 'FastAPI', 'Tailwind CSS', 'IndexedDB', 'PostgreSQL', 'Python', 'JavaScript'],
+      links: [{ l: 'View on GitHub', u: 'https://github.com/arunp061106/NGO-Work-Tracker-Reminder-System', t: 'p' }]
+    },
+    lawfirm: {
+      title: 'Sri Sai Law Firm — Digital Legal Portal',
+      roles: ['developer'],
+      desc:  'High-performance professional web platform developed for Sri Sai Law Firm. Includes practice area showcases, appointment scheduling workflows, client case consultation inquiry systems, and attorney profile directories.',
+      tech:  ['HTML5', 'CSS3', 'JavaScript', 'UI/UX Design', 'Client Solution'],
+      links: [{ l: 'View on GitHub', u: 'https://github.com/arunp061106/srisailawfirm', t: 'p' }]
     }
   };
 

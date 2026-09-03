@@ -197,9 +197,17 @@ body::before {
   font-family:var(--fh); font-size:clamp(1rem,2.2vw,1.4rem);
   color:var(--t2); margin-bottom:1.6rem; min-height:2rem;
 }
-.typed-text { color:var(--t1); font-weight:600; }
-.blink-cursor { color:var(--cyan); margin-left:2px; animation:blink 1.1s step-end infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.typed-text {
+  color: #C084FC;
+  font-weight: 600;
+  text-shadow: 0 0 16px rgba(192, 132, 252, 0.45);
+}
+.blink-cursor {
+  color: #C084FC;
+  margin-left: 2px;
+  animation: blink 1.1s step-end infinite;
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
+}
 
 .hero-desc {
   font-size:1rem; color:var(--t2); max-width:520px;

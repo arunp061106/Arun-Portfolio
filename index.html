@@ -64,7 +64,7 @@
         <a href="assets/resume.html" target="_blank" class="btn-ghost">View Résumé</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><span class="stat-n">6+</span><span class="stat-l">Projects</span></div>
+        <div class="stat"><span class="stat-n">9+</span><span class="stat-l">Projects</span></div>
         <div class="stat-sep"></div>
         <div class="stat"><span class="stat-n">9</span><span class="stat-l">Certifications</span></div>
         <div class="stat-sep"></div>
@@ -208,8 +208,12 @@
       <svg id="starmap" class="starmap-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
         <!-- constellation lines -->
         <g class="clines" aria-hidden="true">
-          <line x1="185" y1="130" x2="420" y2="195"/>
-          <line x1="420" y1="195" x2="680" y2="120"/>
+          <line x1="185" y1="130" x2="295" y2="80"/>
+          <line x1="295" y1="80" x2="420" y2="195"/>
+          <line x1="420" y1="195" x2="540" y2="80"/>
+          <line x1="540" y1="80" x2="680" y2="120"/>
+          <line x1="680" y1="120" x2="780" y2="260"/>
+          <line x1="780" y1="260" x2="625" y2="395"/>
           <line x1="420" y1="195" x2="370" y2="360"/>
           <line x1="370" y1="360" x2="145" y2="375"/>
           <line x1="370" y1="360" x2="625" y2="395"/>
@@ -233,42 +237,80 @@
           <circle cx="640" cy="55"  r="1"   fill="rgba(255,255,255,0.2)"/>
         </g>
         <!-- project stars -->
-        <g class="star-node" tabindex="0" role="button" data-project="synapse"     data-roles="developer,engineer" aria-label="SYNAPSE project">
+        <!-- SYNAPSE -->
+        <g class="star-node" tabindex="0" role="button" data-project="synapse" data-roles="developer,engineer" aria-label="SYNAPSE project">
           <circle class="s-glow" cx="185" cy="130" r="26"/>
           <circle class="s-body" cx="185" cy="130" r="9"/>
           <circle class="s-core" cx="185" cy="130" r="4"/>
           <text class="s-name" x="185" y="113">SYNAPSE</text>
           <text class="s-sub"  x="185" y="102">α Cygni</text>
         </g>
-        <g class="star-node" tabindex="0" role="button" data-project="behavioural" data-roles="analyst,developer"  aria-label="Behavioural Analytics project">
+
+        <!-- DATAFORGE (Developer) -->
+        <g class="star-node" tabindex="0" role="button" data-project="dataforge" data-roles="developer" aria-label="DataForge Web Development project">
+          <circle class="s-glow" cx="295" cy="80" r="26"/>
+          <circle class="s-body" cx="295" cy="80" r="8.5"/>
+          <circle class="s-core" cx="295" cy="80" r="4"/>
+          <text class="s-name" x="295" y="63">DATAFORGE</text>
+          <text class="s-sub"  x="295" y="52">α Ursae</text>
+        </g>
+
+        <!-- BEHAVIOURAL / ORION -->
+        <g class="star-node" tabindex="0" role="button" data-project="behavioural" data-roles="analyst,developer" aria-label="Behavioural Analytics project">
           <circle class="s-glow" cx="420" cy="195" r="26"/>
           <circle class="s-body" cx="420" cy="195" r="11"/>
           <circle class="s-core" cx="420" cy="195" r="5"/>
           <text class="s-name" x="420" y="176">ORION</text>
           <text class="s-sub"  x="420" y="165">β Orionis</text>
         </g>
-        <g class="star-node" tabindex="0" role="button" data-project="freelancer"  data-roles="analyst,engineer"   aria-label="Freelancer Funnel project">
+
+        <!-- NGO WORK TRACKER (Developer) -->
+        <g class="star-node" tabindex="0" role="button" data-project="ngo" data-roles="developer" aria-label="NGO Work Tracker & Reminder System project">
+          <circle class="s-glow" cx="540" cy="80" r="26"/>
+          <circle class="s-body" cx="540" cy="80" r="8.5"/>
+          <circle class="s-core" cx="540" cy="80" r="4"/>
+          <text class="s-name" x="540" y="63">NGO TRACKER</text>
+          <text class="s-sub"  x="540" y="52">α Aurigae</text>
+        </g>
+
+        <!-- FREELANCER / VEGA -->
+        <g class="star-node" tabindex="0" role="button" data-project="freelancer" data-roles="analyst,engineer" aria-label="Freelancer Funnel project">
           <circle class="s-glow" cx="680" cy="120" r="26"/>
           <circle class="s-body" cx="680" cy="120" r="8"/>
           <circle class="s-core" cx="680" cy="120" r="3.5"/>
           <text class="s-name" x="680" y="103">VEGA</text>
           <text class="s-sub"  x="680" y="92">α Lyrae</text>
         </g>
-        <g class="star-node" tabindex="0" role="button" data-project="powerbi"     data-roles="analyst"            aria-label="Power BI Dashboard project">
+
+        <!-- SRI SAI LAW FIRM (Developer) -->
+        <g class="star-node" tabindex="0" role="button" data-project="lawfirm" data-roles="developer" aria-label="Sri Sai Law Firm Web Platform project">
+          <circle class="s-glow" cx="780" cy="260" r="26"/>
+          <circle class="s-body" cx="780" cy="260" r="8"/>
+          <circle class="s-core" cx="780" cy="260" r="3.5"/>
+          <text class="s-name" x="780" y="243">SRI SAI LAW</text>
+          <text class="s-sub"  x="780" y="232">α Scorpii</text>
+        </g>
+
+        <!-- POWER BI / ALTAIR -->
+        <g class="star-node" tabindex="0" role="button" data-project="powerbi" data-roles="analyst" aria-label="Power BI Dashboard project">
           <circle class="s-glow" cx="145" cy="375" r="26"/>
           <circle class="s-body" cx="145" cy="375" r="8"/>
           <circle class="s-core" cx="145" cy="375" r="3.5"/>
           <text class="s-name" x="145" y="358">ALTAIR</text>
           <text class="s-sub"  x="145" y="347">α Aquilae</text>
         </g>
-        <g class="star-node" tabindex="0" role="button" data-project="flight"      data-roles="analyst,developer"  aria-label="Flight Delay Analysis project">
+
+        <!-- FLIGHT DELAY / SIRIUS -->
+        <g class="star-node" tabindex="0" role="button" data-project="flight" data-roles="analyst,developer" aria-label="Flight Delay Analysis project">
           <circle class="s-glow" cx="370" cy="360" r="26"/>
           <circle class="s-body" cx="370" cy="360" r="9"/>
           <circle class="s-core" cx="370" cy="360" r="4"/>
           <text class="s-name" x="370" y="343">SIRIUS</text>
           <text class="s-sub"  x="370" y="332">α Canis</text>
         </g>
-        <g class="star-node" tabindex="0" role="button" data-project="internship"  data-roles="developer,analyst"  aria-label="Smart Internship Analyzer project">
+
+        <!-- SMART INTERNSHIP / PROXIMA -->
+        <g class="star-node" tabindex="0" role="button" data-project="internship" data-roles="developer,analyst" aria-label="Smart Internship Analyzer project">
           <circle class="s-glow" cx="625" cy="395" r="26"/>
           <circle class="s-body" cx="625" cy="395" r="7.5"/>
           <circle class="s-core" cx="625" cy="395" r="3"/>
