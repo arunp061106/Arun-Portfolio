@@ -37,8 +37,39 @@ body {
 }
 img { display:block; max-width:100%; }
 a   { color:inherit; text-decoration:none; }
-button { cursor:pointer; border:none; background:none; font:inherit; color:inherit; }
-a, button, [tabindex] { cursor: pointer; }
+button { cursor:none; border:none; background:none; font:inherit; color:inherit; }
+a, button, [tabindex] { cursor: none; }
+
+/* ── Custom Cursor ── */
+#cursor-dot {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(56,189,248,0.4);
+}
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(56,189,248,0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  transition: width .35s var(--ease), height .35s var(--ease),
+              border-color .35s ease, transform .1s linear;
+  backdrop-filter: none;
+}
+body.cursor-hover #cursor-dot  { width: 12px; height: 12px; background: #fff; }
+body.cursor-hover #cursor-ring { width: 52px; height: 52px; border-color: var(--cyan); }
+body.cursor-click #cursor-dot  { width: 6px; height: 6px; }
+body.cursor-click #cursor-ring { width: 28px; height: 28px; }
 
 /* â”€â”€ Canvas â”€â”€ */
 #starfield {
@@ -404,32 +435,30 @@ body::before {
   background:var(--cyan-d); transform:translateY(-2px);
 }
 
-/* ── EXPERIENCE ── */
+/* ── EXPERIENCE SECTION & MOON (Atmospheric Background Element, Just like Astronaut) ── */
 .experience-section {
   position: relative;
   overflow: hidden;
-  isolation: isolate;
 }
 
-.experience-section::after {
-  content: "";
+.experience-moon-bg {
   position: absolute;
-  width: clamp(440px, 32vw, 620px);
-  height: clamp(440px, 32vw, 620px);
-  right: clamp(-300px, -12vw, -150px);
-  top: 120px;
-
-  background-image: url("assets/moon_supplied.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  /* Black pixels must blend into the navy starfield instead of forming a box */
-  mix-blend-mode: screen;
-  opacity: 0.52;
-
+  top: 50%;
+  right: -5%;
+  transform: translateY(-50%);
+  width: 520px;
+  max-width: 46vw;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.65;
+}
+
+.experience-moon-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
 }
 
 .experience-section .experience-content,
@@ -439,21 +468,19 @@ body::before {
 .experience-section h2,
 .experience-section p {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 @media (max-width: 992px) {
-  .experience-section::after {
-    width: clamp(320px, 30vw, 460px);
-    height: clamp(320px, 30vw, 460px);
-    right: -200px;
-    top: 180px;
-    opacity: 0.38;
+  .experience-moon-bg {
+    width: 380px;
+    right: -100px;
+    opacity: 0.45;
   }
 }
 
 @media (max-width: 680px) {
-  .experience-section::after {
+  .experience-moon-bg {
     display: none;
   }
 }
