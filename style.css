@@ -246,6 +246,39 @@ body::before {
 }
 @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0); opacity:.4} 50%{transform:translateX(-50%) translateY(6px); opacity:.9} }
 
+/* ── Distant Moon ── */
+.distant-moon {
+  position: absolute;
+  top: 5%;
+  right: -55px;
+  width: 250px;
+  height: 250px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.38;
+}
+
+.moon-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  filter: drop-shadow(0 0 35px rgba(226, 232, 240, 0.12));
+}
+
+.moon-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226, 232, 240, 0.08) 0%, transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
 /* Fade-in hero */
 .anim-fadein       { animation:fadein .9s var(--ease) .15s both; }
 .anim-fadein-delay { animation:fadein .9s var(--ease) .45s both; }
@@ -435,7 +468,141 @@ body::before {
   background:var(--cyan-d); transform:translateY(-2px);
 }
 
-/* â”€â”€ EDUCATION TIMELINE â”€â”€ */
+/* ── EXPERIENCE ── */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+  margin-top: 2rem;
+}
+
+.exp-card {
+  padding: 2.4rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+  opacity: 0.8;
+}
+
+.exp-header {
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.exp-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.exp-tag {
+  font-family: var(--fm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tag-intern {
+  background: var(--cyan-d);
+  color: var(--cyan);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+.tag-lead {
+  background: var(--violet-d);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.25);
+}
+
+.exp-date {
+  font-family: var(--fm);
+  font-size: 0.75rem;
+  color: var(--t2);
+}
+
+.exp-role {
+  font-family: var(--fh);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 0.35rem;
+}
+
+.exp-company {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cyan);
+}
+.exp-loc {
+  color: var(--t3);
+  font-weight: 400;
+}
+
+.exp-overview {
+  font-size: 0.92rem;
+  color: var(--t2);
+  line-height: 1.7;
+  margin-bottom: 1.3rem;
+}
+
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.6rem;
+  flex-grow: 1;
+}
+
+.exp-bullets li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.88rem;
+  color: var(--t2);
+  line-height: 1.65;
+}
+
+.exp-bullets li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 0.95rem;
+}
+
+.exp-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.exp-skills span {
+  font-family: var(--fm);
+  font-size: 0.72rem;
+  padding: 0.28rem 0.68rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--t2);
+}
+
+/* ── EDUCATION TIMELINE ── */
 .timeline { display:flex; flex-direction:column; gap:0; margin-top:2rem; max-width:760px; }
 .tl-item { display:grid; grid-template-columns:28px 1fr; gap:0 1.25rem; }
 .tl-dot {
@@ -548,7 +715,118 @@ body::before {
 .pl-d { padding:.55rem 1.1rem; border-radius:8px; font-size:.82rem; background:rgba(255,255,255,0.02); border:1px solid var(--border); color:var(--t3); }
 .map-hint { font-family:var(--fm); font-size:.72rem; color:var(--t3); text-align:center; margin-top:1rem; }
 
-/* â”€â”€ CERTIFICATIONS â”€â”€ */
+/* ── FEATURED CERTIFICATION ── */
+.cert-featured {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2.2rem 2.6rem;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(88, 28, 135, 0.12));
+}
+
+.cert-featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #C084FC, var(--cyan));
+}
+
+.cf-badge {
+  display: inline-block;
+  font-family: var(--fm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #C084FC;
+  background: rgba(192, 132, 252, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  padding: 0.25rem 0.8rem;
+  border-radius: 50px;
+  margin-bottom: 1.2rem;
+}
+
+.cf-body {
+  display: flex;
+  gap: 1.8rem;
+  align-items: flex-start;
+}
+
+.cf-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(192, 132, 252, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.cf-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: #C084FC;
+}
+
+.cf-details {
+  flex: 1;
+}
+
+.cf-org {
+  font-family: var(--fm);
+  font-size: 0.76rem;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.cf-title {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 0.65rem;
+  line-height: 1.35;
+}
+
+.cf-desc {
+  font-size: 0.92rem;
+  color: var(--t2);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.cf-meta {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  font-family: var(--fm);
+  font-size: 0.76rem;
+}
+
+.cf-status {
+  color: #C084FC;
+  font-weight: 500;
+}
+
+.cf-id {
+  color: var(--t3);
+}
+
+@media (max-width: 640px) {
+  .cf-body {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* ── CERTIFICATIONS ── */
 .cert-grid {
   display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
   gap:1.25rem; margin-top:2rem;

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3.5">
 </head>
 <body>
 
@@ -24,6 +24,7 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="#about"          class="nav-link">About</a></li>
         <li><a href="#skills"         class="nav-link">Skills</a></li>
+        <li><a href="#experience"     class="nav-link">Experience</a></li>
         <li><a href="#education"      class="nav-link">Education</a></li>
         <li><a href="#projects"       class="nav-link">Projects</a></li>
         <li><a href="#certifications" class="nav-link">Certifications</a></li>
@@ -39,6 +40,7 @@
     <ul>
       <li><a href="#about"          class="mob-link">About</a></li>
       <li><a href="#skills"         class="mob-link">Skills</a></li>
+      <li><a href="#experience"     class="mob-link">Experience</a></li>
       <li><a href="#education"      class="mob-link">Education</a></li>
       <li><a href="#projects"       class="mob-link">Projects</a></li>
       <li><a href="#certifications" class="mob-link">Certifications</a></li>
@@ -48,12 +50,21 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
+    <!-- Distant Half-Lit Moon -->
+    <div class="distant-moon" aria-hidden="true" data-parallax="0.02">
+      <picture>
+        <source srcset="assets/distant_moon.webp" type="image/webp">
+        <img src="assets/distant_moon.png" alt="" class="moon-img" draggable="false" loading="eager">
+      </picture>
+      <div class="moon-glow"></div>
+    </div>
+
     <div class="hero-content anim-fadein" data-parallax="0.04">
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name">Arun Karthick <span class="accent">P</span></h1>
       <div class="hero-role-line">
         <span class="role-prefix">I work as a&nbsp;</span>
-        <span id="typed-role" class="typed-text"></span><span class="blink-cursor">|</span>
+        <span id="typed-role" class="typed-text" style="color:#C084FC !important; text-shadow:0 0 18px rgba(192,132,252,0.55) !important;"></span><span class="blink-cursor" style="color:#C084FC !important;">|</span>
       </div>
       <p class="hero-desc">
         Transforming raw data into strategic decisions — from pipeline design to
@@ -165,9 +176,72 @@
     </div>
   </section>
 
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section reveal">
+    <div class="sec-label">03 · Experience</div>
+    <h2 class="sec-title">Work &amp; Leadership</h2>
+    <p class="sec-sub">Hands-on industry internship and university technical leadership.</p>
+
+    <div class="exp-grid">
+      <!-- Right Angle Solutions -->
+      <div class="exp-card glass">
+        <div class="exp-header">
+          <div class="exp-meta">
+            <span class="exp-tag tag-intern">Internship</span>
+            <span class="exp-date">Jun 2026 – Jul 2026</span>
+          </div>
+          <h3 class="exp-role">Data &amp; Analytics Intern</h3>
+          <h4 class="exp-company">Right Angle Solutions <span class="exp-loc">· Remote / Hybrid</span></h4>
+        </div>
+        <p class="exp-overview">
+          Managed financial and operational business datasets for the Finance &amp; Accounts division, conducting data validation and structured analysis to support reliable reporting and executive decision-making.
+        </p>
+        <ul class="exp-bullets">
+          <li>Managed spreadsheet-based financial and operational records for the Finance &amp; Accounts team, validating data integrity across enterprise accounts.</li>
+          <li>Prepared structured executive reports and consolidated multi-source operational metrics to improve clarity for leadership decision-making.</li>
+          <li>Performed rigorous data validation and exploratory checks on financial datasets to identify discrepancies and maintain high reporting accuracy.</li>
+        </ul>
+        <div class="exp-skills">
+          <span>Advanced Excel</span>
+          <span>Financial Data Validation</span>
+          <span>Business Reporting</span>
+          <span>Operational Analytics</span>
+          <span>Data Quality Assurance</span>
+        </div>
+      </div>
+
+      <!-- Data Forge -->
+      <div class="exp-card glass">
+        <div class="exp-header">
+          <div class="exp-meta">
+            <span class="exp-tag tag-lead">Leadership</span>
+            <span class="exp-date">2024 – Present</span>
+          </div>
+          <h3 class="exp-role">Technical Manager</h3>
+          <h4 class="exp-company">Data Forge — Data Science Club <span class="exp-loc">· SRMIST Trichy</span></h4>
+        </div>
+        <p class="exp-overview">
+          Direct technical programs, developer workshops, and project incubation for the premier data science and analytics student organization at SRM Institute of Science &amp; Technology.
+        </p>
+        <ul class="exp-bullets">
+          <li>Spearhead technical curriculum, hands-on workshops, and developer mentoring in Python, SQL, and data analytics pipelines for club members.</li>
+          <li>Lead end-to-end event management for data science competitions, hackathons, and competitive analytics challenges across the university.</li>
+          <li>Architected and deployed the club's official web portal (DataforgewebV1), standardizing member onboarding and event showcases.</li>
+        </ul>
+        <div class="exp-skills">
+          <span>Technical Leadership</span>
+          <span>Data Science Mentoring</span>
+          <span>Workshop Facilitation</span>
+          <span>Web Architecture</span>
+          <span>Event Management</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- EDUCATION -->
   <section id="education" class="section reveal">
-    <div class="sec-label">03 · Education</div>
+    <div class="sec-label">04 · Education</div>
     <h2 class="sec-title">Academic Background</h2>
     <div class="timeline">
       <div class="tl-item">
@@ -193,7 +267,7 @@
 
   <!-- PROJECTS -->
   <section id="projects" class="section reveal">
-    <div class="sec-label">04 · Projects</div>
+    <div class="sec-label">05 · Projects</div>
     <h2 class="sec-title">Star Map</h2>
     <p class="sec-sub">Each star is a project. Click to explore.</p>
 
@@ -331,13 +405,33 @@
         <div id="p-links"></div>
       </div>
     </div>
-    <p class="map-hint" aria-hidden="true">↑ Click any star · Tab + Enter for keyboard navigation</p>
-  </section>
-
-  <!-- CERTIFICATIONS -->
+    <p class="map-hint" aria-hidden="true">↑ Click any star · Tab + Enter for  <!-- CERTIFICATIONS -->
   <section id="certifications" class="section reveal">
-    <div class="sec-label">05 · Certifications</div>
+    <div class="sec-label">06 · Certifications</div>
     <h2 class="sec-title">Credentials</h2>
+    <p class="sec-sub">Industry certifications and verified technical proficiencies.</p>
+
+    <!-- Featured DP-600 Certification -->
+    <div class="cert-featured glass">
+      <div class="cf-badge">Specialized Certification</div>
+      <div class="cf-body">
+        <div class="cf-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        </div>
+        <div class="cf-details">
+          <div class="cf-org">Microsoft</div>
+          <h3 class="cf-title">Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)</h3>
+          <p class="cf-desc">
+            Demonstrates capability to design, deploy, and manage enterprise-scale data analytics solutions using Microsoft Fabric — including OneLake architecture, lakehouse ingestion, automated transformation pipelines, and semantic data models for Power BI.
+          </p>
+          <div class="cf-meta">
+            <span class="cf-status">Fabric Analytics Specialization</span>
+            <a href="assets/arun certificates/Credentials - arun-1346 _ Microsoft Learn.pdf" target="_blank" class="soc-btn" style="padding:.3rem .85rem; font-size:.75rem; border-color: rgba(192,132,252,0.4); color: #C084FC;">View Credential PDF ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="cert-grid">
 
       <a href="assets/arun certificates/arun deloitte data analyst certificate.pdf" target="_blank" class="cert-card glass">
@@ -399,7 +493,7 @@
 
   <!-- CONTACT -->
   <section id="contact" class="section reveal">
-    <div class="sec-label">06 · Contact</div>
+    <div class="sec-label">07 · Contact</div>
     <h2 class="sec-title">Let's Connect</h2>
     <p class="sec-sub">Open to internships, freelance work, and collaborations.</p>
     <div class="contact-grid">
@@ -432,7 +526,7 @@
         <div class="cc-text"><strong>GitHub</strong><span>arunp061106</span></div>
       </a>
 
-      <a href="https://www.hackerrank.com/profile/arunp061106" target="_blank" class="contact-card glass">
+      <a href="https://hackerrank.com/profile/arunp061106" target="_blank" class="contact-card glass">
         <div class="cc-icon">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 10.885 0 12-.645 1.115-9.107 6-10.392 6-1.284 0-9.75-4.885-10.39-6C.96 16.884.96 7.116 1.61 6 2.253 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V6.799c0-.141-.115-.258-.258-.258h-2.29c-.141 0-.258.116-.258.258v10.203c0 .141.115.258.258.258h2.29c.141 0 .258-.115.258-.258V13.65h4.074v3.352c0 .141.115.258.258.258h2.296c.141 0 .257-.115.257-.258V6.799c0-.141-.114-.258-.257-.258z"/></svg>
         </div>
@@ -451,6 +545,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3.5"></script>
 </body>
 </html>

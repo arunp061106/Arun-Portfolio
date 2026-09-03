@@ -88,6 +88,8 @@
   /* ── 4. TYPEWRITER ── */
   const roleEl = document.getElementById('typed-role');
   if (roleEl) {
+    roleEl.style.color = '#C084FC';
+    roleEl.style.textShadow = '0 0 18px rgba(192, 132, 252, 0.55)';
     const roles = ['Developer', 'Data Analyst', 'Data Engineer'];
     let ri = 0, ci = 0, del = false, paused = false;
     if (noMotion) { roleEl.textContent = roles[0]; }
