@@ -307,58 +307,10 @@ body::before {
 }
 
 .hero-content {
-  max-width: 740px;
+  max-width: 780px;
   width: 100%;
   position: relative;
   z-index: 2;
-}
-
-/* Floating Tech Astronaut in Hero */
-.hero-astronaut-bg {
-  position: absolute;
-  top: 48%;
-  right: -5%;
-  transform: translateY(-50%);
-  width: clamp(380px, 36vw, 540px);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.88;
-}
-
-.hero-astronaut-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  animation: heroFloat 12s ease-in-out infinite;
-  filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.25));
-  user-select: none;
-  pointer-events: none;
-}
-
-@keyframes heroFloat {
-
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate3d(0, -16px, 0) rotate(-1.5deg);
-  }
-}
-
-@media (max-width: 992px) {
-  .hero-astronaut-bg {
-    width: clamp(280px, 32vw, 400px);
-    right: -30px;
-    opacity: 0.50;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-astronaut-bg {
-    display: none;
-  }
 }
 
 /* Parallax elements */
@@ -462,6 +414,236 @@ body::before {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--border-h);
   transform: translateY(-3px);
+}
+
+/* ── Resume Dropdown ── */
+.resume-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+  z-index: 50;
+}
+
+.resume-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--t1);
+  padding: .85rem 1.6rem;
+  border-radius: 12px;
+  font-family: var(--fh);
+  font-weight: 600;
+  font-size: .94rem;
+  transition: all .3s var(--ease);
+  user-select: none;
+}
+
+.resume-trigger:hover,
+.resume-dropdown-wrapper.open .resume-trigger {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-h);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(56, 189, 248, 0.2);
+}
+
+.chevron-icon {
+  color: var(--cyan);
+  transition: transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.resume-dropdown-wrapper.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.resume-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 320px;
+  background: rgba(8, 16, 36, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 18px;
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.97);
+  pointer-events: none;
+  transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+  z-index: 100;
+}
+
+.resume-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+
+.resume-dropdown-wrapper.open .resume-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .resume-dropdown-wrapper:hover .resume-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .resume-dropdown-wrapper:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+  .resume-dropdown-wrapper:hover .resume-trigger {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-h);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -6px rgba(56, 189, 248, 0.2);
+  }
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .35rem .65rem .45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: .2rem;
+}
+
+.dropdown-label {
+  font-family: var(--fm);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+.dropdown-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.resume-menu-item {
+  display: flex;
+  flex-direction: column;
+  padding: .65rem .85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: all .24s var(--ease);
+  text-decoration: none;
+}
+
+.resume-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .25rem;
+}
+
+.role-chip {
+  font-family: var(--fh);
+  font-size: .78rem;
+  font-weight: 700;
+  padding: .2rem .65rem;
+  border-radius: 20px;
+  letter-spacing: .02em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.chip-ana {
+  background: rgba(192, 132, 252, 0.14);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.35);
+}
+
+.chip-dev {
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--cyan);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.chip-eng {
+  background: rgba(52, 211, 153, 0.14);
+  color: var(--green);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.ext-badge {
+  color: var(--t3);
+  display: flex;
+  align-items: center;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.resume-sub {
+  font-size: .78rem;
+  color: var(--t2);
+  line-height: 1.35;
+}
+
+/* Menu Item Hover states with distinctive role accents */
+.resume-menu-item.opt-ana:hover {
+  background: rgba(192, 132, 252, 0.08);
+  border-color: rgba(192, 132, 252, 0.38);
+  box-shadow: 0 4px 16px rgba(192, 132, 252, 0.15);
+  transform: translateX(3px);
+}
+.resume-menu-item.opt-ana:hover .ext-badge {
+  color: #C084FC;
+  transform: translate(2px, -2px);
+}
+
+.resume-menu-item.opt-dev:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.38);
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.15);
+  transform: translateX(3px);
+}
+.resume-menu-item.opt-dev:hover .ext-badge {
+  color: var(--cyan);
+  transform: translate(2px, -2px);
+}
+
+.resume-menu-item.opt-eng:hover {
+  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(52, 211, 153, 0.38);
+  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.15);
+  transform: translateX(3px);
+}
+.resume-menu-item.opt-eng:hover .ext-badge {
+  color: var(--green);
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .resume-dropdown-menu {
+    left: 0;
+    min-width: 290px;
+    max-width: calc(100vw - 2.5rem);
+  }
 }
 
 .hero-stats {
@@ -1711,64 +1893,9 @@ body::before {
   word-break: break-all;
 }
 
-/* ── CONTACT SECTION & TELEMETRY SATELLITE PROBE ── */
+/* ── CONTACT SECTION ── */
 .contact-section {
   position: relative;
-  overflow: hidden;
-}
-
-.contact-satellite-bg {
-  position: absolute;
-  top: 15px;
-  right: -25px;
-  width: clamp(260px, 25vw, 380px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.48;
-}
-
-.contact-satellite-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  user-select: none;
-  pointer-events: none;
-  animation: satelliteDrift 16s ease-in-out infinite;
-  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.22));
-}
-
-@keyframes satelliteDrift {
-
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate3d(-10px, -14px, 0) rotate(2deg);
-  }
-}
-
-.contact-section .sec-label,
-.contact-section .sec-title,
-.contact-section .sec-sub,
-.contact-section .contact-grid {
-  position: relative;
-  z-index: 2;
-}
-
-@media (max-width: 992px) {
-  .contact-satellite-bg {
-    width: clamp(180px, 20vw, 260px);
-    right: -15px;
-    opacity: 0.32;
-  }
-}
-
-@media (max-width: 680px) {
-  .contact-satellite-bg {
-    display: none;
-  }
 }
 
 /* â”€â”€ FOOTER â”€â”€ */

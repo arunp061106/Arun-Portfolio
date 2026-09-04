@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=23.0">
+  <link rel="stylesheet" href="style.css?v=26.0">
 </head>
 
 <body>
@@ -55,13 +55,6 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
-    <!-- Floating Tech Astronaut in Hero -->
-    <div class="hero-astronaut-bg" aria-hidden="true">
-      <picture>
-        <source srcset="assets/hero_astronaut.webp?v=22.0" type="image/webp">
-        <img src="assets/hero_astronaut.png?v=22.0" alt="" class="hero-astronaut-img" draggable="false" loading="eager">
-      </picture>
-    </div>
 
     <div class="hero-content anim-fadein" data-parallax="0.04">
       <p class="hero-greeting">Hello, I'm</p>
@@ -78,7 +71,71 @@
       </p>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="assets/resume.html" target="_blank" class="btn-ghost">View Résumé</a>
+        <div class="resume-dropdown-wrapper" id="resumeDropdownWrapper">
+          <button type="button" class="btn-ghost resume-trigger" id="resumeDropdownBtn" aria-haspopup="true" aria-expanded="false" aria-controls="resumeDropdownMenu">
+            <span>View Résumé</span>
+            <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="resume-dropdown-menu glass" id="resumeDropdownMenu" role="menu" aria-labelledby="resumeDropdownBtn">
+            <div class="dropdown-header">
+              <span class="dropdown-label">Select Specialization</span>
+              <span class="dropdown-dot"></span>
+            </div>
+            
+            <!-- Option 1: Developer -->
+            <a href="assets/resumes/Arun_Karthick_Resume_Barclays.pdf" target="_blank" class="resume-menu-item opt-dev" role="menuitem">
+              <div class="resume-item-main">
+                <div class="resume-badge-row">
+                  <span class="role-chip chip-dev">Developer</span>
+                  <span class="ext-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </div>
+                <p class="resume-sub">Full-Stack, JavaScript, Python &amp; Web Apps</p>
+              </div>
+            </a>
+
+            <!-- Option 2: Data Analyst -->
+            <a href="assets/resumes/arun%20data%20analyst%20resume.pdf" target="_blank" class="resume-menu-item opt-ana" role="menuitem">
+              <div class="resume-item-main">
+                <div class="resume-badge-row">
+                  <span class="role-chip chip-ana">Data Analyst</span>
+                  <span class="ext-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </div>
+                <p class="resume-sub">SQL, Power BI, Python &amp; ML Insights</p>
+              </div>
+            </a>
+
+            <!-- Option 3: Data Engineer -->
+            <a href="assets/resumes/arun%20data%20engineer%20resume.pdf" target="_blank" class="resume-menu-item opt-eng" role="menuitem">
+              <div class="resume-item-main">
+                <div class="resume-badge-row">
+                  <span class="role-chip chip-eng">Data Engineer</span>
+                  <span class="ext-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </span>
+                </div>
+                <p class="resume-sub">ETL Pipelines, Big Data, SQL &amp; Cloud Infra</p>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="hero-stats">
         <div class="stat"><span class="stat-n">9+</span><span class="stat-l">Projects</span></div>
@@ -629,14 +686,6 @@
 
     <!-- CONTACT -->
     <section id="contact" class="section reveal contact-section">
-      <!-- Floating Satellite Telemetry Probe in Background -->
-      <div class="contact-satellite-bg" aria-hidden="true">
-        <picture>
-          <source srcset="assets/contact_satellite.webp?v=22.0" type="image/webp">
-          <img src="assets/contact_satellite.png?v=22.0" alt="" class="contact-satellite-img" draggable="false"
-            loading="lazy">
-        </picture>
-      </div>
 
       <div class="sec-label">07 · Contact</div>
       <h2 class="sec-title">Let's Connect</h2>
@@ -705,7 +754,7 @@
       </div>
     </footer>
 
-    <script src="script.js?v=24.0"></script>
+    <script src="script.js?v=26.0"></script>
 </body>
 
 </html>
