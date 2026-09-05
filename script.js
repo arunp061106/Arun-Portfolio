@@ -162,6 +162,16 @@
 
   /* ── 7. STAR MAP ── */
   const PROJECTS = {
+    sentimentscope: {
+      title: 'Brand Pulse Monitor (SentimentScope) — DND Winning Dashboard',
+      roles: ['developer', 'analyst', 'engineer'],
+      desc:  'Delivered a clarity-first HTML/CSS/JS dashboard analysing 732 social media posts across Twitter, Instagram, and Facebook covering 10+ countries — winning 1st Place at DND Data Arena 24-Hour Sprint. Built with in-browser CSV parsing (PapaParse), 8 interactive Chart.js 4.4.1 visualisations, and a live Auto Story Headline feature that auto-narrates the full data story dynamically on every filter change — zero backend, zero frameworks, zero installation required.',
+      tech:  ['HTML5', 'CSS3', 'Vanilla JS', 'Chart.js 4.4.1', 'PapaParse', 'GitHub Pages'],
+      links: [
+        { l: 'Live Interactive Demo', u: 'https://arunp061106.github.io/Sentiment-Scope/', t: 'p' },
+        { l: 'GitHub Repository', u: 'https://github.com/arunp061106/Sentiment-Scope', t: 's' }
+      ]
+    },
     synapse: {
       title: 'SYNAPSE — Synthetic Data Intelligence Platform',
       roles: ['developer', 'engineer'],

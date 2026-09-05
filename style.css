@@ -1376,7 +1376,166 @@ body::before {
   color: var(--green);
 }
 
-/* â”€â”€ PROJECTS STAR MAP â”€â”€ */
+/* ── PROJECTS STAR MAP & FEATURED ── */
+.proj-featured {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2.2rem 2.6rem;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: linear-gradient(135deg, rgba(12, 22, 45, 0.75), rgba(18, 32, 62, 0.45));
+  box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.proj-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--green));
+}
+
+.pf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--fb);
+  font-size: 0.82rem;
+  line-height: 1;
+  color: var(--t2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1.35rem;
+  box-shadow: none;
+}
+
+.pf-trophy {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.pf-badge-strong {
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.pf-badge-sep {
+  color: var(--t3);
+  font-size: 0.8rem;
+}
+
+.pf-badge-sub {
+  font-weight: 400;
+  color: var(--t2);
+}
+
+.pf-body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.pf-roles-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.pf-title {
+  font-family: var(--fh);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.pf-desc {
+  font-size: 0.92rem;
+  color: var(--t2);
+  line-height: 1.72;
+  margin-bottom: 1.15rem;
+}
+
+.pf-tech-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.4rem;
+}
+
+.pf-actions {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.3rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.pf-stats-badges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.6rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border);
+  padding: 1.5rem 1.8rem;
+  border-radius: 16px;
+  min-width: 260px;
+}
+
+.pf-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pf-stat-num {
+  font-family: var(--fb);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--t1);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.pf-stat-lbl {
+  font-family: var(--fb);
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--t2);
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+@media (max-width: 880px) {
+  .proj-featured {
+    padding: 1.6rem 1.3rem;
+  }
+  .pf-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .pf-stats-badges {
+    min-width: 100%;
+  }
+}
+
 .role-filter {
   display: flex;
   gap: .55rem;
@@ -1527,6 +1686,51 @@ body::before {
   fill: var(--green);
   stroke: var(--green);
 }
+
+/* ── STAR NODE WINNER: SENTIMENTSCOPE ── */
+.star-node.star-winner .s-glow {
+  fill: rgba(56, 189, 248, 0.25);
+  opacity: 0.55;
+}
+
+.star-node.star-winner .s-body {
+  fill: rgba(56, 189, 248, 0.65);
+  stroke: var(--cyan);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8));
+}
+
+.star-node.star-winner .s-name {
+  fill: var(--t1);
+  font-weight: 600;
+}
+
+.star-node.star-winner .s-sub {
+  fill: var(--cyan);
+  font-weight: 500;
+}
+
+.star-node.star-winner:hover .s-glow,
+.star-node.star-winner:focus .s-glow,
+.star-node.star-winner.sel .s-glow {
+  opacity: 0.95;
+  fill: rgba(56, 189, 248, 0.4);
+}
+
+.star-node.star-winner:hover .s-body,
+.star-node.star-winner:focus .s-body,
+.star-node.star-winner.sel .s-body {
+  fill: var(--cyan);
+  stroke: #FFFFFF;
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 1));
+}
+
+.star-node.star-winner:hover .s-name,
+.star-node.star-winner:focus .s-name,
+.star-node.star-winner.sel .s-name {
+  fill: var(--cyan);
+}
+
 
 .proj-panel {
   position: absolute;
