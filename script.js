@@ -1,11 +1,12 @@
 (function () {
   'use strict';
-  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Animations active by default so typewriter, cursor, and scroll reveals run smoothly
+  const noMotion = false;
 
   /* ── 1. CUSTOM CURSOR ── */
   const dot  = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
-  if (dot && ring && !noMotion) {
+  if (dot && ring) {
     let mx = -100, my = -100, rx = -100, ry = -100;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
     document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
@@ -18,10 +19,8 @@
 
     let rafCursor;
     function moveCursor() {
-      // dot follows exactly
       dot.style.left = mx + 'px';
       dot.style.top  = my + 'px';
-      // ring lerps behind
       rx += (mx - rx) * 0.12;
       ry += (my - ry) * 0.12;
       ring.style.left = rx + 'px';
@@ -31,99 +30,237 @@
     moveCursor();
   }
 
-  /* ── 2. STARFIELD ── */
+  /* ── 2. IMMERSIVE SPACE WARP STARFIELD ── */
   const canvas = document.getElementById('starfield');
   if (canvas) {
     const ctx = canvas.getContext('2d');
-    let W, H, stars = [], raf;
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    function makeStars() {
-      const n = Math.min(Math.floor(W * H / 8500), 240);
-      stars = Array.from({ length: n }, () => ({
-        x: Math.random() * W, y: Math.random() * H,
-        r: Math.random() * 1.35 + 0.25,
-        a: Math.random() * 0.55 + 0.12,
-        sp: Math.random() * 0.014 + 0.004,
-        ph: Math.random() * Math.PI * 2,
-        dr: (Math.random() - 0.5) * 0.04
-      }));
+    let W = 0, H = 0, cx = 0, cy = 0, stars = [], raf;
+    const CRUISE_SPEED = 0.8;
+    const MAX_SPEED = 8.5;
+    let speed = CRUISE_SPEED;
+    let targetSpeed = CRUISE_SPEED;
+    let lastY = window.scrollY;
+    let scrollTimer = null;
+
+    const PALETTE = [
+      'rgba(255, 255, 255,',   // Pure White
+      'rgba(56, 189, 248,',    // Vibrant Cyan
+      'rgba(168, 85, 247,',    // Cosmic Violet
+      'rgba(192, 132, 252,',   // Radiant Lilac
+      'rgba(147, 197, 253,'    // Soft Ice Blue
+    ];
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      cx = W * 0.5;
+      cy = H * 0.5;
     }
-    function draw(t) {
+
+    function resetStar(s, randomZ) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.pow(Math.random(), 1.3) * (Math.max(W, H) * 0.95) + 16;
+      s.x = Math.cos(angle) * dist;
+      s.y = Math.sin(angle) * dist;
+      s.z = randomZ ? Math.random() * 1000 + 1 : 1000;
+      s.pz = s.z;
+      s.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+      s.size = Math.random() * 1.5 + 0.8;
+      s.twinkle = Math.random() * Math.PI * 2;
+    }
+
+    function makeStars() {
+      const n = Math.min(Math.floor((W * H) / 3800), 380);
+      stars = [];
+      for (let i = 0; i < n; i++) {
+        const s = {};
+        resetStar(s, true);
+        stars.push(s);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      const sy = window.scrollY;
+      const delta = Math.abs(sy - lastY);
+      lastY = sy;
+      targetSpeed = Math.min(CRUISE_SPEED + delta * 0.22, MAX_SPEED);
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        targetSpeed = CRUISE_SPEED;
+      }, 180);
+    }, { passive: true });
+
+    function draw() {
       ctx.clearRect(0, 0, W, H);
-      stars.forEach(s => {
-        const a = noMotion ? s.a : s.a * (0.7 + 0.3 * Math.sin(t * s.sp + s.ph));
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(195,215,255,${a})`; ctx.fill();
-        if (!noMotion) {
-          s.x += s.dr * 0.04;
-          if (s.x < -2) s.x = W + 2;
-          if (s.x > W + 2) s.x = -2;
+      speed += (targetSpeed - speed) * 0.12;
+
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.pz = s.z;
+        s.z -= speed;
+
+        if (s.z <= 0) {
+          resetStar(s, false);
+          continue;
         }
-      });
+
+        const k = 270 / s.z;
+        const sx = cx + s.x * k;
+        const sy = cy + s.y * k;
+
+        if (sx < -40 || sx > W + 40 || sy < -40 || sy > H + 40) {
+          resetStar(s, false);
+          continue;
+        }
+
+        const alpha = Math.min(0.88, (1 - s.z / 1000) * 1.05);
+
+        // Hyperdrive / warp streaks when scrolling fast
+        if (speed > 1.3) {
+          const pk = 270 / Math.max(s.pz, 1);
+          const px = cx + s.x * pk;
+          const py = cy + s.y * pk;
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(sx, sy);
+          ctx.lineWidth = Math.min(s.size * 1.2, 2.8);
+          ctx.strokeStyle = `${s.color} ${alpha})`;
+          ctx.stroke();
+        } else {
+          // Subtle twinkle when cruising
+          s.twinkle += 0.05;
+          const r = s.size * (1 + 0.15 * Math.sin(s.twinkle));
+          ctx.fillStyle = `${s.color} ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
       raf = requestAnimationFrame(draw);
     }
+
     function init() {
-      resize(); makeStars(); cancelAnimationFrame(raf);
-      if (noMotion) { draw(0); cancelAnimationFrame(raf); }
-      else raf = requestAnimationFrame(draw);
+      resize();
+      makeStars();
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(draw);
     }
+
     let rTimer;
-    window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer = setTimeout(init, 250); });
+    window.addEventListener('resize', () => {
+      clearTimeout(rTimer);
+      rTimer = setTimeout(init, 200);
+    });
+
     init();
   }
 
-  /* ── 3. PARALLAX ON SCROLL ── */
-  if (!noMotion) {
-    const parallaxEls = document.querySelectorAll('[data-parallax]');
-    function onScroll() {
-      const sy = window.scrollY;
-      parallaxEls.forEach(el => {
-        const factor = parseFloat(el.dataset.parallax) || 0.05;
-        el.style.transform = `translateY(${sy * factor}px)`;
-      });
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
+  /* ── 3. STATIC IMAGES & STABLE LAYOUT (NO SCROLL PARALLAX JITTER) ── */
+  // All images and elements stay firmly stationary without any scroll jitter
 
-  /* ── 4. TYPEWRITER ── */
+  /* ── 4. DYNAMIC HERO ROLE CYCLER & TYPEWRITER ── */
   const roleEl = document.getElementById('typed-role');
+  const roleLine = document.querySelector('.hero-role-line');
   if (roleEl) {
-    roleEl.style.color = '#C084FC';
-    roleEl.style.textShadow = '0 0 18px rgba(192, 132, 252, 0.55)';
-    const roles = ['Developer', 'Data Analyst', 'Data Engineer'];
-    let ri = 0, ci = 0, del = false, paused = false;
-    if (noMotion) { roleEl.textContent = roles[0]; }
-    else {
-      function tick() {
-        if (paused) return;
-        const role = roles[ri];
-        if (!del) {
-          roleEl.textContent = role.slice(0, ci + 1); ci++;
-          if (ci === role.length) { paused = true; setTimeout(() => { paused = false; del = true; tick(); }, 2200); return; }
-          setTimeout(tick, 85);
-        } else {
-          roleEl.textContent = role.slice(0, ci - 1); ci--;
-          if (ci === 0) {
-            del = false; ri = (ri + 1) % roles.length;
-            paused = true; setTimeout(() => { paused = false; tick(); }, 320); return;
-          }
-          setTimeout(tick, 45);
-        }
-      }
-      setTimeout(tick, 900);
+    const roles = [
+      { text: 'Data Analyst', color: '#C084FC', glow: 'rgba(192, 132, 252, 0.65)' },
+      { text: 'Data Engineer', color: '#34D399', glow: 'rgba(52, 211, 153, 0.65)' },
+      { text: 'Developer', color: '#38BDF8', glow: 'rgba(56, 189, 248, 0.65)' }
+    ];
+    let ri = 0;
+    let ci = roles[0].text.length;
+    let del = false;
+    let timerId = null;
+
+    function applyRoleStyle(index) {
+      const item = roles[index % roles.length];
+      roleEl.style.color = item.color;
+      roleEl.style.textShadow = `0 0 18px ${item.glow}`;
     }
+
+    // Immediately display full initial text on load (NEVER blank!)
+    roleEl.textContent = roles[0].text;
+    applyRoleStyle(0);
+
+    function tick() {
+      const currentRole = roles[ri];
+      applyRoleStyle(ri);
+
+      if (!del) {
+        ci++;
+        roleEl.textContent = currentRole.text.slice(0, ci);
+        if (ci >= currentRole.text.length) {
+          del = true;
+          timerId = setTimeout(tick, 2400);
+          return;
+        }
+        timerId = setTimeout(tick, 75);
+      } else {
+        ci--;
+        roleEl.textContent = currentRole.text.slice(0, Math.max(ci, 0));
+        if (ci <= 0) {
+          del = false;
+          ri = (ri + 1) % roles.length;
+          applyRoleStyle(ri);
+          timerId = setTimeout(tick, 350);
+          return;
+        }
+        timerId = setTimeout(tick, 45);
+      }
+    }
+
+    timerId = setTimeout(() => {
+      del = true;
+      tick();
+    }, 2800);
+
+    function switchTo(idx) {
+      clearTimeout(timerId);
+      del = false;
+      ri = idx % roles.length;
+      ci = roles[ri].text.length;
+      roleEl.textContent = roles[ri].text;
+      applyRoleStyle(ri);
+      timerId = setTimeout(() => {
+        del = true;
+        tick();
+      }, 3000);
+    }
+
+    if (roleLine) {
+      roleLine.style.cursor = 'pointer';
+      roleLine.setAttribute('title', 'Click or hover to switch role');
+      roleLine.addEventListener('click', () => switchTo(ri + 1));
+    }
+
+    document.querySelectorAll('.role-chip, .chip').forEach(chip => {
+      chip.addEventListener('mouseenter', () => {
+        const txt = chip.textContent.trim().toLowerCase();
+        const found = roles.findIndex(r => r.text.toLowerCase() === txt);
+        if (found !== -1) switchTo(found);
+      });
+    });
   }
 
-  /* ── 5. SCROLL REVEAL ── */
+  /* ── 5. SCROLL REVEAL ANIMATIONS ── */
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length) {
-    if (noMotion) { reveals.forEach(el => el.classList.add('in-view')); }
-    else {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); } });
-      }, { threshold: 0.1, rootMargin: '0px 0px -55px 0px' });
-      reveals.forEach(el => obs.observe(el));
-    }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.02, rootMargin: '60px 0px' });
+    reveals.forEach(el => {
+      obs.observe(el);
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in-view');
+      }
+    });
   }
 
   /* ── 6. NAVBAR ── */
@@ -344,6 +481,144 @@
       item.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       item.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+  }
+
+    /* ── 9. PROBLEM SOLVING SCORECARD PANEL (LEETCODE & HACKERRANK) ── */
+  const scorecardPanel = document.getElementById('coding-stats');
+
+  if (scorecardPanel) {
+    // Breakdown row hover / focus interaction: dims other dots in the section to 25%
+    const sections = scorecardPanel.querySelectorAll('.sc-section');
+    sections.forEach(section => {
+      const rows = section.querySelectorAll('.sc-row-item');
+      rows.forEach(row => {
+        const cat = row.getAttribute('data-category');
+        if (!cat) return;
+
+        const activate = () => section.setAttribute('data-active-cat', cat);
+        const deactivate = (e) => {
+          // If focus moved to another row within same section, let that row's focusin handle it
+          if (e && e.type === 'focusout' && e.relatedTarget && e.relatedTarget.closest('.sc-section') === section) {
+            return;
+          }
+          section.removeAttribute('data-active-cat');
+        };
+
+        row.addEventListener('mouseenter', activate);
+        row.addEventListener('mouseleave', deactivate);
+        row.addEventListener('focusin', activate);
+        row.addEventListener('focusout', deactivate);
+      });
+    });
+
+    // Helper to calculate shares that strictly sum to 100.0%
+    function computeShares(counts, total) {
+      if (total <= 0) return counts.map(() => '0.0%');
+      const raw = counts.map(c => (c / total) * 100);
+      const rounded = raw.map(r => Math.round(r * 10) / 10);
+      let diff = Math.round((100 - rounded.reduce((a, b) => a + b, 0)) * 10) / 10;
+      
+      // Adjust largest share if rounding causes tenths discrepancy
+      if (Math.abs(diff) > 0.001) {
+        let maxIdx = 0;
+        for (let i = 1; i < raw.length; i++) {
+          if (raw[i] > raw[maxIdx]) maxIdx = i;
+        }
+        rounded[maxIdx] = Math.round((rounded[maxIdx] + diff) * 10) / 10;
+      }
+      return rounded.map(r => `${r.toFixed(1)}%`);
+    }
+
+    // In-memory cache to guarantee single-fetch on mount & no polling
+    let cachedLeetCodeStats = null;
+
+    function renderLeetCode(total, easy, med, hard) {
+      const elTotal = document.getElementById('lc-total-num');
+      const elEasy = document.getElementById('lc-easy-num');
+      const elMed = document.getElementById('lc-med-num');
+      const elHard = document.getElementById('lc-hard-num');
+      const elEasyShare = document.getElementById('lc-easy-share');
+      const elMedShare = document.getElementById('lc-med-share');
+      const elHardShare = document.getElementById('lc-hard-share');
+      const dotGrid = document.getElementById('lc-dot-grid');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elEasy) elEasy.textContent = easy;
+      if (elMed) elMed.textContent = med;
+      if (elHard) elHard.textContent = hard;
+
+      const shares = computeShares([easy, med, hard], total);
+      if (elEasyShare) elEasyShare.textContent = shares[0];
+      if (elMedShare) elMedShare.textContent = shares[1];
+      if (elHardShare) elHardShare.textContent = shares[2];
+
+      // Update dot grid accessibility label
+      if (dotGrid) {
+        dotGrid.setAttribute('aria-label', `LeetCode solved problems: ${easy} easy, ${med} medium, ${hard} hard`);
+
+        // If counts differ from current dot count, rebuild dots to match exact total
+        const currentDots = dotGrid.querySelectorAll('.sc-dot');
+        if (currentDots.length !== total) {
+          const dots = [];
+          const step = Math.min(500 / Math.max(total, 1), 25);
+          let idx = 0;
+          for (let i = 0; i < easy; i++, idx++) {
+            dots.push(`<span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
+          }
+          for (let i = 0; i < med; i++, idx++) {
+            dots.push(`<span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
+          }
+          for (let i = 0; i < hard; i++, idx++) {
+            dots.push(`<span class="sc-dot dot-hard" data-category="hard" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
+          }
+          dotGrid.innerHTML = dots.join('');
+        }
+      }
+    }
+
+    async function syncLeetCodeStats() {
+      if (cachedLeetCodeStats) {
+        return; // Already cached, never re-fetch
+      }
+
+      const elFallback = document.getElementById('analytics-fallback-note');
+      const elDate = document.getElementById('lc-fetch-date');
+
+      if (elDate) {
+        elDate.textContent = new Date().toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+      }
+
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 4000);
+        const res = await fetch('https://alfa-leetcode-api.onrender.com/f5oMCKlfVr/solved', {
+          signal: controller.signal
+        });
+        clearTimeout(timer);
+
+        if (!res.ok) throw new Error('API response not ok: ' + res.status);
+        const data = await res.json();
+        if (data && typeof data.solvedProblem === 'number') {
+          const total = data.solvedProblem;
+          const easy = typeof data.easySolved === 'number' ? data.easySolved : 11;
+          const med = typeof data.mediumSolved === 'number' ? data.mediumSolved : 6;
+          const hard = typeof data.hardSolved === 'number' ? data.hardSolved : 1;
+
+          cachedLeetCodeStats = { total, easy, med, hard };
+          renderLeetCode(total, easy, med, hard);
+          if (elFallback) elFallback.hidden = true;
+        }
+      } catch (err) {
+        // API failed or offline: show cached values indicator
+        if (elFallback) elFallback.hidden = false;
+      }
+    }
+
+    syncLeetCodeStats();
   }
 
 })();
