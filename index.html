@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=35.0">
+  <link rel="stylesheet" href="style.css?v=36.0">
 </head>
 
 <body>
@@ -23,32 +23,78 @@
 
   <canvas id="starfield" aria-hidden="true"></canvas>
 
-  <!-- NAV -->
+  <!-- FLOATING CAPSULE NAVBAR (SIDDHARTH-INSPIRED) -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
+      <!-- Left: Avatar & Name -->
+      <a href="#hero" class="nav-brand" aria-label="Arun Karthick P Home">
+        <div class="nav-avatar-wrap">
+          <img src="assets/nav_avatar.jpg" alt="Avatar" class="nav-avatar-img">
+        </div>
+        <span class="nav-brand-name">Arun Karthick P</span>
+      </a>
+
+      <!-- Center: Navigation Links -->
       <ul class="nav-links" id="nav-links">
         <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#activity" class="nav-link">Problem Solving</a></li>
+        <li><a href="#skills" class="nav-link">Stack</a></li>
         <li><a href="#experience" class="nav-link">Experience</a></li>
         <li><a href="#education" class="nav-link">Education</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#certifications" class="nav-link">Certifications</a></li>
+        <li><a href="#projects" class="nav-link">Work</a></li>
+        <li><a href="#certifications" class="nav-link">Credentials</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+
+      <!-- Right: Resume Pill Button & Dropdown -->
+      <div class="nav-right-group">
+        <div class="nav-resume-wrapper" id="navResumeWrapper">
+          <button type="button" class="nav-resume-btn" id="navResumeBtn" aria-haspopup="true" aria-expanded="false" aria-controls="navResumeMenu">
+            <span>Resume</span>
+            <svg class="resume-down-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </button>
+          <div class="nav-resume-menu" id="navResumeMenu" role="menu" aria-labelledby="navResumeBtn">
+            <div class="nav-resume-menu-header">Select Specialization</div>
+            <a href="assets/resumes/arun%20data%20analyst%20resume.pdf" target="_blank" class="nav-resume-item" role="menuitem">
+              <div class="nav-resume-item-main">
+                <span class="nav-resume-role">Data Analyst <span class="nav-role-badge">Primary</span></span>
+                <span class="nav-resume-sub">SQL, Power BI, Python &amp; ML</span>
+              </div>
+            </a>
+            <a href="assets/resumes/Arun_Karthick_Resume_Barclays.pdf" target="_blank" class="nav-resume-item" role="menuitem">
+              <div class="nav-resume-item-main">
+                <span class="nav-resume-role">Developer</span>
+                <span class="nav-resume-sub">Full-Stack, JavaScript, Python &amp; Web Apps</span>
+              </div>
+            </a>
+            <a href="assets/resumes/arun%20data%20engineer%20resume.pdf" target="_blank" class="nav-resume-item" role="menuitem">
+              <div class="nav-resume-item-main">
+                <span class="nav-resume-role">Data Engineer</span>
+                <span class="nav-resume-sub">ETL, Microsoft Fabric &amp; Cloud</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <ul>
       <li><a href="#about" class="mob-link">About</a></li>
-      <li><a href="#skills" class="mob-link">Skills</a></li>
+      <li><a href="#activity" class="mob-link">Problem Solving</a></li>
+      <li><a href="#skills" class="mob-link">Stack</a></li>
       <li><a href="#experience" class="mob-link">Experience</a></li>
       <li><a href="#education" class="mob-link">Education</a></li>
-      <li><a href="#projects" class="mob-link">Projects</a></li>
-      <li><a href="#certifications" class="mob-link">Certifications</a></li>
+      <li><a href="#projects" class="mob-link">Work</a></li>
+      <li><a href="#certifications" class="mob-link">Credentials</a></li>
       <li><a href="#contact" class="mob-link">Contact</a></li>
     </ul>
   </div>
@@ -172,10 +218,10 @@
     </div>
 
     <div class="sec-label">01 · About</div>
-    <h2 class="sec-title">Who I Am</h2>
+    <h2 class="sec-title">Data Analyst, Pipeline Builder, Problem Solver.</h2>
 
     <div class="about-card glass">
-      <p class="about-lead">Technical Manager of Data Forge, the data science club at SRMIST Trichy. I build data tools that real people use, including a work-tracking web app for NGO staff.</p>
+      <p class="about-lead">Technical Manager of Data Forge, the data science club at SRMIST Trichy. Dedicated to architecting clean data pipelines, scalable ETL workflows, and high-impact analytics systems that turn complex datasets into strategic decisions.</p>
       <p class="about-body">I specialize in SQL, Python, Power BI, and Streamlit. Comfortable with large structured
         datasets, relational databases, and interactive visualization tools. Currently pursuing B.Tech CSE at SRM
         Institute of Science and Technology, Tiruchirapalli (CGPA 8.56).</p>
@@ -216,214 +262,411 @@
         </a>
       </div>
     </div>
+  </section>
 
-    <!-- PROBLEM SOLVING SCORECARD PANEL -->
-    <div class="ps-scorecard-panel" id="coding-stats">
-      <div class="sc-header">
-        <div class="sc-eyebrow">PROBLEM SOLVING</div>
-        <p class="sc-subtitle">Two platforms, tracked separately.</p>
-      </div>
-
-      <!-- LEETCODE SECTION -->
-      <section class="sc-section sc-section-leetcode" aria-labelledby="sc-lc-title">
-        <div class="sc-grid">
-          <!-- Column 1: Identity -->
-          <div class="sc-col-identity">
-            <h3 class="sc-platform-name" id="sc-lc-title">LeetCode</h3>
-            <a href="https://leetcode.com/u/f5oMCKlfVr/" target="_blank" rel="noopener noreferrer" class="sc-profile-link" title="Open LeetCode profile">
-              arunp061106
-            </a>
-            <div class="sc-metric-group">
-              <span class="sc-big-num" id="lc-total-num">18</span>
-              <span class="sc-metric-label">SOLVED</span>
-            </div>
-          </div>
-
-          <!-- Column 2: Dot Grid (10 columns, 14px circles, 4px gap) -->
-          <div class="sc-col-dots">
-            <div class="sc-dot-grid" id="lc-dot-grid" role="img" aria-label="LeetCode solved problems: 11 easy, 6 medium, 1 hard">
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 0ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 12ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 24ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 36ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 48ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 60ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 72ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 84ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 96ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 108ms;"></span>
-              <span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: 120ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 132ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 144ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 156ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 168ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 180ms;"></span>
-              <span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: 192ms;"></span>
-              <span class="sc-dot dot-hard" data-category="hard" aria-hidden="true" style="animation-delay: 204ms;"></span>
-            </div>
-          </div>
-
-          <!-- Column 3: Breakdown Table -->
-          <div class="sc-col-breakdown">
-            <div class="sc-table" role="table" aria-label="LeetCode breakdown">
-              <div class="sc-row sc-row-header" role="row">
-                <span class="sc-cell sc-cell-swatch" aria-hidden="true"></span>
-                <span class="sc-cell sc-cell-label" role="columnheader">CATEGORY</span>
-                <span class="sc-cell sc-cell-count" role="columnheader">COUNT</span>
-                <span class="sc-cell sc-cell-share" role="columnheader">SHARE</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="easy" id="row-lc-easy">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-easy" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">Easy</span>
-                <span class="sc-cell sc-cell-count" id="lc-easy-num">11</span>
-                <span class="sc-cell sc-cell-share" id="lc-easy-share">61.1%</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="med" id="row-lc-med">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-med" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">Medium</span>
-                <span class="sc-cell sc-cell-count" id="lc-med-num">6</span>
-                <span class="sc-cell sc-cell-share" id="lc-med-share">33.3%</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="hard" id="row-lc-hard">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-hard" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">Hard</span>
-                <span class="sc-cell sc-cell-count" id="lc-hard-num">1</span>
-                <span class="sc-cell sc-cell-share" id="lc-hard-share">5.6%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 1px divider with 32px spacing -->
-      <div class="sc-divider" role="separator" aria-hidden="true"></div>
-
-      <!-- HACKERRANK SECTION -->
-      <section class="sc-section sc-section-hackerrank" aria-labelledby="sc-hr-title">
-        <div class="sc-grid">
-          <!-- Column 1: Identity -->
-          <div class="sc-col-identity">
-            <h3 class="sc-platform-name" id="sc-hr-title">HackerRank</h3>
-            <a href="https://www.hackerrank.com/profile/arunp061106" target="_blank" rel="noopener noreferrer" class="sc-profile-link" title="Open HackerRank profile">
-              arunp061106
-            </a>
-            <div class="sc-metric-group">
-              <span class="sc-big-num" id="hr-total-num">62</span>
-              <span class="sc-metric-label">SOLVED</span>
-            </div>
-          </div>
-
-          <!-- Column 2: Dot Grid (10 columns, 14px circles, 4px gap) -->
-          <div class="sc-col-dots">
-            <div class="sc-dot-grid" id="hr-dot-grid" role="img" aria-label="HackerRank solved problems: 58 SQL, 2 problem solving, 2 python">
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 0ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 7ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 14ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 21ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 28ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 35ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 42ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 49ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 56ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 63ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 70ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 77ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 84ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 91ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 98ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 105ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 112ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 119ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 126ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 133ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 140ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 147ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 154ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 161ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 168ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 175ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 182ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 189ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 196ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 203ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 210ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 217ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 224ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 231ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 238ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 245ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 252ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 259ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 266ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 273ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 280ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 287ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 294ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 301ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 308ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 315ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 322ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 329ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 336ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 343ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 350ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 357ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 364ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 371ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 378ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 385ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 392ms;"></span>
-              <span class="sc-dot dot-sql" data-category="sql" aria-hidden="true" style="animation-delay: 399ms;"></span>
-              <span class="sc-dot dot-ps" data-category="ps" aria-hidden="true" style="animation-delay: 406ms;"></span>
-              <span class="sc-dot dot-ps" data-category="ps" aria-hidden="true" style="animation-delay: 413ms;"></span>
-              <span class="sc-dot dot-python" data-category="python" aria-hidden="true" style="animation-delay: 420ms;"></span>
-              <span class="sc-dot dot-python" data-category="python" aria-hidden="true" style="animation-delay: 427ms;"></span>
-            </div>
-          </div>
-
-          <!-- Column 3: Breakdown Table -->
-          <div class="sc-col-breakdown">
-            <div class="sc-table" role="table" aria-label="HackerRank breakdown">
-              <div class="sc-row sc-row-header" role="row">
-                <span class="sc-cell sc-cell-swatch" aria-hidden="true"></span>
-                <span class="sc-cell sc-cell-label" role="columnheader">CATEGORY</span>
-                <span class="sc-cell sc-cell-count" role="columnheader">COUNT</span>
-                <span class="sc-cell sc-cell-share" role="columnheader">SHARE</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="sql" id="row-hr-sql">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-sql" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">SQL</span>
-                <span class="sc-cell sc-cell-count" id="hr-sql-num">58</span>
-                <span class="sc-cell sc-cell-share" id="hr-sql-share">93.6%</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="ps" id="row-hr-ps">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-ps" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">Problem Solving</span>
-                <span class="sc-cell sc-cell-count" id="hr-ps-num">2</span>
-                <span class="sc-cell sc-cell-share" id="hr-ps-share">3.2%</span>
-              </div>
-              <div class="sc-row sc-row-item" role="row" tabindex="0" data-category="python" id="row-hr-python">
-                <span class="sc-cell sc-cell-swatch"><span class="sc-swatch dot-python" aria-hidden="true"></span></span>
-                <span class="sc-cell sc-cell-label" role="rowheader">Python</span>
-                <span class="sc-cell sc-cell-count" id="hr-python-num">2</span>
-                <span class="sc-cell sc-cell-share" id="hr-python-share">3.2%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <div class="sc-footer">
-        <span class="sc-source-note">Source: LeetCode public API, fetched <span id="lc-fetch-date">October 11, 2026</span>. HackerRank values entered manually.<span class="sc-cache-note" id="analytics-fallback-note" hidden> (showing cached values)</span></span>
-      </div>
+  <!-- CODING & PROBLEM SOLVING SECTION (MISSION CONTROL) -->
+  <section id="activity" class="section reveal activity-section" aria-label="Mission Control">
+    <div class="activity-header">
+      <div class="sec-label">02 · Mission Control</div>
+      <h2 class="sec-title">Coding Progress.</h2>
+      <p class="sec-sub">Tracking what I'm solving, building, and shipping.</p>
     </div>
-    </section>
+
+    <div class="activity-dashboard">
+      <!-- TOP ROW: LEETCODE & HACKERRANK (Equal Width, 2-Column Desktop Grid) -->
+      <div class="coding-cards-grid">
+
+        <!-- LEETCODE CARD -->
+        <article class="coding-card lc-card" id="lc-card" aria-label="LeetCode statistics">
+          <div class="coding-card-header">
+            <div class="platform-meta">
+              <div class="platform-icon lc-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+                </svg>
+              </div>
+              <div class="platform-text">
+                <h3 class="platform-name">LeetCode</h3>
+                <span class="platform-sub">Problem Solving Progress</span>
+              </div>
+            </div>
+            <div class="platform-metric-bars lc-bars" aria-hidden="true" title="Activity indicator">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="10" width="3" height="10" rx="1.5" />
+                <rect x="10.5" y="4" width="3" height="16" rx="1.5" />
+                <rect x="18" y="7" width="3" height="13" rx="1.5" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="coding-card-body">
+            <!-- Left Column: Circular Progress Gauge -->
+            <div class="card-visual-col">
+              <div class="progress-ring-wrap">
+                <svg class="progress-ring-svg" viewBox="0 0 180 180" width="180" height="180" role="img" aria-label="LeetCode solved progress ring">
+                  <defs>
+                    <linearGradient id="lc-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ffa116" />
+                      <stop offset="100%" stop-color="#ffc01e" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="ring-track" cx="90" cy="90" r="74" stroke-width="11" fill="none" />
+                  <circle class="ring-progress lc-ring" id="lc-ring-fill" cx="90" cy="90" r="74" stroke-width="11" stroke="url(#lc-ring-grad)" fill="none" />
+                </svg>
+                <div class="ring-center-content">
+                  <span class="ring-number" id="lc-solved-num">18</span>
+                  <span class="ring-label">SOLVED</span>
+                  <span class="ring-denom">/ <span id="lc-total-problems">4082</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Vertical Progression Rows -->
+            <div class="card-breakdown-col">
+              <!-- Easy Row -->
+              <div class="breakdown-row" data-diff="easy">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-easy"></span>
+                    <span class="breakdown-name">Easy</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="lc-easy-solved">11</strong> / <span id="lc-easy-total">971</span></span>
+                    <span class="breakdown-pct" id="lc-easy-pct">1.1%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-easy" id="lc-easy-bar" style="width: 25%;"></div>
+                </div>
+              </div>
+
+              <!-- Medium Row -->
+              <div class="breakdown-row" data-diff="medium">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-med"></span>
+                    <span class="breakdown-name">Medium</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="lc-med-solved">6</strong> / <span id="lc-med-total">2128</span></span>
+                    <span class="breakdown-pct" id="lc-med-pct">0.3%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-med" id="lc-med-bar" style="width: 14%;"></div>
+                </div>
+              </div>
+
+              <!-- Hard Row -->
+              <div class="breakdown-row" data-diff="hard">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-hard"></span>
+                    <span class="breakdown-name">Hard</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="lc-hard-solved">1</strong> / <span id="lc-hard-total">983</span></span>
+                    <span class="breakdown-pct" id="lc-hard-pct">0.1%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-hard" id="lc-hard-bar" style="width: 6%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- HACKERRANK CARD -->
+        <article class="coding-card hr-card" id="hr-card" aria-label="HackerRank statistics">
+          <div class="coding-card-header">
+            <div class="platform-meta">
+              <div class="platform-icon hr-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 10.885 0 12-.645 1.115-9.107 6-10.392 6-1.284 0-9.75-4.885-10.39-6C.96 16.884.96 7.116 1.61 6 2.253 4.886 10.715 0 12 0zm2.295 6.799c-.141 0-.258.115-.258.258v3.875H9.963V6.799c0-.141-.115-.258-.258-.258h-2.29c-.141 0-.258.116-.258.258v10.203c0 .141.115.258.258.258h2.29c.141 0 .258-.115.258-.258V13.65h4.074v3.352c0 .141.115.258.258.258h2.296c.141 0 .257-.115.257-.258V6.799c0-.141-.114-.258-.257-.258z" />
+                </svg>
+              </div>
+              <div class="platform-text">
+                <h3 class="platform-name">HackerRank</h3>
+                <span class="platform-sub">Coding Progress</span>
+              </div>
+            </div>
+            <div class="platform-metric-bars hr-bars" aria-hidden="true" title="Activity indicator">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="10" width="3" height="10" rx="1.5" />
+                <rect x="10.5" y="4" width="3" height="16" rx="1.5" />
+                <rect x="18" y="7" width="3" height="13" rx="1.5" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="coding-card-body">
+            <!-- Left Column: Circular Progress Gauge -->
+            <div class="card-visual-col">
+              <div class="progress-ring-wrap">
+                <svg class="progress-ring-svg" viewBox="0 0 180 180" width="180" height="180" role="img" aria-label="HackerRank solved progress ring">
+                  <defs>
+                    <linearGradient id="hr-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#00e676" />
+                      <stop offset="100%" stop-color="#00b0ff" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="ring-track" cx="90" cy="90" r="74" stroke-width="11" fill="none" />
+                  <circle class="ring-progress hr-ring" id="hr-ring-fill" cx="90" cy="90" r="74" stroke-width="11" stroke="url(#hr-ring-grad)" fill="none" />
+                </svg>
+                <div class="ring-center-content">
+                  <span class="ring-number" id="hr-total-num">62</span>
+                  <span class="ring-label">SOLVED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Vertical Progression Rows -->
+            <div class="card-breakdown-col">
+              <!-- SQL Row -->
+              <div class="breakdown-row" data-skill="sql">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-sql"></span>
+                    <span class="breakdown-name">SQL</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="hr-sql-num">58</strong> / <span id="hr-sql-total">58</span></span>
+                    <span class="breakdown-pct" id="hr-sql-pct">100%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-sql" id="hr-sql-bar" style="width: 100%;"></div>
+                </div>
+              </div>
+
+              <!-- Problem Solving Row -->
+              <div class="breakdown-row" data-skill="ps">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-ps"></span>
+                    <span class="breakdown-name">Problem Solving</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="hr-ps-num">2</strong> / <span id="hr-ps-total">563</span></span>
+                    <span class="breakdown-pct" id="hr-ps-pct">0.4%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-ps" id="hr-ps-bar" style="width: 12%;"></div>
+                </div>
+              </div>
+
+              <!-- Python Row -->
+              <div class="breakdown-row" data-skill="python">
+                <div class="breakdown-header">
+                  <div class="breakdown-title">
+                    <span class="status-dot dot-py"></span>
+                    <span class="breakdown-name">Python</span>
+                  </div>
+                  <div class="breakdown-stats">
+                    <span class="breakdown-counts"><strong id="hr-python-num">2</strong> / <span id="hr-py-total">115</span></span>
+                    <span class="breakdown-pct" id="hr-python-pct">1.7%</span>
+                  </div>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill bar-py" id="hr-python-bar" style="width: 15%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- MAIN LOWER PANEL: GITHUB ACTIVITY -->
+      <section class="github-panel" id="github-panel" aria-label="GitHub activity and starred repositories">
+        <!-- GitHub Header: Title, subtitle, and compact metrics -->
+        <div class="gh-panel-header">
+          <div class="gh-title-group">
+            <div class="gh-icon-box" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="gh-title">GitHub Activity</h3>
+              <p class="gh-subtitle">Consistent building. Continuous learning.</p>
+            </div>
+          </div>
+
+          <div class="gh-metrics-row">
+            <div class="gh-metric-item">
+              <span class="gh-metric-label">COMMITS</span>
+              <span class="gh-metric-val" id="gh-summary-commits">142</span>
+            </div>
+            <div class="gh-metric-item">
+              <span class="gh-metric-label">REPOSITORIES</span>
+              <span class="gh-metric-val" id="gh-summary-repos">24</span>
+            </div>
+            <div class="gh-metric-item">
+              <span class="gh-metric-label">ACTIVE DAYS</span>
+              <span class="gh-metric-val" id="gh-summary-days">84</span>
+            </div>
+            <div class="gh-contrib-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span><strong id="gh-total-contribs">226</strong> contributions in the <span id="gh-period-label">last year</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contribution Heatmap Calendar -->
+        <div class="gh-heatmap-wrap">
+          <div class="gh-heatmap-header">
+            <span class="gh-heatmap-title">Contribution Heatmap</span>
+            <div class="gh-year-tabs" role="tablist" aria-label="Contribution year selection">
+              <button type="button" class="gh-year-tab active" data-year="last" id="gh-btn-year-last">2026</button>
+              <button type="button" class="gh-year-tab" data-year="2025" id="gh-btn-year-2025">2025</button>
+            </div>
+          </div>
+
+          <div class="gh-graph-box">
+            <div class="gh-graph-scroll" id="gh-graph-scroll">
+              <div class="gh-graph-inner" id="gh-graph-inner">
+                <!-- Month labels row -->
+                <div class="gh-months-row" id="gh-months-row" aria-hidden="true">
+                  <span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+                </div>
+                <!-- Heatmap grid with weekday labels -->
+                <div class="gh-calendar-body">
+                  <div class="gh-weekdays-col" aria-hidden="true">
+                    <span></span>
+                    <span>Mon</span>
+                    <span></span>
+                    <span>Wed</span>
+                    <span></span>
+                    <span>Fri</span>
+                    <span></span>
+                  </div>
+                  <div class="gh-heatmap-matrix" id="gh-heatmap-matrix" role="grid" aria-label="GitHub contribution calendar heatmap">
+                    <!-- Populated dynamically via script with instant fallback -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Heatmap footer with Less -> More legend -->
+            <div class="gh-graph-footer">
+              <span class="gh-legend-note">Each square represents a day with at least one submission</span>
+              <div class="gh-legend" aria-hidden="true">
+                <span class="gh-legend-text">Less</span>
+                <span class="gh-legend-cell lvl-0" title="0 contributions"></span>
+                <span class="gh-legend-cell lvl-1" title="1-2 contributions"></span>
+                <span class="gh-legend-cell lvl-2" title="3-5 contributions"></span>
+                <span class="gh-legend-cell lvl-3" title="6-8 contributions"></span>
+                <span class="gh-legend-cell lvl-4" title="9+ contributions"></span>
+                <span class="gh-legend-text">More</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Starred Repositories (Curated Starred Projects on GitHub) -->
+        <div class="gh-starred-section" aria-labelledby="gh-starred-heading">
+          <div class="gh-starred-header">
+            <h4 class="gh-starred-heading" id="gh-starred-heading">Starred Repositories</h4>
+            <span class="gh-starred-subtext">Repositories starred by Arun on GitHub</span>
+          </div>
+
+          <div class="gh-starred-grid" id="gh-starred-grid">
+            <!-- 5 genuine starred repositories from GitHub -->
+            <a href="https://github.com/s1ddharth2006/Habit-Tracker" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open Habit-Tracker on GitHub">
+              <div class="gh-star-title-row">
+                <div class="gh-star-title-left">
+                  <span class="gh-star-dot dot-js"></span>
+                  <span class="gh-star-name">Habit-Tracker</span>
+                </div>
+                <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 1</span>
+              </div>
+              <p class="gh-star-desc">Interactive habit tracking application with analytics and daily streaks.</p>
+              <div class="gh-star-meta-row">
+                <span class="gh-star-owner">s1ddharth2006</span>
+                <span class="gh-star-lang">JavaScript</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/s1ddharth2006/MozhiAI-Tamilchatbot" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open MozhiAI-Tamilchatbot on GitHub">
+              <div class="gh-star-title-row">
+                <div class="gh-star-title-left">
+                  <span class="gh-star-dot dot-js"></span>
+                  <span class="gh-star-name">MozhiAI-Tamilchatbot</span>
+                </div>
+                <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 1</span>
+              </div>
+              <p class="gh-star-desc">AI conversational chatbot assistant tailored for Tamil NLP interactions.</p>
+              <div class="gh-star-meta-row">
+                <span class="gh-star-owner">s1ddharth2006</span>
+                <span class="gh-star-lang">JavaScript</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/SaiSakthiMk/srm-trichy-tamil" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open srm-trichy-tamil on GitHub">
+              <div class="gh-star-title-row">
+                <div class="gh-star-title-left">
+                  <span class="gh-star-dot dot-js"></span>
+                  <span class="gh-star-name">srm-trichy-tamil</span>
+                </div>
+                <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 1</span>
+              </div>
+              <p class="gh-star-desc">Community portal and student technical repository for SRM Trichy.</p>
+              <div class="gh-star-meta-row">
+                <span class="gh-star-owner">SaiSakthiMk</span>
+                <span class="gh-star-lang">JavaScript</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/arunp061106/DataforgewebV1" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open DataforgewebV1 on GitHub">
+              <div class="gh-star-title-row">
+                <div class="gh-star-title-left">
+                  <span class="gh-star-dot dot-js"></span>
+                  <span class="gh-star-name">DataforgewebV1</span>
+                </div>
+                <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 1</span>
+              </div>
+              <p class="gh-star-desc">Official landing page of Dataforge - student technical club of SRMIST.</p>
+              <div class="gh-star-meta-row">
+                <span class="gh-star-owner">arunp061106</span>
+                <span class="gh-star-lang">JavaScript</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/s1ddharth2006/Password-manager" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open Password-manager on GitHub">
+              <div class="gh-star-title-row">
+                <div class="gh-star-title-left">
+                  <span class="gh-star-dot dot-py"></span>
+                  <span class="gh-star-name">Password-manager</span>
+                </div>
+                <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 1</span>
+              </div>
+              <p class="gh-star-desc">Secure CLI-based password manager using Python and MongoDB with SHA-256 hashing.</p>
+              <div class="gh-star-meta-row">
+                <span class="gh-star-owner">s1ddharth2006</span>
+                <span class="gh-star-lang">Python</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tooltip Container -->
+      <div id="gh-tooltip" class="gh-tooltip" role="tooltip" aria-hidden="true"></div>
+    </div>
+  </section>
 
   <!-- SKILLS -->
   <section id="skills" class="section reveal">
-    <div class="sec-label">02 · Skills</div>
-    <h2 class="sec-title">Technical Stack</h2>
+    <div class="sec-label">03 · Technical Stack</div>
+    <h2 class="sec-title">Tools I use to move from raw data to product.</h2>
     <div class="skills-grid">
       <div class="skill-group glass">
         <div class="sg-header">
@@ -491,9 +734,9 @@
     </div>
 
     <div class="section-content experience-content">
-      <div class="sec-label">03 · Experience</div>
-      <h2 class="sec-title">Work &amp; Leadership</h2>
-      <p class="sec-sub">Hands-on industry internship and university technical leadership.</p>
+      <div class="sec-label">04 · Experience &amp; Leadership</div>
+      <h2 class="sec-title">Production systems built, clubs led, and impact delivered.</h2>
+      <p class="sec-sub">Hands-on industry internship and technical leadership at Data Forge.</p>
 
       <div class="exp-grid">
         <!-- Right Angle Solutions -->
@@ -595,8 +838,8 @@
 
   <!-- EDUCATION -->
   <section id="education" class="section reveal">
-    <div class="sec-label">04 · Education</div>
-    <h2 class="sec-title">Academic Background</h2>
+    <div class="sec-label">05 · Academic Foundation</div>
+    <h2 class="sec-title">Computer Science &amp; Engineering at SRMIST.</h2>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
@@ -621,8 +864,8 @@
 
   <!-- PROJECTS -->
   <section id="projects" class="section reveal">
-    <div class="sec-label">05 · Projects</div>
-    <h2 class="sec-title">Star Map &amp; Featured Work</h2>
+    <div class="sec-label">06 · Selected Work</div>
+    <h2 class="sec-title">Projects with real datasets, not decorative dummy data.</h2>
     <p class="sec-sub">Award-winning dashboards, full-stack applications, and interactive data systems.</p>
 
     <!-- Featured Hackathon Winner: SentimentScope -->
@@ -847,9 +1090,9 @@
 
   <!-- CERTIFICATIONS -->
   <section id="certifications" class="section reveal">
-      <div class="sec-label">06 · Certifications</div>
-      <h2 class="sec-title">Credentials</h2>
-      <p class="sec-sub">Industry certifications and verified technical proficiencies.</p>
+      <div class="sec-label">07 · Verified Credentials</div>
+      <h2 class="sec-title">Industry certifications backed by verified technical rigor.</h2>
+      <p class="sec-sub">Microsoft Fabric Analytics Engineer Associate (DP-600), Google, Deloitte, Tata &amp; HackerRank.</p>
 
       <!-- Featured DP-600 Certification -->
       <div class="cert-featured glass">
@@ -980,9 +1223,9 @@
         </picture>
       </div>
 
-      <div class="sec-label">07 · Contact</div>
-      <h2 class="sec-title">Let's Connect</h2>
-      <p class="sec-sub">Open to internships, freelance work, and collaborations.</p>
+      <div class="sec-label">08 · Get in Touch</div>
+      <h2 class="sec-title">Let’s build something data-driven together.</h2>
+      <p class="sec-sub">Open to data analyst roles, ETL engineering opportunities, and technical projects.</p>
       <div class="contact-grid">
 
         <a href="mailto:arunp061106@gmail.com" class="contact-card glass">
@@ -1058,7 +1301,7 @@
       </div>
     </footer>
 
-    <script src="script.js?v=34.0"></script>
+    <script src="script.js?v=35.0"></script>
 </body>
 
 </html>
