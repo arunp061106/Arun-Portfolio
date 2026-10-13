@@ -1,0 +1,20 @@
+{
+  "name": "arun-portfolio",
+  "version": "1.0.0",
+  "description": "Arun Karthick P - Portfolio Website with Live Coding Statistics",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "data-analyst",
+    "developer",
+    "github",
+    "leetcode",
+    "hackerrank"
+  ],
+  "author": "Arun Karthick P",
+  "license": "ISC"
+}
