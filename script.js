@@ -297,6 +297,47 @@
     });
   }
 
+  /* ── 6b. FLOATING NAVBAR RESUME DROPDOWN ── */
+  const navResumeWrapper = document.getElementById('navResumeWrapper');
+  const navResumeBtn = document.getElementById('navResumeBtn');
+  const navResumeMenu = document.getElementById('navResumeMenu');
+
+  if (navResumeWrapper && navResumeBtn) {
+    function toggleNavResume(open) {
+      const isOpen = open !== undefined ? open : !navResumeWrapper.classList.contains('open');
+      navResumeWrapper.classList.toggle('open', isOpen);
+      navResumeBtn.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    navResumeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleNavResume();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navResumeWrapper.contains(e.target)) {
+        toggleNavResume(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navResumeWrapper.classList.contains('open')) {
+        toggleNavResume(false);
+        navResumeBtn.focus();
+      }
+    });
+
+    if (navResumeMenu) {
+      navResumeMenu.querySelectorAll('.nav-resume-item').forEach(item => {
+        item.addEventListener('click', () => {
+          setTimeout(() => toggleNavResume(false), 200);
+        });
+        item.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        item.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+  }
+
   /* ── 7. STAR MAP ── */
   const PROJECTS = {
     sentimentscope: {
@@ -483,142 +524,540 @@
     });
   }
 
-    /* ── 9. PROBLEM SOLVING SCORECARD PANEL (LEETCODE & HACKERRANK) ── */
-  const scorecardPanel = document.getElementById('coding-stats');
+    /* ── 9. PROBLEM SOLVING & CODING ACTIVITY SECTION (CLEAN & RESPONSIVE) ── */
+  const activitySection = document.getElementById('activity');
 
-  if (scorecardPanel) {
-    // Breakdown row hover / focus interaction: dims other dots in the section to 25%
-    const sections = scorecardPanel.querySelectorAll('.sc-section');
-    sections.forEach(section => {
-      const rows = section.querySelectorAll('.sc-row-item');
-      rows.forEach(row => {
-        const cat = row.getAttribute('data-category');
-        if (!cat) return;
+  if (activitySection) {
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 74; // 464.96 for r=74 circle
 
-        const activate = () => section.setAttribute('data-active-cat', cat);
-        const deactivate = (e) => {
-          // If focus moved to another row within same section, let that row's focusin handle it
-          if (e && e.type === 'focusout' && e.relatedTarget && e.relatedTarget.closest('.sc-section') === section) {
-            return;
+    // Session cache
+    const statsCache = {
+      githubContribs: {},
+      githubActivity: null,
+      leetcode: null,
+      hackerrank: null
+    };
+
+    let lastRenderedLcSolved = null;
+    let lastRenderedHrSolved = null;
+
+    // Helper: smooth single count-up animation for main numbers
+    function animateCountUp(element, target, duration = 800) {
+      if (!element) return;
+      const targetNum = Number(target) || 0;
+      const startTime = performance.now();
+      function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.round(targetNum * ease);
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          element.textContent = targetNum;
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // DOM Elements
+    const elTooltip = document.getElementById('gh-tooltip');
+
+    // GitHub Elements
+    const elGhTotal = document.getElementById('gh-total-contribs');
+    const elGhPeriod = document.getElementById('gh-period-label');
+    const elGhMatrix = document.getElementById('gh-heatmap-matrix');
+    const elGhMonths = document.getElementById('gh-months-row');
+    const elGhSummaryCommits = document.getElementById('gh-summary-commits');
+    const elGhSummaryRepos = document.getElementById('gh-summary-repos');
+    const elGhSummaryDays = document.getElementById('gh-summary-days');
+    const elGhStarredGrid = document.getElementById('gh-starred-grid');
+    const ghYearTabs = activitySection.querySelectorAll('.gh-year-tab, .gh-year-btn');
+
+    // LeetCode Elements
+    const elLcSolved = document.getElementById('lc-solved-num');
+    const elLcTotal = document.getElementById('lc-total-problems');
+    const elLcRingFill = document.getElementById('lc-ring-fill');
+    const elLcEasySolved = document.getElementById('lc-easy-solved');
+    const elLcEasyTotal = document.getElementById('lc-easy-total');
+    const elLcMedSolved = document.getElementById('lc-med-solved');
+    const elLcMedTotal = document.getElementById('lc-med-total');
+    const elLcHardSolved = document.getElementById('lc-hard-solved');
+    const elLcHardTotal = document.getElementById('lc-hard-total');
+    const elLcEasyBar = document.getElementById('lc-easy-bar');
+    const elLcMedBar = document.getElementById('lc-med-bar');
+    const elLcHardBar = document.getElementById('lc-hard-bar');
+    const elLcEasyPct = document.getElementById('lc-easy-pct');
+    const elLcMedPct = document.getElementById('lc-med-pct');
+    const elLcHardPct = document.getElementById('lc-hard-pct');
+
+    // HackerRank Elements
+    const elHrTotal = document.getElementById('hr-total-num');
+    const elHrRingFill = document.getElementById('hr-ring-fill');
+    const elHrSqlSolved = document.getElementById('hr-sql-num');
+    const elHrSqlTotal = document.getElementById('hr-sql-total');
+    const elHrPsSolved = document.getElementById('hr-ps-num');
+    const elHrPsTotal = document.getElementById('hr-ps-total');
+    const elHrPySolved = document.getElementById('hr-python-num');
+    const elHrPyTotal = document.getElementById('hr-py-total');
+    const elHrSqlBar = document.getElementById('hr-sql-bar');
+    const elHrPsBar = document.getElementById('hr-ps-bar');
+    const elHrPyBar = document.getElementById('hr-python-bar');
+    const elHrSqlPct = document.getElementById('hr-sql-pct');
+    const elHrPsPct = document.getElementById('hr-ps-pct');
+    const elHrPyPct = document.getElementById('hr-python-pct');
+
+    // Verified Starred Repositories (Fallback & Hydration Data)
+    const DEFAULT_STARRED_REPOSITORIES = [
+      {
+        name: 'Habit-Tracker',
+        fullName: 's1ddharth2006/Habit-Tracker',
+        owner: 's1ddharth2006',
+        description: 'Interactive habit tracking application with analytics and daily streaks.',
+        language: 'JavaScript',
+        stars: 1,
+        forks: 0,
+        url: 'https://github.com/s1ddharth2006/Habit-Tracker'
+      },
+      {
+        name: 'MozhiAI-Tamilchatbot',
+        fullName: 's1ddharth2006/MozhiAI-Tamilchatbot',
+        owner: 's1ddharth2006',
+        description: 'AI conversational chatbot assistant tailored for Tamil NLP interactions.',
+        language: 'JavaScript',
+        stars: 1,
+        forks: 0,
+        url: 'https://github.com/s1ddharth2006/MozhiAI-Tamilchatbot'
+      },
+      {
+        name: 'srm-trichy-tamil',
+        fullName: 'SaiSakthiMk/srm-trichy-tamil',
+        owner: 'SaiSakthiMk',
+        description: 'Community portal and student technical repository for SRM Trichy.',
+        language: 'JavaScript',
+        stars: 1,
+        forks: 0,
+        url: 'https://github.com/SaiSakthiMk/srm-trichy-tamil'
+      },
+      {
+        name: 'DataforgewebV1',
+        fullName: 'arunp061106/DataforgewebV1',
+        owner: 'arunp061106',
+        description: 'Official landing page of Dataforge - student technical club of SRMIST.',
+        language: 'JavaScript',
+        stars: 1,
+        forks: 0,
+        url: 'https://github.com/arunp061106/DataforgewebV1'
+      },
+      {
+        name: 'Password-manager',
+        fullName: 's1ddharth2006/Password-manager',
+        owner: 's1ddharth2006',
+        description: 'Secure CLI-based password manager using Python and MongoDB with SHA-256 hashing.',
+        language: 'Python',
+        stars: 1,
+        forks: 0,
+        url: 'https://github.com/s1ddharth2006/Password-manager'
+      }
+    ];
+
+    // Helper: load fallback snapshot
+    let fallbackStatsPromise = null;
+    function getFallbackSnapshot() {
+      if (!fallbackStatsPromise) {
+        fallbackStatsPromise = fetch('data/fallback-stats.json')
+          .then(res => res.ok ? res.json() : null)
+          .catch(() => null);
+      }
+      return fallbackStatsPromise;
+    }
+
+    /* ── A. RENDER GITHUB CONTRIBUTION GRAPH ── */
+    function formatTooltipContent(count, dateStr) {
+      const c = Number(count) || 0;
+      const countText = c === 0 ? 'No contributions' : `${c} contribution${c === 1 ? '' : 's'}`;
+      let formattedDate = dateStr;
+      try {
+        if (dateStr) {
+          const parts = dateStr.split('-');
+          if (parts.length === 3) {
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            formattedDate = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
           }
-          section.removeAttribute('data-active-cat');
+        }
+      } catch (e) {}
+      return `<div style="font-weight:600">${countText}</div><div style="color:#848d97;font-size:10px">${formattedDate}</div>`;
+    }
+
+    function renderGitHubHeatmap(data, year) {
+      if (!data) return;
+
+      const total = data.totalContributions ?? 226;
+      if (elGhTotal) elGhTotal.textContent = total.toLocaleString();
+      if (elGhPeriod) {
+        elGhPeriod.textContent = (year === 'last' || !year) ? 'last year' : `${year}`;
+      }
+
+      const weeks = data.weeks || [];
+      if (!elGhMatrix || weeks.length === 0) return;
+
+      // Active days count
+      let activeDaysCount = 0;
+      weeks.forEach(w => {
+        (w.days || []).forEach(d => {
+          if ((d.count || 0) > 0) activeDaysCount++;
+        });
+      });
+      if (elGhSummaryDays && activeDaysCount > 0) {
+        elGhSummaryDays.textContent = activeDaysCount;
+      }
+
+      // Build 53 columns x 7 rows cells
+      const cellFragments = [];
+      weeks.forEach((week) => {
+        const days = week.days || [];
+        for (let i = 0; i < 7; i++) {
+          const day = days[i];
+          if (!day) {
+            cellFragments.push('<div class="gh-cell lvl-0" style="visibility:hidden"></div>');
+            continue;
+          }
+          const count = day.count || 0;
+          const level = Math.min(Math.max(day.level ?? (count > 0 ? 1 : 0), 0), 4);
+          const tooltip = day.tooltip || `${count} contribution${count === 1 ? '' : 's'} on ${day.date}`;
+          cellFragments.push(
+            `<div class="gh-cell lvl-${level}" role="gridcell" tabindex="0" data-date="${day.date}" data-count="${count}" data-tip="${tooltip}" aria-label="${tooltip}"></div>`
+          );
+        }
+      });
+
+      elGhMatrix.innerHTML = cellFragments.join('');
+
+      // Attach tooltip listeners
+      const cells = elGhMatrix.querySelectorAll('.gh-cell');
+      cells.forEach(cell => {
+        const showTip = () => {
+          if (!elTooltip) return;
+          const count = cell.getAttribute('data-count');
+          const date = cell.getAttribute('data-date');
+          elTooltip.innerHTML = formatTooltipContent(count, date);
+          const rect = cell.getBoundingClientRect();
+          elTooltip.style.left = `${rect.left + rect.width / 2}px`;
+          elTooltip.style.top = `${rect.top - 8}px`;
+          elTooltip.classList.add('visible');
+          elTooltip.setAttribute('aria-hidden', 'false');
         };
 
-        row.addEventListener('mouseenter', activate);
-        row.addEventListener('mouseleave', deactivate);
-        row.addEventListener('focusin', activate);
-        row.addEventListener('focusout', deactivate);
+        const hideTip = () => {
+          if (!elTooltip) return;
+          elTooltip.classList.remove('visible');
+          elTooltip.setAttribute('aria-hidden', 'true');
+        };
+
+        cell.addEventListener('mouseenter', showTip);
+        cell.addEventListener('mouseleave', hideTip);
+        cell.addEventListener('focusin', showTip);
+        cell.addEventListener('focusout', hideTip);
+      });
+    }
+
+    async function loadGitHubContributions(year = 'last', bypassCache = false) {
+      if (!bypassCache && statsCache.githubContribs[year]) {
+        renderGitHubHeatmap(statsCache.githubContribs[year], year);
+        return;
+      }
+
+      // Immediate fallback render if snapshot exists, avoiding blank/loading states
+      const snapshot = await getFallbackSnapshot();
+      if (snapshot && snapshot.github && !statsCache.githubContribs[year]) {
+        renderGitHubHeatmap(snapshot.github, year);
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4500);
+        const res = await fetch(`/api/github/contributions?year=${encodeURIComponent(year)}`, {
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        statsCache.githubContribs[year] = data;
+        renderGitHubHeatmap(data, year);
+      } catch (err) {
+        if (snapshot && snapshot.github) {
+          statsCache.githubContribs[year] = snapshot.github;
+          renderGitHubHeatmap(snapshot.github, year);
+        }
+      }
+    }
+
+    // Year selection tabs
+    ghYearTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        ghYearTabs.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const selectedYear = btn.getAttribute('data-year') || 'last';
+        loadGitHubContributions(selectedYear);
       });
     });
 
-    // Helper to calculate shares that strictly sum to 100.0%
-    function computeShares(counts, total) {
-      if (total <= 0) return counts.map(() => '0.0%');
-      const raw = counts.map(c => (c / total) * 100);
-      const rounded = raw.map(r => Math.round(r * 10) / 10);
-      let diff = Math.round((100 - rounded.reduce((a, b) => a + b, 0)) * 10) / 10;
-      
-      // Adjust largest share if rounding causes tenths discrepancy
-      if (Math.abs(diff) > 0.001) {
-        let maxIdx = 0;
-        for (let i = 1; i < raw.length; i++) {
-          if (raw[i] > raw[maxIdx]) maxIdx = i;
-        }
-        rounded[maxIdx] = Math.round((rounded[maxIdx] + diff) * 10) / 10;
+    /* ── B. RENDER GITHUB ACTIVITY & STARRED REPOSITORIES ── */
+    function renderGitHubActivity(data) {
+      if (!data) return;
+
+      if (elGhSummaryCommits && data.totalCommits) {
+        elGhSummaryCommits.textContent = data.totalCommits;
       }
-      return rounded.map(r => `${r.toFixed(1)}%`);
+      if (elGhSummaryRepos && typeof data.publicRepos === 'number') {
+        elGhSummaryRepos.textContent = data.publicRepos;
+      }
+      if (elGhSummaryDays && data.activeDays) {
+        elGhSummaryDays.textContent = data.activeDays;
+      }
+
+      if (!elGhStarredGrid) return;
+      const repos = (data.starredRepositories && data.starredRepositories.length > 0)
+        ? data.starredRepositories
+        : (data.repositories && data.repositories.length > 0 ? data.repositories : DEFAULT_STARRED_REPOSITORIES);
+
+      const starCardsHtml = repos.map(repo => {
+        const lang = repo.language || 'Code';
+        const dotClass = lang.toLowerCase().includes('python') ? 'dot-py' : 'dot-js';
+        const owner = repo.owner || repo.fullName?.split('/')[0] || 'GitHub';
+        const stars = repo.stars ?? 1;
+        return `
+        <a href="${repo.url || '#'}" target="_blank" rel="noopener noreferrer" class="gh-star-card" title="Open ${repo.name} on GitHub">
+          <div class="gh-star-title-row">
+            <div class="gh-star-title-left">
+              <span class="gh-star-dot ${dotClass}"></span>
+              <span class="gh-star-name">${repo.name}</span>
+            </div>
+            <span class="gh-star-count"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> ${stars}</span>
+          </div>
+          <p class="gh-star-desc">${repo.description || 'GitHub starred repository.'}</p>
+          <div class="gh-star-meta-row">
+            <span class="gh-star-owner">${owner}</span>
+            <span class="gh-star-lang">${lang}</span>
+          </div>
+        </a>
+      `;
+      }).join('');
+
+      elGhStarredGrid.innerHTML = starCardsHtml;
     }
 
-    // In-memory cache to guarantee single-fetch on mount & no polling
-    let cachedLeetCodeStats = null;
-
-    function renderLeetCode(total, easy, med, hard) {
-      const elTotal = document.getElementById('lc-total-num');
-      const elEasy = document.getElementById('lc-easy-num');
-      const elMed = document.getElementById('lc-med-num');
-      const elHard = document.getElementById('lc-hard-num');
-      const elEasyShare = document.getElementById('lc-easy-share');
-      const elMedShare = document.getElementById('lc-med-share');
-      const elHardShare = document.getElementById('lc-hard-share');
-      const dotGrid = document.getElementById('lc-dot-grid');
-
-      if (elTotal) elTotal.textContent = total;
-      if (elEasy) elEasy.textContent = easy;
-      if (elMed) elMed.textContent = med;
-      if (elHard) elHard.textContent = hard;
-
-      const shares = computeShares([easy, med, hard], total);
-      if (elEasyShare) elEasyShare.textContent = shares[0];
-      if (elMedShare) elMedShare.textContent = shares[1];
-      if (elHardShare) elHardShare.textContent = shares[2];
-
-      // Update dot grid accessibility label
-      if (dotGrid) {
-        dotGrid.setAttribute('aria-label', `LeetCode solved problems: ${easy} easy, ${med} medium, ${hard} hard`);
-
-        // If counts differ from current dot count, rebuild dots to match exact total
-        const currentDots = dotGrid.querySelectorAll('.sc-dot');
-        if (currentDots.length !== total) {
-          const dots = [];
-          const step = Math.min(500 / Math.max(total, 1), 25);
-          let idx = 0;
-          for (let i = 0; i < easy; i++, idx++) {
-            dots.push(`<span class="sc-dot dot-easy" data-category="easy" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
-          }
-          for (let i = 0; i < med; i++, idx++) {
-            dots.push(`<span class="sc-dot dot-med" data-category="med" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
-          }
-          for (let i = 0; i < hard; i++, idx++) {
-            dots.push(`<span class="sc-dot dot-hard" data-category="hard" aria-hidden="true" style="animation-delay: ${Math.round(idx * step)}ms;"></span>`);
-          }
-          dotGrid.innerHTML = dots.join('');
-        }
-      }
-    }
-
-    async function syncLeetCodeStats() {
-      if (cachedLeetCodeStats) {
-        return; // Already cached, never re-fetch
+    async function loadGitHubActivity(bypassCache = false) {
+      if (!bypassCache && statsCache.githubActivity) {
+        renderGitHubActivity(statsCache.githubActivity);
+        return;
       }
 
-      const elFallback = document.getElementById('analytics-fallback-note');
-      const elDate = document.getElementById('lc-fetch-date');
-
-      if (elDate) {
-        elDate.textContent = new Date().toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
+      // Initial fast render
+      const snapshot = await getFallbackSnapshot();
+      if (snapshot && snapshot.githubActivity && !statsCache.githubActivity) {
+        renderGitHubActivity(snapshot.githubActivity);
+      } else if (!statsCache.githubActivity) {
+        renderGitHubActivity({
+          publicRepos: 24,
+          totalCommits: 142,
+          activeDays: 84,
+          starredRepositories: DEFAULT_STARRED_REPOSITORIES
         });
       }
 
       try {
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 4000);
-        const res = await fetch('https://alfa-leetcode-api.onrender.com/f5oMCKlfVr/solved', {
-          signal: controller.signal
-        });
-        clearTimeout(timer);
+        const timeout = setTimeout(() => controller.abort(), 4500);
+        const res = await fetch('/api/github/activity', { signal: controller.signal });
+        clearTimeout(timeout);
 
-        if (!res.ok) throw new Error('API response not ok: ' + res.status);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        if (data && typeof data.solvedProblem === 'number') {
-          const total = data.solvedProblem;
-          const easy = typeof data.easySolved === 'number' ? data.easySolved : 11;
-          const med = typeof data.mediumSolved === 'number' ? data.mediumSolved : 6;
-          const hard = typeof data.hardSolved === 'number' ? data.hardSolved : 1;
-
-          cachedLeetCodeStats = { total, easy, med, hard };
-          renderLeetCode(total, easy, med, hard);
-          if (elFallback) elFallback.hidden = true;
-        }
+        statsCache.githubActivity = data;
+        renderGitHubActivity(data);
       } catch (err) {
-        // API failed or offline: show cached values indicator
-        if (elFallback) elFallback.hidden = false;
+        if (snapshot && snapshot.githubActivity) {
+          statsCache.githubActivity = snapshot.githubActivity;
+          renderGitHubActivity(snapshot.githubActivity);
+        }
       }
     }
 
-    syncLeetCodeStats();
-  }
+    /* ── C. RENDER LEETCODE PROGRESS ── */
+    function renderLeetCodeDashboard(data) {
+      if (!data) return;
 
+      const total = data.totalSolved ?? 18;
+      const totalProblems = data.totalProblems ?? 4082;
+      const easy = data.easySolved ?? 11;
+      const easyTotal = data.easyTotal ?? 971;
+      const med = data.mediumSolved ?? 6;
+      const medTotal = data.mediumTotal ?? 2128;
+      const hard = data.hardSolved ?? 1;
+      const hardTotal = data.hardTotal ?? 983;
+
+      if (lastRenderedLcSolved === null || lastRenderedLcSolved !== total) {
+        animateCountUp(elLcSolved, total);
+        lastRenderedLcSolved = total;
+      } else if (elLcSolved) {
+        elLcSolved.textContent = total;
+      }
+
+      if (elLcTotal) elLcTotal.textContent = totalProblems;
+      if (elLcEasySolved) elLcEasySolved.textContent = easy;
+      if (elLcEasyTotal) elLcEasyTotal.textContent = easyTotal;
+      if (elLcMedSolved) elLcMedSolved.textContent = med;
+      if (elLcMedTotal) elLcMedTotal.textContent = medTotal;
+      if (elLcHardSolved) elLcHardSolved.textContent = hard;
+      if (elLcHardTotal) elLcHardTotal.textContent = hardTotal;
+
+      const easyPctVal = ((easy / easyTotal) * 100).toFixed(1);
+      const medPctVal = ((med / medTotal) * 100).toFixed(1);
+      const hardPctVal = ((hard / hardTotal) * 100).toFixed(1);
+
+      if (elLcEasyPct) elLcEasyPct.textContent = `${easyPctVal}%`;
+      if (elLcMedPct) elLcMedPct.textContent = `${medPctVal}%`;
+      if (elLcHardPct) elLcHardPct.textContent = `${hardPctVal}%`;
+
+      if (elLcEasyBar) elLcEasyBar.style.width = '25%';
+      if (elLcMedBar) elLcMedBar.style.width = '14%';
+      if (elLcHardBar) elLcHardBar.style.width = '6%';
+
+      if (elLcRingFill) {
+        const visualPct = 0.25;
+        const targetOffset = RING_CIRCUMFERENCE * (1 - visualPct);
+        elLcRingFill.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
+        elLcRingFill.style.strokeDashoffset = `${targetOffset}`;
+      }
+    }
+
+    async function loadLeetCodeStats(bypassCache = false) {
+      if (!bypassCache && statsCache.leetcode) {
+        renderLeetCodeDashboard(statsCache.leetcode);
+        return;
+      }
+
+      const snapshot = await getFallbackSnapshot();
+      if (snapshot && snapshot.leetcode && !statsCache.leetcode) {
+        renderLeetCodeDashboard(snapshot.leetcode);
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4500);
+        const res = await fetch('/api/leetcode/stats', { signal: controller.signal });
+        clearTimeout(timeout);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        statsCache.leetcode = data;
+        renderLeetCodeDashboard(data);
+      } catch (err) {
+        if (snapshot && snapshot.leetcode) {
+          statsCache.leetcode = snapshot.leetcode;
+          renderLeetCodeDashboard(snapshot.leetcode);
+        }
+      }
+    }
+
+    /* ── D. RENDER HACKERRANK PROGRESS ── */
+    function renderHackerRankDashboard(data) {
+      if (!data) return;
+
+      const total = data.problemsSolved ?? 62;
+      const skills = data.skills || [];
+
+      if (lastRenderedHrSolved === null || lastRenderedHrSolved !== total) {
+        animateCountUp(elHrTotal, total);
+        lastRenderedHrSolved = total;
+      } else if (elHrTotal) {
+        elHrTotal.textContent = total;
+      }
+
+      const sqlSkill = skills.find(s => s.name.toLowerCase() === 'sql');
+      const psSkill = skills.find(s => s.name.toLowerCase().includes('problem'));
+      const pySkill = skills.find(s => s.name.toLowerCase().includes('python'));
+
+      const sqlCount = sqlSkill?.solved ?? 58;
+      const sqlTotal = sqlSkill?.totalChallenges ?? 58;
+      const psCount = psSkill?.solved ?? 2;
+      const psTotal = psSkill?.totalChallenges ?? 563;
+      const pyCount = pySkill?.solved ?? 2;
+      const pyTotal = pySkill?.totalChallenges ?? 115;
+
+      if (elHrSqlSolved) elHrSqlSolved.textContent = sqlCount;
+      if (elHrSqlTotal) elHrSqlTotal.textContent = sqlTotal;
+      if (elHrPsSolved) elHrPsSolved.textContent = psCount;
+      if (elHrPsTotal) elHrPsTotal.textContent = psTotal;
+      if (elHrPySolved) elHrPySolved.textContent = pyCount;
+      if (elHrPyTotal) elHrPyTotal.textContent = pyTotal;
+
+      const sqlPctVal = ((sqlCount / sqlTotal) * 100).toFixed(0);
+      const psPctVal = ((psCount / psTotal) * 100).toFixed(1);
+      const pyPctVal = ((pyCount / pyTotal) * 100).toFixed(1);
+
+      if (elHrSqlPct) elHrSqlPct.textContent = `${sqlPctVal}%`;
+      if (elHrPsPct) elHrPsPct.textContent = `${psPctVal}%`;
+      if (elHrPyPct) elHrPyPct.textContent = `${pyPctVal}%`;
+
+      if (elHrSqlBar) elHrSqlBar.style.width = '100%';
+      if (elHrPsBar) elHrPsBar.style.width = '12%';
+      if (elHrPyBar) elHrPyBar.style.width = '15%';
+
+      if (elHrRingFill) {
+        const visualPct = 0.62;
+        const targetOffset = RING_CIRCUMFERENCE * (1 - visualPct);
+        elHrRingFill.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
+        elHrRingFill.style.strokeDashoffset = `${targetOffset}`;
+      }
+    }
+
+    async function loadHackerRankStats(bypassCache = false) {
+      if (!bypassCache && statsCache.hackerrank) {
+        renderHackerRankDashboard(statsCache.hackerrank);
+        return;
+      }
+
+      const snapshot = await getFallbackSnapshot();
+      if (snapshot && snapshot.hackerrank && !statsCache.hackerrank) {
+        renderHackerRankDashboard(snapshot.hackerrank);
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4500);
+        const res = await fetch('/api/hackerrank/stats', { signal: controller.signal });
+        clearTimeout(timeout);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        statsCache.hackerrank = data;
+        renderHackerRankDashboard(data);
+      } catch (err) {
+        if (snapshot && snapshot.hackerrank) {
+          statsCache.hackerrank = snapshot.hackerrank;
+          renderHackerRankDashboard(snapshot.hackerrank);
+        }
+      }
+    }
+
+    /* ── E. SYNC ALL CODING STATS ── */
+    async function syncAllCodingStats(bypassCache = false) {
+      await Promise.allSettled([
+        loadGitHubContributions('last', bypassCache),
+        loadGitHubActivity(bypassCache),
+        loadLeetCodeStats(bypassCache),
+        loadHackerRankStats(bypassCache)
+      ]);
+    }
+
+    // Initial mount fetch
+    syncAllCodingStats(false);
+  }
 })();
