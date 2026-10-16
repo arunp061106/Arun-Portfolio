@@ -84,19 +84,19 @@ module.exports = async function handler(req, res) {
       fetch(`https://api.github.com/users/${encodeURIComponent(username)}/starred`, { headers }).catch(() => null)
     ]);
 
-    let publicRepos = 24;
+    let publicRepos = 25;
     if (userRes && userRes.ok) {
       const userData = await userRes.json();
       publicRepos = userData.public_repos ?? publicRepos;
     }
 
     const recentCommits = [];
-    let totalCommits = 182;
+    let totalCommits = 202;
 
     if (searchRes && searchRes.ok) {
       const searchData = await searchRes.json();
       if (typeof searchData.total_count === 'number' && searchData.total_count > 0) {
-        totalCommits = Math.max(searchData.total_count, 182);
+        totalCommits = Math.max(searchData.total_count, 202);
       }
       if (Array.isArray(searchData.items)) {
         searchData.items.forEach(c => {
@@ -105,14 +105,14 @@ module.exports = async function handler(req, res) {
             message: c.commit?.message ? c.commit.message.split('\n')[0] : 'Code update',
             sha: c.sha ? c.sha.substring(0, 7) : 'commit',
             date: c.commit?.author?.date || c.commit?.committer?.date || new Date().toISOString(),
-            url: c.html_url || `https://github.com/${username}/${c.repository?.name}`
+            url: c.html_url || `https://github.com/${username}/${c.repository?.name}/commit/${c.sha}`
           });
         });
       }
     }
 
-    // Supplementary parsing from events if search was rate-limited or empty
-    if (eventsRes && eventsRes.ok && recentCommits.length === 0) {
+    // Supplementary parsing from events if search was rate-limited or to enrich
+    if (eventsRes && eventsRes.ok) {
       const events = await eventsRes.json();
       if (Array.isArray(events)) {
         events.forEach(ev => {
@@ -121,36 +121,45 @@ module.exports = async function handler(req, res) {
             const commits = ev.payload?.commits || [];
             if (commits.length > 0) {
               commits.forEach(c => {
-                recentCommits.push({
-                  repo: repoName,
-                  message: c.message ? c.message.split('\n')[0] : 'Push update',
-                  sha: c.sha ? c.sha.substring(0, 7) : (ev.payload?.head ? ev.payload.head.substring(0, 7) : 'commit'),
-                  date: ev.created_at,
-                  url: `https://github.com/${ev.repo?.name || repoName}/commit/${c.sha || ev.payload?.head}`
-                });
+                const sha = c.sha ? c.sha.substring(0, 7) : (ev.payload?.head ? ev.payload.head.substring(0, 7) : 'commit');
+                if (!recentCommits.some(rc => rc.sha === sha)) {
+                  recentCommits.push({
+                    repo: repoName,
+                    message: c.message ? c.message.split('\n')[0] : 'Push update',
+                    sha,
+                    date: ev.created_at,
+                    url: `https://github.com/${ev.repo?.name || repoName}/commit/${c.sha || ev.payload?.head}`
+                  });
+                }
               });
             } else if (ev.payload?.head) {
-              recentCommits.push({
-                repo: repoName,
-                message: `Pushed updates to ${ev.payload.ref ? ev.payload.ref.replace('refs/heads/', '') : 'main'}`,
-                sha: ev.payload.head.substring(0, 7),
-                date: ev.created_at,
-                url: `https://github.com/${ev.repo?.name || repoName}/commit/${ev.payload.head}`
-              });
+              const sha = ev.payload.head.substring(0, 7);
+              if (!recentCommits.some(rc => rc.sha === sha)) {
+                recentCommits.push({
+                  repo: repoName,
+                  message: `Pushed updates to ${ev.payload.ref ? ev.payload.ref.replace('refs/heads/', '') : 'main'}`,
+                  sha,
+                  date: ev.created_at,
+                  url: `https://github.com/${ev.repo?.name || repoName}/commit/${ev.payload.head}`
+                });
+              }
             }
           }
         });
       }
     }
 
+    // Sort recent commits newest first
+    recentCommits.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     // Default fallback recent commit if empty
     if (recentCommits.length === 0) {
       recentCommits.push({
-        repo: 'Arun-Portfolio',
-        message: 'feat(interactions): add live statistics orchestration, animated counters, and interactive chart tools',
-        sha: 'latest',
-        date: new Date().toISOString(),
-        url: `https://github.com/${username}/Arun-Portfolio`
+        repo: 'data-canvas-26-DF-dashboard',
+        message: 'Fix unstable map pins, eliminate transform jitter, luminous taluk map with ice-white lines, and clean non-overlapping labels',
+        sha: '93b63cc',
+        date: '2026-10-15T04:47:43.000+05:30',
+        url: `https://github.com/${username}/data-canvas-26-DF-dashboard/commit/93b63ccc6ec0d613c4ebf8fd5635afdd2659a2ba`
       });
     }
 
@@ -183,12 +192,12 @@ module.exports = async function handler(req, res) {
       activeDays: 44,
       starredRepositories,
       repositories: starredRepositories,
-      recentActivity: recentCommits.slice(0, 5),
+      recentActivity: recentCommits.slice(0, 10),
       latestCommit,
       updatedAt: new Date().toISOString()
     };
 
-    cache.set(cacheKey, result, 10 * 60 * 1000);
+    cache.set(cacheKey, result, 5 * 60 * 1000);
     res.statusCode = 200;
     res.end(JSON.stringify(result));
   } catch (err) {
@@ -201,26 +210,26 @@ module.exports = async function handler(req, res) {
     }
     const fallbackResult = {
       username,
-      publicRepos: 24,
-      totalCommits: 182,
+      publicRepos: 25,
+      totalCommits: 202,
       activeDays: 44,
       starredRepositories: DEFAULT_STARRED_REPOSITORIES,
       repositories: DEFAULT_STARRED_REPOSITORIES,
       recentActivity: [
         {
-          repo: 'Arun-Portfolio',
-          message: 'feat(interactions): add live statistics orchestration, animated counters, and interactive chart tools',
-          sha: 'latest',
-          date: new Date().toISOString(),
-          url: `https://github.com/${username}/Arun-Portfolio`
+          repo: 'data-canvas-26-DF-dashboard',
+          message: 'Fix unstable map pins, eliminate transform jitter, luminous taluk map with ice-white lines, and clean non-overlapping labels',
+          sha: '93b63cc',
+          date: '2026-10-15T04:47:43.000+05:30',
+          url: `https://github.com/${username}/data-canvas-26-DF-dashboard/commit/93b63ccc6ec0d613c4ebf8fd5635afdd2659a2ba`
         }
       ],
       latestCommit: {
-        repo: 'Arun-Portfolio',
-        message: 'feat(interactions): add live statistics orchestration, animated counters, and interactive chart tools',
-        sha: 'latest',
-        date: new Date().toISOString(),
-        url: `https://github.com/${username}/Arun-Portfolio`
+        repo: 'data-canvas-26-DF-dashboard',
+        message: 'Fix unstable map pins, eliminate transform jitter, luminous taluk map with ice-white lines, and clean non-overlapping labels',
+        sha: '93b63cc',
+        date: '2026-10-15T04:47:43.000+05:30',
+        url: `https://github.com/${username}/data-canvas-26-DF-dashboard/commit/93b63ccc6ec0d613c4ebf8fd5635afdd2659a2ba`
       },
       updatedAt: new Date().toISOString()
     };
