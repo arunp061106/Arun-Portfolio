@@ -560,6 +560,36 @@
       requestAnimationFrame(frame);
     }
 
+    // Helper: escape HTML for safe rendering
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Helper: format commit date into human-friendly or relative string
+    function formatCommitDate(isoDate) {
+      if (!isoDate) return 'Recent';
+      try {
+        const d = new Date(isoDate);
+        const now = new Date();
+        const diffMs = now - d;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        if (diffHours < 1) return 'Just now';
+        if (diffHours < 24) return `${diffHours}h ago`;
+        if (diffDays === 1) return 'Yesterday';
+        if (diffDays < 7) return `${diffDays}d ago`;
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } catch (e) {
+        return 'Recent';
+      }
+    }
+
     // DOM Elements
     const elTooltip = document.getElementById('gh-tooltip');
 
@@ -667,26 +697,27 @@
       const username = 'arunp061106';
       try {
         const headers = { 'Accept': 'application/vnd.github.v3+json' };
-        const [starredRes, searchRes, userRes] = await Promise.all([
+        const [starredRes, searchRes, userRes, eventsRes] = await Promise.all([
           fetch(`https://api.github.com/users/${username}/starred`, { headers }).catch(() => null),
           fetch(`https://api.github.com/search/commits?q=author:${username}&sort=author-date&order=desc&per_page=10`, {
             headers: { 'Accept': 'application/vnd.github.cloak-preview+json' }
           }).catch(() => null),
-          fetch(`https://api.github.com/users/${username}`, { headers }).catch(() => null)
+          fetch(`https://api.github.com/users/${username}`, { headers }).catch(() => null),
+          fetch(`https://api.github.com/users/${username}/events?per_page=30`, { headers }).catch(() => null)
         ]);
 
-        let publicRepos = 24;
+        let publicRepos = 25;
         if (userRes && userRes.ok) {
           const u = await userRes.json();
           if (typeof u.public_repos === 'number') publicRepos = u.public_repos;
         }
 
-        let totalCommits = 182;
+        let totalCommits = 202;
         const recentCommits = [];
         if (searchRes && searchRes.ok) {
           const sData = await searchRes.json();
           if (typeof sData.total_count === 'number' && sData.total_count > 0) {
-            totalCommits = Math.max(sData.total_count, 182);
+            totalCommits = Math.max(sData.total_count, 202);
           }
           if (Array.isArray(sData.items)) {
             sData.items.forEach(c => {
@@ -695,11 +726,52 @@
                 message: c.commit?.message ? c.commit.message.split('\n')[0] : 'Code update',
                 sha: c.sha ? c.sha.substring(0, 7) : 'commit',
                 date: c.commit?.author?.date || c.commit?.committer?.date || new Date().toISOString(),
-                url: c.html_url || `https://github.com/${username}/${c.repository?.name}`
+                url: c.html_url || `https://github.com/${username}/${c.repository?.name}/commit/${c.sha}`
               });
             });
           }
         }
+
+        // Supplementary parsing from events if search is rate-limited or to enrich
+        if (eventsRes && eventsRes.ok) {
+          const events = await eventsRes.json();
+          if (Array.isArray(events)) {
+            events.forEach(ev => {
+              if (ev.type === 'PushEvent') {
+                const repoName = (ev.repo?.name || '').replace(`${username}/`, '') || 'repository';
+                const commits = ev.payload?.commits || [];
+                if (commits.length > 0) {
+                  commits.forEach(c => {
+                    const sha = c.sha ? c.sha.substring(0, 7) : (ev.payload?.head ? ev.payload.head.substring(0, 7) : 'commit');
+                    if (!recentCommits.some(rc => rc.sha === sha)) {
+                      recentCommits.push({
+                        repo: repoName,
+                        message: c.message ? c.message.split('\n')[0] : 'Push update',
+                        sha,
+                        date: ev.created_at,
+                        url: `https://github.com/${ev.repo?.name || repoName}/commit/${c.sha || ev.payload?.head}`
+                      });
+                    }
+                  });
+                } else if (ev.payload?.head) {
+                  const sha = ev.payload.head.substring(0, 7);
+                  if (!recentCommits.some(rc => rc.sha === sha)) {
+                    recentCommits.push({
+                      repo: repoName,
+                      message: `Pushed updates to ${ev.payload.ref ? ev.payload.ref.replace('refs/heads/', '') : 'main'}`,
+                      sha,
+                      date: ev.created_at,
+                      url: `https://github.com/${ev.repo?.name || repoName}/commit/${ev.payload.head}`
+                    });
+                  }
+                }
+              }
+            });
+          }
+        }
+
+        // Sort newest first
+        recentCommits.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         let starredRepositories = DEFAULT_STARRED_REPOSITORIES;
         if (starredRes && starredRes.ok) {
@@ -722,11 +794,11 @@
         }
 
         const latestCommit = recentCommits[0] || {
-          repo: 'Arun-Portfolio',
-          message: 'feat(interactions): add live statistics orchestration, animated counters, and interactive chart tools',
-          sha: 'latest',
-          date: new Date().toISOString(),
-          url: `https://github.com/${username}/Arun-Portfolio`
+          repo: 'data-canvas-26-DF-dashboard',
+          message: 'Fix unstable map pins, eliminate transform jitter, luminous taluk map with ice-white lines, and clean non-overlapping labels',
+          sha: '93b63cc',
+          date: '2026-10-15T04:47:43.000+05:30',
+          url: `https://github.com/${username}/data-canvas-26-DF-dashboard/commit/93b63ccc6ec0d613c4ebf8fd5635afdd2659a2ba`
         };
 
         return {
@@ -736,10 +808,64 @@
           activeDays: 44,
           starredRepositories,
           repositories: starredRepositories,
-          recentActivity: recentCommits,
+          recentActivity: recentCommits.slice(0, 10),
           latestCommit,
           updatedAt: new Date().toISOString()
         };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Client-side fallback dynamic fetch for GitHub Contributions (CORS friendly)
+    async function fetchClientGitHubContributions(year = 'last') {
+      const username = 'arunp061106';
+      try {
+        const snapshot = await getFallbackSnapshot();
+        const baseContribs = snapshot && snapshot.github ? JSON.parse(JSON.stringify(snapshot.github)) : null;
+        if (!baseContribs) return null;
+
+        // Fetch live events to overlay recent commits onto the calendar matrix
+        const evRes = await fetch(`https://api.github.com/users/${username}/events?per_page=100`, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        }).catch(() => null);
+
+        if (evRes && evRes.ok) {
+          const events = await evRes.json();
+          if (Array.isArray(events)) {
+            const pushEvents = events.filter(e => e.type === 'PushEvent');
+            const commitsByDate = {};
+            pushEvents.forEach(e => {
+              const d = e.created_at ? e.created_at.split('T')[0] : null;
+              if (d) {
+                const cCount = e.payload?.commits?.length || (e.payload?.head ? 1 : 0);
+                commitsByDate[d] = (commitsByDate[d] || 0) + cCount;
+              }
+            });
+
+            // Overlay into weeks
+            let additionalCount = 0;
+            if (baseContribs.weeks) {
+              baseContribs.weeks.forEach(w => {
+                (w.days || []).forEach(day => {
+                  if (day && day.date && commitsByDate[day.date]) {
+                    const eventCount = commitsByDate[day.date];
+                    if (eventCount > day.count) {
+                      additionalCount += (eventCount - day.count);
+                      day.count = eventCount;
+                      day.level = eventCount >= 9 ? 4 : (eventCount >= 5 ? 3 : (eventCount >= 3 ? 2 : 1));
+                      day.tooltip = `${eventCount} contribution${eventCount === 1 ? '' : 's'} on ${day.date}`;
+                    }
+                  }
+                });
+              });
+            }
+            if (additionalCount > 0) {
+              baseContribs.totalContributions = (baseContribs.totalContributions || 253) + additionalCount;
+            }
+          }
+        }
+        return baseContribs;
       } catch (e) {
         return null;
       }
@@ -862,28 +988,33 @@
     }
 
     async function loadGitHubContributions(year = 'last', bypassCache = false) {
-      if (!bypassCache && statsCache.githubContribs[year]) {
+      if (statsCache.githubContribs[year]) {
         renderGitHubHeatmap(statsCache.githubContribs[year], year);
-        return;
       }
 
-      // Check localStorage first
+      // Check localStorage first for instant render on refresh
       let savedLocal = null;
       try {
         const raw = localStorage.getItem(`arun_portfolio_gh_contribs_${year}`);
-        if (raw) savedLocal = JSON.parse(raw);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          savedLocal = parsed && parsed.data ? parsed.data : parsed;
+        }
       } catch (e) {}
 
       if (savedLocal && !statsCache.githubContribs[year]) {
         statsCache.githubContribs[year] = savedLocal;
         renderGitHubHeatmap(savedLocal, year);
-      } else {
+      } else if (!statsCache.githubContribs[year]) {
         const snapshot = await getFallbackSnapshot();
-        if (snapshot && snapshot.github && !statsCache.githubContribs[year]) {
+        if (snapshot && snapshot.github) {
+          statsCache.githubContribs[year] = snapshot.github;
           renderGitHubHeatmap(snapshot.github, year);
         }
       }
 
+      // Always automatically sync from live API on page refresh
+      let data = null;
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 4500);
@@ -892,14 +1023,26 @@
         });
         clearTimeout(timeout);
 
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (err) {}
+
+      // If backend failed (e.g. running statically without server), fetch directly from GitHub
+      if (!data) {
+        data = await fetchClientGitHubContributions(year);
+      }
+
+      if (data) {
         statsCache.githubContribs[year] = data;
         try {
-          localStorage.setItem(`arun_portfolio_gh_contribs_${year}`, JSON.stringify(data));
+          localStorage.setItem(`arun_portfolio_gh_contribs_${year}`, JSON.stringify({
+            data,
+            timestamp: Date.now()
+          }));
         } catch (e) {}
         renderGitHubHeatmap(data, year);
-      } catch (err) {
+      } else {
         const snapshot = await getFallbackSnapshot();
         if (snapshot && snapshot.github) {
           statsCache.githubContribs[year] = snapshot.github;
@@ -926,7 +1069,7 @@
     function renderGitHubActivity(data) {
       if (!data) return;
 
-      const commits = data.totalCommits ?? 182;
+      const commits = data.totalCommits ?? 202;
       if (elGhSummaryCommits) {
         animateCountUp(elGhSummaryCommits, commits);
       }
@@ -949,20 +1092,7 @@
         if (elLatestRepo && commit.repo) elLatestRepo.textContent = commit.repo;
         if (elLatestMsg && commit.message) elLatestMsg.textContent = commit.message;
         if (elLatestDate && commit.date) {
-          try {
-            const d = new Date(commit.date);
-            const now = new Date();
-            const diffDays = Math.floor((now - d) / (1000 * 60 * 60 * 24));
-            if (diffDays === 0) {
-              elLatestDate.textContent = 'Today';
-            } else if (diffDays === 1) {
-              elLatestDate.textContent = 'Yesterday';
-            } else {
-              elLatestDate.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            }
-          } catch (e) {
-            elLatestDate.textContent = 'Oct 14, 2026';
-          }
+          elLatestDate.textContent = formatCommitDate(commit.date);
         }
         if (elLatestLink && commit.url) {
           elLatestLink.href = commit.url;
@@ -970,6 +1100,50 @@
         elLatestBar.style.display = 'flex';
       }
 
+      // Populate Recent Commits Table
+      const elCommitsTableBody = document.getElementById('gh-commits-table-body');
+      if (elCommitsTableBody) {
+        const recent = Array.isArray(data.recentActivity) && data.recentActivity.length > 0
+          ? data.recentActivity
+          : (data.latestCommit ? [data.latestCommit] : []);
+
+        if (recent.length > 0) {
+          elCommitsTableBody.innerHTML = recent.slice(0, 8).map(c => {
+            const sha = c.sha ? c.sha.substring(0, 7) : 'commit';
+            const repo = c.repo || 'repository';
+            const commitUrl = c.url || `https://github.com/arunp061106/${repo}/commit/${sha}`;
+            const repoUrl = `https://github.com/arunp061106/${repo}`;
+            const msg = c.message || 'Code update';
+            const dateStr = c.date ? formatCommitDate(c.date) : 'Recently';
+            return `
+              <tr class="gh-commit-row">
+                <td class="td-sha">
+                  <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="gh-sha-badge" title="View commit ${sha}">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="1.05" y1="12" x2="7" y2="12"></line><line x1="17.01" y1="12" x2="22.96" y2="12"></line></svg>
+                    <code>${sha}</code>
+                  </a>
+                </td>
+                <td class="td-message">
+                  <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="gh-commit-msg-link" title="${escapeHtml(msg)}">
+                    ${escapeHtml(msg)}
+                  </a>
+                </td>
+                <td class="td-repo">
+                  <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-table-repo-link" title="Open repository ${repo}">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>${repo}</span>
+                  </a>
+                </td>
+                <td class="td-date">
+                  <span class="gh-table-date" title="${c.date || ''}">${dateStr}</span>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      // Populate Starred Repositories Grid
       if (!elGhStarredGrid) return;
       const repos = (data.starredRepositories && data.starredRepositories.length > 0)
         ? data.starredRepositories
@@ -1002,34 +1176,40 @@
     }
 
     async function loadGitHubActivity(bypassCache = false) {
-      if (!bypassCache && statsCache.githubActivity) {
+      if (statsCache.githubActivity) {
         renderGitHubActivity(statsCache.githubActivity);
-        return;
       }
 
       // Check localStorage first for instant render of latest user data
       let savedLocal = null;
       try {
         const raw = localStorage.getItem('arun_portfolio_gh_activity');
-        if (raw) savedLocal = JSON.parse(raw);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          savedLocal = parsed && parsed.data ? parsed.data : parsed;
+        }
       } catch (e) {}
 
       if (savedLocal && !statsCache.githubActivity) {
         statsCache.githubActivity = savedLocal;
         renderGitHubActivity(savedLocal);
-      } else {
+      } else if (!statsCache.githubActivity) {
         const snapshot = await getFallbackSnapshot();
-        if (snapshot && snapshot.githubActivity && !statsCache.githubActivity) {
+        if (snapshot && snapshot.githubActivity) {
+          statsCache.githubActivity = snapshot.githubActivity;
           renderGitHubActivity(snapshot.githubActivity);
-        } else if (!statsCache.githubActivity) {
+        } else {
           renderGitHubActivity({
-            publicRepos: 24,
-            totalCommits: 182,
+            publicRepos: 25,
+            totalCommits: 202,
             activeDays: 44,
             starredRepositories: DEFAULT_STARRED_REPOSITORIES
           });
         }
       }
+
+      // Always automatically sync from live API on page refresh
+      const elSyncStatus = document.getElementById('gh-sync-status-text');
 
       // Try local /api route first
       let data = null;
@@ -1051,9 +1231,13 @@
       if (data) {
         statsCache.githubActivity = data;
         try {
-          localStorage.setItem('arun_portfolio_gh_activity', JSON.stringify(data));
+          localStorage.setItem('arun_portfolio_gh_activity', JSON.stringify({
+            data,
+            timestamp: Date.now()
+          }));
         } catch (e) {}
         renderGitHubActivity(data);
+        if (elSyncStatus) elSyncStatus.textContent = 'Auto Synced';
       } else {
         const snapshot = await getFallbackSnapshot();
         if (snapshot && snapshot.githubActivity) {
@@ -1270,7 +1454,14 @@
       ]);
     }
 
-    // Initial mount fetch
-    syncAllCodingStats(false);
+    // Automatically sync all coding statistics dynamically whenever the page refreshes
+    syncAllCodingStats(true);
+
+    // Dynamic periodic update every 5 minutes when tab is visible
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        syncAllCodingStats(true);
+      }
+    }, 5 * 60 * 1000);
   }
 })();
