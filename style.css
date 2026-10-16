@@ -537,13 +537,13 @@ body::before {
 /* Floating Tech Astronaut in Hero */
 .hero-astronaut-bg {
   position: absolute;
-  top: 48%;
-  right: -5%;
+  top: 50%;
+  right: -3%;
   transform: translateY(-50%);
-  width: clamp(380px, 36vw, 540px);
+  width: clamp(520px, 48vw, 760px);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.88;
+  opacity: 1;
 }
 
 .hero-astronaut-img {
@@ -551,7 +551,7 @@ body::before {
   height: auto;
   display: block;
   animation: heroFloat 12s ease-in-out infinite;
-  filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.25));
+  filter: drop-shadow(0 0 45px rgba(56, 189, 248, 0.40)) contrast(1.10) brightness(1.12);
   user-select: none;
   pointer-events: none;
 }
@@ -567,9 +567,9 @@ body::before {
 
 @media (max-width: 992px) {
   .hero-astronaut-bg {
-    width: clamp(280px, 32vw, 400px);
-    right: -30px;
-    opacity: 0.50;
+    width: clamp(380px, 42vw, 540px);
+    right: -20px;
+    opacity: 1;
   }
 }
 
@@ -3402,6 +3402,239 @@ body::before {
 .gh-legend-cell.lvl-2 { background: #006d32; }
 .gh-legend-cell.lvl-3 { background: #26a641; }
 .gh-legend-cell.lvl-4 { background: #39d353; }
+
+/* ── RECENT COMMITS TABLE SECTION ── */
+.gh-commits-table-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+}
+
+.gh-commits-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.gh-commits-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gh-commits-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  flex-shrink: 0;
+}
+
+.gh-commits-heading {
+  font-family: var(--fh);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #f0f6fc;
+  margin: 0;
+}
+
+.gh-commits-feed-badge {
+  font-family: var(--fm, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(57, 211, 83, 0.12);
+  color: #39d353;
+  border: 1px solid rgba(57, 211, 83, 0.25);
+  letter-spacing: 0.04em;
+}
+
+.gh-commits-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gh-sync-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fm, monospace);
+  font-size: 0.72rem;
+  color: #848d97;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gh-sync-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #39d353;
+  box-shadow: 0 0 6px rgba(57, 211, 83, 0.85);
+  animation: pulseSync 2s infinite ease-in-out;
+}
+
+@keyframes pulseSync {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.gh-commits-table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gh-commits-table-container::-webkit-scrollbar {
+  height: 5px;
+}
+.gh-commits-table-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 3px;
+}
+.gh-commits-table-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+
+.gh-commits-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.gh-commits-table thead {
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gh-commits-table th {
+  padding: 10px 14px;
+  font-family: var(--fm, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #848d97;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gh-commits-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.gh-commit-row {
+  transition: background 0.15s ease;
+}
+
+.gh-commit-row:hover {
+  background: rgba(56, 189, 248, 0.04);
+}
+
+.gh-commit-row:last-child td {
+  border-bottom: none;
+}
+
+.gh-sha-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fm, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  padding: 2px 7px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.gh-sha-badge:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+  color: #ffffff;
+}
+
+.gh-commit-msg-link {
+  color: #e6edf3;
+  text-decoration: none;
+  font-family: var(--fh);
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: block;
+  max-width: 480px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+.gh-commit-msg-link:hover {
+  color: #38bdf8;
+}
+
+.gh-table-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #848d97;
+  text-decoration: none;
+  font-family: var(--fm, monospace);
+  font-size: 0.74rem;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.gh-table-repo-link:hover {
+  color: #f0f6fc;
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gh-table-date {
+  font-family: var(--fm, monospace);
+  font-size: 0.72rem;
+  color: #848d97;
+  white-space: nowrap;
+  text-align: right;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .gh-commits-table th, .gh-commits-table td {
+    padding: 8px 10px;
+  }
+  .gh-commit-msg-link {
+    max-width: 240px;
+  }
+}
 
 /* ── STARRED REPOSITORIES SECTION ── */
 .gh-starred-section {
