@@ -1100,49 +1100,6 @@
         elLatestBar.style.display = 'flex';
       }
 
-      // Populate Recent Commits Table
-      const elCommitsTableBody = document.getElementById('gh-commits-table-body');
-      if (elCommitsTableBody) {
-        const recent = Array.isArray(data.recentActivity) && data.recentActivity.length > 0
-          ? data.recentActivity
-          : (data.latestCommit ? [data.latestCommit] : []);
-
-        if (recent.length > 0) {
-          elCommitsTableBody.innerHTML = recent.slice(0, 8).map(c => {
-            const sha = c.sha ? c.sha.substring(0, 7) : 'commit';
-            const repo = c.repo || 'repository';
-            const commitUrl = c.url || `https://github.com/arunp061106/${repo}/commit/${sha}`;
-            const repoUrl = `https://github.com/arunp061106/${repo}`;
-            const msg = c.message || 'Code update';
-            const dateStr = c.date ? formatCommitDate(c.date) : 'Recently';
-            return `
-              <tr class="gh-commit-row">
-                <td class="td-sha">
-                  <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="gh-sha-badge" title="View commit ${sha}">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="1.05" y1="12" x2="7" y2="12"></line><line x1="17.01" y1="12" x2="22.96" y2="12"></line></svg>
-                    <code>${sha}</code>
-                  </a>
-                </td>
-                <td class="td-message">
-                  <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="gh-commit-msg-link" title="${escapeHtml(msg)}">
-                    ${escapeHtml(msg)}
-                  </a>
-                </td>
-                <td class="td-repo">
-                  <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-table-repo-link" title="Open repository ${repo}">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <span>${repo}</span>
-                  </a>
-                </td>
-                <td class="td-date">
-                  <span class="gh-table-date" title="${c.date || ''}">${dateStr}</span>
-                </td>
-              </tr>
-            `;
-          }).join('');
-        }
-      }
-
       // Populate Starred Repositories Grid
       if (!elGhStarredGrid) return;
       const repos = (data.starredRepositories && data.starredRepositories.length > 0)
@@ -1209,7 +1166,6 @@
       }
 
       // Always automatically sync from live API on page refresh
-      const elSyncStatus = document.getElementById('gh-sync-status-text');
 
       // Try local /api route first
       let data = null;
@@ -1237,7 +1193,6 @@
           }));
         } catch (e) {}
         renderGitHubActivity(data);
-        if (elSyncStatus) elSyncStatus.textContent = 'Auto Synced';
       } else {
         const snapshot = await getFallbackSnapshot();
         if (snapshot && snapshot.githubActivity) {
