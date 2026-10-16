@@ -538,9 +538,9 @@ body::before {
 .hero-astronaut-bg {
   position: absolute;
   top: 50%;
-  right: -3%;
+  right: -8%;
   transform: translateY(-50%);
-  width: clamp(520px, 48vw, 760px);
+  width: clamp(420px, 38vw, 610px);
   pointer-events: none;
   z-index: 1;
   opacity: 1;
@@ -567,8 +567,8 @@ body::before {
 
 @media (max-width: 992px) {
   .hero-astronaut-bg {
-    width: clamp(380px, 42vw, 540px);
-    right: -20px;
+    width: clamp(300px, 34vw, 430px);
+    right: -40px;
     opacity: 1;
   }
 }
