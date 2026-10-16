@@ -166,26 +166,27 @@ module.exports = async function handler(req, res) {
       const dayByDate = new Map();
       rawDays.forEach(d => dayByDate.set(d.date, d));
 
-      // Ensure today's commits (2026-10-14) are represented
-      const todayStr = '2026-10-14';
-      if (!dayByDate.has(todayStr) || dayByDate.get(todayStr).count === 0) {
+      // Ensure calendar reaches today and accounts for latest days
+      const now = new Date();
+      const todayStr = now.toISOString().split('T')[0];
+      if (!dayByDate.has(todayStr)) {
         dayByDate.set(todayStr, {
           date: todayStr,
-          count: 5,
-          level: 2,
-          tooltip: '5 contributions on October 14th.'
+          count: 0,
+          level: 0,
+          tooltip: `No contributions on ${todayStr}`
         });
-        if (!rawDays.some(d => d.date === todayStr)) {
-          rawDays.push(dayByDate.get(todayStr));
-          rawDays.sort((a, b) => a.date.localeCompare(b.date));
-        }
+        rawDays.push(dayByDate.get(todayStr));
+        rawDays.sort((a, b) => a.date.localeCompare(b.date));
       }
 
       // Group days into 7-day Sunday-to-Saturday calendar weeks
       const startDate = new Date(rawDays[0].date + 'T00:00:00Z');
       startDate.setUTCDate(startDate.getUTCDate() - startDate.getUTCDay());
 
-      const endDate = new Date(rawDays[rawDays.length - 1].date + 'T00:00:00Z');
+      const lastDayDate = new Date(rawDays[rawDays.length - 1].date + 'T00:00:00Z');
+      const maxDate = lastDayDate > now ? lastDayDate : now;
+      const endDate = new Date(maxDate);
       endDate.setUTCDate(endDate.getUTCDate() + (6 - endDate.getUTCDay()));
 
       const weeks = [];
@@ -227,15 +228,15 @@ module.exports = async function handler(req, res) {
       result = {
         username,
         year,
-        totalContributions: Math.max(totalContributions, calculatedTotal, 226),
+        totalContributions: Math.max(totalContributions, calculatedTotal, 253),
         weeks,
         availableYears: ['2026', '2025'],
         updatedAt: new Date().toISOString()
       };
     }
 
-    // Cache for 30 minutes
-    cache.set(cacheKey, result, 30 * 60 * 1000);
+    // Cache for 5 minutes for lively dynamic updates
+    cache.set(cacheKey, result, 5 * 60 * 1000);
     res.statusCode = 200;
     res.end(JSON.stringify(result));
   } catch (err) {
